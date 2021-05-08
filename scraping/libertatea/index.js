@@ -6,19 +6,20 @@ exports.postBelfold = async (req, res, next) => {
   async function scrapeListing() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto("https://www.szatmar.ro/index.php?mid=174&cat_id=64");
+    await page.goto("https://www.libertatea.ro/sport");
     const html = await page.content();
     const $ = cheerio.load(html);
 
-    result = $(".news-section")
+    result = $(".news-item")
       .map((index, element) => {
-        const titleElement = $(element).find(".indexnews_title");
-        const urlElement = $(element).find(" a");
-        const imageUrlElement = $(element).find("img");
-        const title = $(titleElement).text();
-        const url = "https://www.szatmar.ro/" + $(urlElement).attr("href");
-        const imageUrl =
-          "https://www.szatmar.ro/" + $(imageUrlElement).attr("src");
+        const titleElement = $(element)
+          .find(".news-item > .news-item-info > h2")
+          .text();
+        const urlElement = $(element).find("a");
+        const imageUrlElement = $(element).find("a > picture > img");
+        const title = titleElement;
+        const url = $(urlElement).attr("href");
+        const imageUrl = $(imageUrlElement).attr("src");
         return { title, url, imageUrl };
       })
       .get();

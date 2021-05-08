@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../util/database");
 
-const News = sequelize.define("News", {
+const Article = sequelize.define("Article", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -11,9 +11,8 @@ const News = sequelize.define("News", {
   },
   imageUrl: {
     type: Sequelize.TEXT("long"),
-    allowNull: false,
   },
-  href: {
+  link: {
     type: Sequelize.TEXT("long"),
     allowNull: false,
   },
@@ -21,6 +20,7 @@ const News = sequelize.define("News", {
     type: Sequelize.TEXT("long"),
     allowNull: false,
   },
+  timeCreated: Sequelize.DATE,
 });
 
-module.exports = News;
+module.exports = Article;

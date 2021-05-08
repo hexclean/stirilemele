@@ -1,12 +1,12 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
-const News = require("../../models/News");
+const News = require("../../models/Article");
 
 exports.postBelfold = async (req, res, next) => {
   async function scrapeListing() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto("https://www.b1.ro/stiri/politica/");
+    await page.goto("https://stirileprotv.ro/ultimele-stiri/");
     const html = await page.content();
     const $ = cheerio.load(html);
 
@@ -17,7 +17,7 @@ exports.postBelfold = async (req, res, next) => {
         const imageUrlElement = $(element).find("img");
         const title = $(titleElement).text();
         const url = $(urlElement).attr("href");
-        const imageUrl = "https://www.b1.ro" + $(imageUrlElement).attr("src");
+        const imageUrl = $(imageUrlElement).attr("src");
         return { title, url, imageUrl };
       })
       .get();
@@ -31,7 +31,7 @@ exports.postBelfold = async (req, res, next) => {
         const checkDb = await News.findAll({
           where: { title: result[i].title },
         });
-        if (checkDb.length == 0 && result[i].url !== undefined) {
+        if (checkDb.length == 0) {
           await News.create({
             imageUrl: result[i].imageUrl.trim(),
             href: result[i].url.trim(),

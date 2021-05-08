@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
-const News = require("../../models/News");
+const News = require("../../models/Article");
 
 exports.postPolitic = async (req, res, next) => {
   async function scrapeListing() {

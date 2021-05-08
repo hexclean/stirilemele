@@ -6,19 +6,20 @@ exports.postBelfold = async (req, res, next) => {
   async function scrapeListing() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto("https://www.szatmar.ro/index.php?mid=174&cat_id=64");
+    await page.goto("https://jurnalulnational.ro/stiri/politica/");
     const html = await page.content();
     const $ = cheerio.load(html);
 
-    result = $(".news-section")
+    result = $("article")
       .map((index, element) => {
-        const titleElement = $(element).find(".indexnews_title");
-        const urlElement = $(element).find(" a");
-        const imageUrlElement = $(element).find("img");
+        const titleElement = $(element).find(
+          ".item-content > .content-container > h2"
+        );
+        const urlElement = $(element).find("div > a");
+        const imageUrlElement = $(element).find("div > a");
         const title = $(titleElement).text();
-        const url = "https://www.szatmar.ro/" + $(urlElement).attr("href");
-        const imageUrl =
-          "https://www.szatmar.ro/" + $(imageUrlElement).attr("src");
+        const url = $(urlElement).attr("href");
+        const imageUrl = $(imageUrlElement).attr("style");
         return { title, url, imageUrl };
       })
       .get();
@@ -32,9 +33,9 @@ exports.postBelfold = async (req, res, next) => {
         const checkDb = await News.findAll({
           where: { title: result[i].title },
         });
-        if (checkDb.length == 0) {
+        if (checkDb.length == 0 && result[i].title.length > 2) {
           await News.create({
-            imageUrl: result[i].imageUrl.trim(),
+            imageUrl: result[i].imageUrl,
             href: result[i].url.trim(),
             title: result[i].title.trim(),
           });

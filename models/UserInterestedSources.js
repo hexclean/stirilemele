@@ -1,7 +1,8 @@
 const Sequelize = require("sequelize");
+
 const sequelize = require("../util/database");
 
-const UserProfile = sequelize.define("UserProfile", {
+const UserInterestedSources = sequelize.define("UserInterestedSources", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -10,4 +11,4 @@ const UserProfile = sequelize.define("UserProfile", {
   },
 });
 
-module.exports = UserProfile;
+module.exports = UserInterestedSources;

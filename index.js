@@ -84,7 +84,7 @@ app.use(flash());
 
 // Define Routes
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/admin", adminRoutes);
+app.use("/", adminRoutes);
 app.use("/cronjob", cronjob);
 // app.get("/500", errorController.get500);
 

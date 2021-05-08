@@ -1,8 +1,7 @@
 const Sequelize = require("sequelize");
-
 const sequelize = require("../util/database");
 
-const Users = sequelize.define("Users", {
+const User = sequelize.define("User", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -18,22 +17,6 @@ const Users = sequelize.define("Users", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  fullName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  phoneNumber: {
-    type: Sequelize.STRING,
-  },
-  resetToken: Sequelize.STRING,
-  resetLang: Sequelize.STRING,
-  resetTokenExpiration: Sequelize.DATE,
-  role: Sequelize.INTEGER,
-  newsletter: Sequelize.INTEGER,
-  code: Sequelize.INTEGER,
-  balance: Sequelize.FLOAT,
-  mobil: Sequelize.INTEGER,
-  web: Sequelize.INTEGER,
 });
 
-module.exports = Users;
+module.exports = User;
