@@ -181,6 +181,11 @@ exports.postEconomic = async (req, res, next) => {
     }
   }
 
+  async function sleep(miliseconds) {
+    return new Promise((resolve) => setTimeout(resolve, miliseconds));
+    // await sleep(1000);
+  }
+
   async function main() {
     const result = await scrapeListing();
     await saveData(result);

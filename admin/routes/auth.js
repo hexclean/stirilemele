@@ -34,7 +34,7 @@ router.post(
         throw new Error("Passwords have to match!");
       }
       return true;
-    })
+    }),
   ],
   authController.postSignup
 );

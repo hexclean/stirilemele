@@ -17,20 +17,22 @@
                </ul> -->
             </div>
             <ul class="menus">
-               <% for (let i=0; i < categories.length; i++ ) { %>
-               <li ><a class="lists active"><%= categories[i].CategoryTranslations[0].name %></a></li>
-               <% } %>
+               <li ><a class="lists active">Politika</a></li>
+               <li  ><a class="lists">Sport</a></li>
+               <li ><a class="lists">Külföld</a></li>
+               <li><a class="lists">Belföld</a></li>
+               <li ><a class="lists">Pénzügy</a></li>
             </ul>
          </div>
          <div class="content-area">
-            <% for (let i=0; i < articles.length; i++ ) { %>
-                <a href="<%= articles[i].link %>">
+            
+                <a href="">
             <div class="card-blog-post ">
                <figure class="post-thumbnail card_media">
-                 <img src="<%= articles[i].imageUrl %>">
+                 <img src="">
                </figure>
                <div class="detail-info">
-                  <h1 class="card_title"><a><%= articles[i].title %>
+                  <h1 class="card_title"><a>Test
                   </a></h1>
                   <span class="authors">David</span>
                   <ul>
@@ -40,14 +42,14 @@
                </div>
             </div>
         </a>
-            <% } %>
+         
          </div>
          <div class="footer">
             <ul>
-               <li><a href="/stiri" class="foota active" ><span><i class="fa fa-home" aria-hidden="true"></i>
+               <li><a href="/stiri" class="foota" ><span><i class="fa fa-home" aria-hidden="true"></i>
                   </span>Föoldal</a>
                </li>
-               <li><a href="/test" class="foota"><span><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+               <li><a href="/test" class="foota active"><span><i class="fa fa-line-chart" aria-hidden="true"></i></span>
                   Friss hírek </a>
                </li>
                <li><a class="foota" ><span><i class="fa fa-home" aria-hidden="true"></i>
@@ -56,7 +58,7 @@
                <li><a class="foota"><span><i class="fa fa-book" aria-hidden="true"></i></span>
                   Hír oldalak </a>
                </li>
-               <li><a href="/login" class="foota"><span><i class="fa fa-music" aria-hidden="true"></i></span>Belépés
+               <li><a class="foota"><span><i class="fa fa-music" aria-hidden="true"></i></span>Bejelentkezés
                   </a>
                </li>
             </ul>
