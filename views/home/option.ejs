@@ -1,0 +1,49 @@
+<%- include('../includes/head.ejs') %>
+<form action="/option" method="POST">
+  <div class="form-group">
+    <% for (let i=0; i < sources.length; i++ ) { %>
+    <div
+      class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success"
+    >
+      <input type="hidden" value="<%= sources[i].id %>" name="propertyId" />
+      <input
+        type="hidden"
+        value="off"
+        class="status-<%= sources[i].id %> status-hidden"
+        name="status[<%= sources[i].id %>]"
+        value="<%= sources[i].id %>"
+      />
+      <input
+        type="checkbox"
+        class="custom-control-input status-checkbox status-checkbox-<%= sources[i].id %>"
+        id="customSwitch<%= sources[i].id %>"
+        data-propertyId="<%= sources[i].id %>"
+        value="<%= sources[i].id %>"
+      />
+      <label
+        data-extra="<%= sources[i].id %>"
+        class="custom-control-label"
+        for="customSwitch<%= sources[i].id %>"
+      >
+        <%= sources[i].name %>
+      </label>
+    </div>
+    <% } %>
+    <span class="invalid-feedback" id="sources_error_message"></span>
+  </div>
+  <div class="form-grou">
+    <input class="submit-btn" type="submit" value="Bejelentkezés" />
+  </div>
+</form>
+<script>
+  $(document).ready(function () {
+    $(".status-checkbox").click(function () {
+      var propertyId = $(this).attr("data-propertyId");
+      if ($(this).is(":checked")) {
+        $(".status-" + propertyId).val("on");
+      } else {
+        $(".status-" + propertyId).val("off");
+      }
+    });
+  });
+</script>

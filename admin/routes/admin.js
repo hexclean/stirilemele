@@ -12,4 +12,7 @@ router.post("/signup", authController.postSignup);
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 
+router.get("/option", homeController.getOption);
+router.post("/option", homeController.postOption);
+
 module.exports = router;

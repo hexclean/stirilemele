@@ -50,22 +50,7 @@ function users() {
     foreignKey: "categoryId",
   });
   Category.hasMany(CategoryTranslation, { foreignKey: "categoryId" });
-  //
-  UserInterestedCategories.belongsTo(UserInterestedSources, {
-    constrains: true,
-    onDelete: "CASCADE",
-    foreignKey: "userInterestedSourcesId",
-  });
-  UserInterestedSources.hasMany(UserInterestedCategories, {
-    foreignKey: "userInterestedSourcesId",
-  });
-  //
-  Article.belongsTo(Language, {
-    constrains: true,
-    onDelete: "CASCADE",
-    foreignKey: "languageId",
-  });
-  Language.hasMany(Article, { foreignKey: "languageId" });
+
   //
   Article.belongsTo(Category, {
     constrains: true,

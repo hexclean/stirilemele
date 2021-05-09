@@ -40,6 +40,10 @@ exports.getSignup = async (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+  console.log(req.body);
+  if (email.length < 5 && password.length < 5) {
+    return res.redirect("/login");
+  }
   User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
@@ -70,7 +74,9 @@ exports.postLogin = (req, res, next) => {
 exports.postSignup = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
+  if (email.length < 5 && password.length < 5) {
+    return res.redirect("/login");
+  }
   try {
     await bcrypt.hash(password, 12).then(async (hashedPassword) => {
       const user = await User.create({
@@ -83,7 +89,7 @@ exports.postSignup = async (req, res, next) => {
 
       return req.session.save((err) => {
         console.log(err);
-        res.redirect("/stiri");
+        res.redirect("/option");
       });
     });
   } catch (err) {

@@ -1,16 +1,38 @@
 const bcrypt = require("bcryptjs");
 const User = require("../../models/Users");
 const Articles = require("../../models/Article");
+const Source = require("../../models/Source");
 const Category = require("../../models/Category");
 const CategoryTranslation = require("../../models/CategoryTranslation");
+const UserInterestedCategories = require("../../models/UserInterestedCategories");
 const { validationResult } = require("express-validator/check");
+// const { Model } = require("sequelize/types");
 
 exports.getHome = async (req, res, next) => {
+  let logged = 0;
+  let categories = [];
+  if (req.user != undefined) {
+    logged = 1;
+    categories = await UserInterestedCategories.findAll({
+      where: { userId: req.user.id },
+      include: [
+        {
+          model: Category,
+          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+        },
+      ],
+    });
+  } else {
+    logged = 0;
+    categories = await Category.findAll({
+      include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+    });
+  }
   const articles = await Articles.findAll();
-  const categories = await Category.findAll({
-    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-  });
-  console.log("req.admin", req.user.id);
+
+  // const categories = await Category.findAll({
+  //   include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  // });
 
   //   let message = req.flash("error");
   //   if (message.length > 0) {
@@ -27,6 +49,7 @@ exports.getHome = async (req, res, next) => {
     pageTitle: "Login",
     articles: articles,
     categories: categories,
+    logged: logged,
     // errorMessage: message,
     // oldInput: {
     //   email: "",
@@ -99,4 +122,59 @@ exports.postLogin = (req, res, next) => {
         });
     })
     .catch((err) => console.log(err));
+};
+
+exports.getOption = async (req, res, next) => {
+  const sources = await Source.findAll();
+  const categories = await Category.findAll({
+    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  });
+  console.log(req.body);
+
+  res.render("home/option", {
+    path: "/login",
+    pageTitle: "Login",
+    sources: sources,
+    categories: categories,
+    // logged: logged,
+    // errorMessage: message,
+    // oldInput: {
+    //   email: "",
+    //   password: "",
+    // },
+    // validationErrors: [],
+  });
+};
+
+exports.postOption = async (req, res, next) => {
+  // const filteredStatus = req.body.sourcesId.filter(Boolean);
+  console.log(req.body);
+  // for (let i = 0; i <= filteredStatus.length - 1; i++) {
+  // await CategoryProperty.create({
+  //   categoryId: categoryId,
+  //   propertyId: propertyId[i],
+  //   active: filteredStatus[i] == "on" ? 1 : 0,
+  //   restaurantId: restaurantId,
+  // });
+  // console.log(filteredStatus[i] == "on" ? 1 : 0);
+  // }
+  return res.redirect("/option");
+  // const sources = await Source.findAll();
+  // const categories = await Category.findAll({
+  //   include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  // });
+  // console.log(req.body);
+  // res.render("home/option", {
+  //   path: "/login",
+  //   pageTitle: "Login",
+  //   sources: sources,
+  //   categories: categories,
+  // logged: logged,
+  // errorMessage: message,
+  // oldInput: {
+  //   email: "",
+  //   password: "",
+  // },
+  // validationErrors: [],
+  // });
 };
