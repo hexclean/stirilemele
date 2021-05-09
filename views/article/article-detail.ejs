@@ -1,0 +1,65 @@
+<%- include('../includes/head.ejs') %>
+<!-- CSS only -->
+
+</html>
+   <body>
+      <!-- start Container Wrapper -->
+      <div class="wrapper">
+         <div class="header">
+            <div class="col-md-2">
+               <img src="/img/logo.png">
+            </div>
+            <!-- <div class="col-md-10">
+               <ul>
+                  <li><a href=""><i class="fa fa-search" aria-hidden="true"></i>
+                     </a>
+                  </li>
+                  <li><a href=""><i class="fa fa-bell"></i></i></a></li>
+               </ul>
+            </div> -->
+        
+         
+		  </div>
+         <div class="content-area">
+                  <div class="card-blog-post ">
+                     <figure class="post-thumbnail card_media">
+                        <img src="<%= article.imageUrl %>">
+                     </figure>
+                     <div class="detail-info">
+                        <h1 class="card_title"><a><%= article.title %></a></h1>
+                        <span class="authors">Hírportál - <%= article.Source.name %></span>
+                        <ul>
+                           <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
+                        </ul>
+                        <span class="authors" style="color: #000; margin-top: 5px;">A címvédő és hétszeres világbajnok Lewis Hamilton, a Mercedes brit versenyzője nyerte a Forma–1-es Spanyol Nagydíjat vasárnap, és ezzel növelte az előnyét az összetettben...</span>
+                    </div>
+                    
+                  </div>
+         </div>
+         <a href="<%= article.link %>">
+         <button type="button" class="btn btn-primary ">Cikk megtekintése</button>
+        </a>
+         <div class="footer">
+            <ul>
+               <li><a class="foota" ><span><i class="fa fa-home" aria-hidden="true"></i>
+                  </span>Home</a>
+               </li>
+               <li><a class="foota"><span><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+                  Trending </a>
+               </li>
+               <li><a class="foota"><span><i class="fa fa-stop-circle" aria-hidden="true"></i>
+                  </span></a>
+               </li>
+               <li><a class="foota"><span><i class="fa fa-book" aria-hidden="true"></i></span>
+                  Subscriptions </a>
+               </li>
+               <li><a href="/signup" class="foota"><span><i class="fa fa-music" aria-hidden="true"></i></span>Library
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </div>
+      
+    
+   </body>
+</html>

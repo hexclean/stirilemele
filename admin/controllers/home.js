@@ -9,6 +9,8 @@ const UserInterestedSources = require("../../models/UserInterestedSources");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const { validationResult } = require("express-validator/check");
+const Article = require("../../models/Article");
+const ArticleViewed = require("../../models/ArticleViewed");
 // const { Model } = require("sequelize/types");
 
 exports.getHome = async (req, res, next) => {
@@ -50,13 +52,13 @@ exports.getHome = async (req, res, next) => {
         },
       ],
     });
-    for (let i = 0; i < articles.length; i++) {
-      // let test = ;
-      for (let k = 0; k < articles[i].Source.Articles.length; k++) {
-        console.log(articles[i].Source.name);
-      }
-      // console.log(test/);
-    }
+    // for (let i = 0; i < articles.length; i++) {
+    //   // let test = ;
+    //   for (let k = 0; k < articles[i].Source.Articles.length; k++) {
+    //     console.log(articles[i].Source.name);
+    //   }
+    //   // console.log(test/);
+    // }
   } else {
     logged = 0;
     categories = await Category.findAll({
@@ -93,6 +95,36 @@ exports.getHome = async (req, res, next) => {
     // validationErrors: [],
   });
 };
+
+exports.getViewedArticle = async (req, res, next) => {
+  let logged = 0;
+  let categories = [];
+  // let articles = [];
+  let interestedCategoryId = [];
+
+  const articles = await ArticleViewed.findAll({
+    where: { userId: req.user.id },
+    include: [{ model: Article }],
+  });
+  // console.log(articles);
+  for (let i = 0; i < articles.length; i++) {
+    console.log(articles[i].Article.imageUrl);
+  }
+  res.render("article/viewed-article", {
+    path: "/login",
+    pageTitle: "Login",
+    articles: articles,
+    categories: categories,
+    logged: logged,
+    // errorMessage: message,
+    // oldInput: {
+    //   email: "",
+    //   password: "",
+    // },
+    // validationErrors: [],
+  });
+};
+
 exports.getTest = async (req, res, next) => {
   const articles = await Articles.findAll();
 

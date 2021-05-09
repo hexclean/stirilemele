@@ -648,6 +648,10 @@ a:hover {
     font-size: 15px;
     font-family: bold;
   }
+  .viewed-article-img {
+    opacity: 0.5;
+  }
+
   .submit-btn {
     background: #1877f2 !important;
     border-radius: 30px;

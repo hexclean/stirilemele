@@ -62,59 +62,22 @@
        
 		  </div>
          <div class="content-area">
-            <% if(logged==1){ %>
+           
                <% for (let i=0; i < articles.length; i++ ) { %>
-                  <% for (let k=0; k < articles[i].Source.Articles.length; k++ ) { %>
-                    
-                     <script>
-                       $(function(){
-              $('.articleView<%= articles[i].Source.Articles[k].id %>').click(function(){
-              let articleId = $("#articleId<%= articles[i].Source.Articles[k].id %>").val();
-              
-               $.ajax({
-                         url: "http://localhost:3000/article-view",
-                         type: "POST",
-                         data: {
-                           articleId: articleId
-                         },   
-                       });     
-             })
-                    
-                     
-                     
-                   });
-                   </script>
-                  <div class="card-blog-post articleView<%= articles[i].Source.Articles[k].id %>">
-                     <input hidden id="articleId<%= articles[i].Source.Articles[k].id %>" name="articleId" value="<%= articles[i].Source.Articles[k].id %>"/>
+                  <div class="card-blog-post">
                      <figure class="post-thumbnail card_media">
-                        <a href="/stiri/<%= articles[i].Source.Articles[k].title %>"><img src="<%= articles[i].Source.Articles[k].imageUrl %>"></a>
+                        <a href="/"><img class="viewed-article-img" src="<%= articles[i].Article.imageUrl %>"></a>
                      </figure>
-                     <div class="detail-info">
-                        <h1 class="card_title"><a><%= articles[i].Source.Articles[k].title %></a></h1>
-                        <span class="authors">Hírportál - <%= articles[i].Source.name %></span>
+                     <div class="detail-info" style="border: 1px solid #8e3546;">
+                        <h1 class="card_title"><a><%= articles[i].Article.title %></a></h1>
+                        <span class="authors">Hírportál - </span>
                         <ul>
                            <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
                         </ul>
                      </div>
                   </div>
                   <% } %>
-                  <% } %>
-             <% } else{ %>  
-               <% for (let i=0; i < articles.length; i++ ) { %>
-                  <div class="card-blog-post ">
-                     <figure class="post-thumbnail card_media">
-                        <a href=""><img src="<%= articles[i].imageUrl %>"></a>
-                     </figure>
-                     <div class="detail-info">
-                        <h1 class="card_title"><a><%= articles[i].title %></a></h1>
-                        <span class="authors">David</span>
-                        <ul>
-                           <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <% } %>
-            <% } %>
+            
           
            
          </div>
@@ -138,22 +101,6 @@
             </ul>
          </div>
       </div>
-      <script type="text/javascript" src="/js/jquery.min.js"></script>
-      <script type="text/javascript">
-         $(function(){
-             var $h3s = $('.lists').click(function(){
-                 $h3s.removeClass('active');
-                 $(this).addClass('active');
-             });
-         	
-         	    var $f3s = $('.foota').click(function(){
-                 $f3s.removeClass('active');
-                 $(this).addClass('active');
-             });
-          
-         });
-         
-         		
-      </script>
+     
    </body>
 </html>

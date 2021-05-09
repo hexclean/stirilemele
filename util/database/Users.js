@@ -6,8 +6,38 @@ const Language = require("../../models/Language");
 const Article = require("../../models/Article");
 const Source = require("../../models/Source");
 const CategoryTranslation = require("../../models/CategoryTranslation");
+const ArticleViewed = require("../../models/ArticleViewed");
+const ArticleAction = require("../../models/ArticleAction");
 
 function users() {
+  //
+  ArticleAction.belongsTo(Users, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "userId",
+  });
+  Users.hasMany(ArticleAction, { foreignKey: "userId" });
+  //
+  ArticleAction.belongsTo(Article, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "articleId",
+  });
+  Article.hasMany(ArticleAction, { foreignKey: "articleId" });
+  //
+  ArticleViewed.belongsTo(Users, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "userId",
+  });
+  Users.hasMany(ArticleViewed, { foreignKey: "userId" });
+  //
+  ArticleViewed.belongsTo(Article, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "articleId",
+  });
+  Article.hasMany(ArticleViewed, { foreignKey: "articleId" });
   //
   UserInterestedCategories.belongsTo(Users, {
     constrains: true,
