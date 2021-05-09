@@ -62,20 +62,40 @@
          
 		  </div>
          <div class="content-area">
-            <% for (let i=0; i < articles.length; i++ ) { %>
-            <div class="card-blog-post ">
-               <figure class="post-thumbnail card_media">
-                  <a href=""><img src="<%= articles[i].imageUrl %>"></a>
-               </figure>
-               <div class="detail-info">
-                  <h1 class="card_title"><a><%= articles[i].title %></a></h1>
-                  <span class="authors">David</span>
-                  <ul>
-                     <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
-                  </ul>
-               </div>
-            </div>
+            <% if(logged==1){ %>
+               <% for (let i=0; i < articles.length; i++ ) { %>
+                  <% for (let k=0; k < articles[i].Source.Articles.length; k++ ) { %>
+                  <div class="card-blog-post ">
+                     <figure class="post-thumbnail card_media">
+                        <a href=""><img src="<%= articles[i].Source.Articles[k].imageUrl %>"></a>
+                     </figure>
+                     <div class="detail-info">
+                        <h1 class="card_title"><a><%= articles[i].Source.Articles[k].title %></a></h1>
+                        <span class="authors">David</span>
+                        <ul>
+                           <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <% } %>
+                  <% } %>
+             <% } else{ %>  
+               <% for (let i=0; i < articles.length; i++ ) { %>
+                  <div class="card-blog-post ">
+                     <figure class="post-thumbnail card_media">
+                        <a href=""><img src="<%= articles[i].imageUrl %>"></a>
+                     </figure>
+                     <div class="detail-info">
+                        <h1 class="card_title"><a><%= articles[i].title %></a></h1>
+                        <span class="authors">David</span>
+                        <ul>
+                           <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <% } %>
             <% } %>
+          
            
          </div>
          <div class="footer">

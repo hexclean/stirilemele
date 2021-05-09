@@ -5,12 +5,17 @@ const Source = require("../../models/Source");
 const Category = require("../../models/Category");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const UserInterestedCategories = require("../../models/UserInterestedCategories");
+const UserInterestedSources = require("../../models/UserInterestedSources");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 const { validationResult } = require("express-validator/check");
 // const { Model } = require("sequelize/types");
 
 exports.getHome = async (req, res, next) => {
   let logged = 0;
   let categories = [];
+  let articles = [];
+  let interestedCategoryId = [];
   if (req.user != undefined) {
     logged = 1;
     categories = await UserInterestedCategories.findAll({
@@ -22,14 +27,44 @@ exports.getHome = async (req, res, next) => {
         },
       ],
     });
+    for (let i = 0; i < categories.length; i++) {
+      interestedCategoryId.push(categories[i].categoryId);
+    }
+    articles = await UserInterestedSources.findAll({
+      where: {
+        userId: req.user.id,
+      },
+      include: [
+        {
+          model: Source,
+          include: [
+            {
+              model: Articles,
+              where: {
+                categoryId: {
+                  [Op.in]: interestedCategoryId,
+                },
+              },
+            },
+          ],
+        },
+      ],
+    });
+    for (let i = 0; i < articles.length; i++) {
+      // let test = ;
+      for (let k = 0; k < articles[i].Source.Articles.length; k++) {
+        console.log(articles[i].Source.Articles[k].title);
+      }
+      // console.log(test/);
+    }
   } else {
     logged = 0;
     categories = await Category.findAll({
       include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
     });
+    articles = await Articles.findAll();
   }
-  const articles = await Articles.findAll();
-
+  // console.log(articles);
   // const categories = await Category.findAll({
   //   include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
   // });
