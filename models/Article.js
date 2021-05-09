@@ -21,6 +21,7 @@ const Article = sequelize.define("Article", {
     allowNull: false,
   },
   timeCreated: Sequelize.DATE,
+  action: Sequelize.INTEGER,
 });
 
 module.exports = Article;

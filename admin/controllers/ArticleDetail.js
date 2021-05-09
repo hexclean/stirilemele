@@ -1,6 +1,7 @@
 const Article = require("../../models/Article");
 const Source = require("../../models/Source");
 const ArticleViewed = require("../../models/ArticleViewed");
+const ArticleAction = require("../../models/ArticleAction");
 
 exports.getViewArticle = async (req, res, next) => {
   const editMode = req.query.edit;
@@ -73,6 +74,31 @@ exports.postView = async (req, res, next) => {
     await ArticleViewed.create({
       userId: req.user.id,
       articleId: articleId,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.postAction = async (req, res, next) => {
+  const articleId = req.body.articleId;
+  console.log(req.body);
+  console.log("articleId", articleId);
+  // console.log(req.body);
+  try {
+    await Article.update(
+      {
+        action: 1,
+      },
+      { where: { id: articleId } }
+    );
+    await ArticleAction.create({
+      userId: req.user.id,
+      articleId: articleId,
+      love: 2,
+      like: 1,
+      unlike: 0,
+      comment: "Jó cikk",
     });
   } catch (error) {
     console.log(error);

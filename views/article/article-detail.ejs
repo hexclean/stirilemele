@@ -33,12 +33,19 @@
                         </ul>
                         <span class="authors" style="color: #000; margin-top: 5px;">A címvédő és hétszeres világbajnok Lewis Hamilton, a Mercedes brit versenyzője nyerte a Forma–1-es Spanyol Nagydíjat vasárnap, és ezzel növelte az előnyét az összetettben...</span>
                     </div>
-                    
                   </div>
          </div>
          <a href="<%= article.link %>">
          <button type="button" class="btn btn-primary ">Cikk megtekintése</button>
         </a>
+      
+        <form action="/article-action" method="POST">
+         <input hidden name="articleId" value="<%= article.id %>"/>
+         <label for="fname">First name:</label><br>
+         <input type="text" id="coment" name="coment"><br>
+         <input type="submit" value="Submit">
+       </form> 
+
          <div class="footer">
             <ul>
                <li><a class="foota" ><span><i class="fa fa-home" aria-hidden="true"></i>

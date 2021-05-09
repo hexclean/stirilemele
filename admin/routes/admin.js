@@ -15,7 +15,10 @@ router.post("/login", authController.postLogin);
 
 router.get("/option", homeController.getOption);
 router.get("/viewed-articles", homeController.getViewedArticle);
+
 router.post("/option", homeController.postOption);
+
+router.post("/article-action", articleController.postAction);
 
 router.post("/article-view", articleController.postView);
 
