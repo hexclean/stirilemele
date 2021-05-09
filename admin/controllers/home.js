@@ -53,7 +53,7 @@ exports.getHome = async (req, res, next) => {
     for (let i = 0; i < articles.length; i++) {
       // let test = ;
       for (let k = 0; k < articles[i].Source.Articles.length; k++) {
-        console.log(articles[i].Source.Articles[k].title);
+        console.log(articles[i].Source.name);
       }
       // console.log(test/);
     }

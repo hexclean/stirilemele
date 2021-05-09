@@ -22,7 +22,7 @@ router.post("/b1-sport", b1Controller.postSport);
 router.post("/b1-economic", b1Controller.postEconomic);
 
 // // MASZOL.RO
-// router.post("/maszol-sport", maszolSportController.postSport);
+router.post("/maszol-sport", maszolSportController.postSport);
 // router.post(
 //   "/digi24-politica-secondary",
 //   maszolSpodasdartController.postPoliticaSecondary
@@ -32,7 +32,7 @@ router.post("/b1-economic", b1Controller.postEconomic);
 //   maszolSpodasdartController.postPoliticaPrimary
 // );
 // router.post("/mediafax-politica", mediafaxPoliticaController.postPolitica);
-// router.post("/cancan-sport", cancanSportController.postSport);
+router.post("/cancan-sport", cancanSportController.postSport);
 // router.post(
 //   "/kronikaonline-belfold",
 //   kronikaonlinePoliticController.postBelfold

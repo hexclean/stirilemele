@@ -34,8 +34,11 @@ exports.postSport = async (req, res, next) => {
         if (checkDb.length == 0) {
           await News.create({
             imageUrl: result[i].imageUrl.trim(),
-            href: result[i].url.trim(),
+            link: result[i].url.trim(),
             title: result[i].title.trim(),
+            time: "2021-04-27 16:46:03",
+            categoryId: 1,
+            sourceId: 2,
           });
         }
       }
