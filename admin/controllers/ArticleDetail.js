@@ -18,6 +18,7 @@ exports.getViewArticle = async (req, res, next) => {
         },
       ],
     });
+
     // Átadom a lekért adatokat a HTML oldalnak
     res.render("article/article-detail", {
       pageTitle: "Edit Product",
@@ -74,6 +75,7 @@ exports.postView = async (req, res, next) => {
     await ArticleViewed.create({
       userId: req.user.id,
       articleId: articleId,
+      operation: 0,
     });
   } catch (error) {
     console.log(error);
@@ -107,79 +109,74 @@ exports.postAction = async (req, res, next) => {
 
 exports.postLove = async (req, res, next) => {
   const articleId = req.body.articleId;
-  console.log("LOVE", req.body);
-  // const articleId = req.body.articleId;
-  // console.log(req.body);
-  // console.log("articleId", articleId);
-  // // console.log(req.body);
-  // try {
-  //   await Article.update(
-  //     {
-  //       action: 1,
-  //     },
-  //     { where: { id: articleId } }
-  //   );
-  //   await ArticleAction.create({
-  //     userId: req.user.id,
-  //     articleId: articleId,
-  //     love: 2,
-  //     like: 1,
-  //     unlike: 0,
-  //     comment: "Jó cikk",
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  let love = 0;
+  const article = await ArticleAction.findOne({
+    where: { articleId: articleId },
+  });
+  love = article.love;
+  ++love;
+
+  await ArticleViewed.update(
+    {
+      operation: 1,
+    },
+    { where: { articleId: articleId, userId: req.user.id } }
+  );
+  await ArticleAction.update(
+    {
+      love: love,
+    },
+    { where: { articleId: articleId } }
+  );
+  return res.redirect("/viewed-articles");
 };
 
 exports.postLike = async (req, res, next) => {
   const articleId = req.body.articleId;
-  console.log("LIKE", req.body);
-  // console.log("articleId", articleId);
-  // // console.log(req.body);
-  // try {
-  //   await Article.update(
-  //     {
-  //       action: 1,
-  //     },
-  //     { where: { id: articleId } }
-  //   );
-  //   await ArticleAction.create({
-  //     userId: req.user.id,
-  //     articleId: articleId,
-  //     love: 2,
-  //     like: 1,
-  //     unlike: 0,
-  //     comment: "Jó cikk",
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  let like = 0;
+  const article = await ArticleAction.findOne({
+    where: { articleId: articleId },
+  });
+  love = article.like;
+  ++like;
+  await ArticleViewed.update(
+    {
+      operation: 1,
+    },
+    { where: { articleId: articleId, userId: req.user.id } }
+  );
+  await ArticleAction.update(
+    {
+      like: like,
+    },
+    { where: { articleId: articleId } }
+  );
+  return res.redirect("/viewed-articles");
 };
 
 exports.postDislike = async (req, res, next) => {
   const articleId = req.body.articleId;
-  console.log("DISLIKE", req.body);
-  // const articleId = req.body.articleId;
-  // console.log(req.body);
-  // console.log("articleId", articleId);
-  // // console.log(req.body);
-  // try {
-  //   await Article.update(
-  //     {
-  //       action: 1,
-  //     },
-  //     { where: { id: articleId } }
-  //   );
-  //   await ArticleAction.create({
-  //     userId: req.user.id,
-  //     articleId: articleId,
-  //     love: 2,
-  //     like: 1,
-  //     unlike: 0,
-  //     comment: "Jó cikk",
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  let dislike = 0;
+  const article = await ArticleAction.findOne({
+    where: { articleId: articleId },
+  });
+  love = article.dislike;
+  ++dislike;
+  try {
+    await ArticleViewed.update(
+      {
+        operation: 1,
+      },
+      { where: { articleId: articleId, userId: req.user.id } }
+    );
+    await ArticleAction.update(
+      {
+        dislike: dislike,
+      },
+      { where: { articleId: articleId } }
+    );
+    res.redirect("/viewed-articles");
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -6,12 +6,13 @@ const Category = require("../../models/Category");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const UserInterestedCategories = require("../../models/UserInterestedCategories");
 const UserInterestedSources = require("../../models/UserInterestedSources");
+const ArticleAction = require("../../models/ArticleAction");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const { validationResult } = require("express-validator/check");
 const Article = require("../../models/Article");
 const ArticleViewed = require("../../models/ArticleViewed");
-// const { Model } = require("sequelize/types");
+const ArticleComment = require("../../models/ArticleComment");
 
 exports.getHome = async (req, res, next) => {
   let logged = 0;
@@ -29,9 +30,7 @@ exports.getHome = async (req, res, next) => {
         },
       ],
     });
-    for (let i = 0; i < categories.length; i++) {
-      interestedCategoryId.push(categories[i].categoryId);
-    }
+
     articles = await UserInterestedSources.findAll({
       where: {
         userId: req.user.id,
@@ -42,6 +41,7 @@ exports.getHome = async (req, res, next) => {
           include: [
             {
               model: Articles,
+              include: [{ model: ArticleAction }],
               where: {
                 categoryId: {
                   [Op.in]: interestedCategoryId,
@@ -52,34 +52,35 @@ exports.getHome = async (req, res, next) => {
         },
       ],
     });
-    // for (let i = 0; i < articles.length; i++) {
-    //   // let test = ;
-    //   for (let k = 0; k < articles[i].Source.Articles.length; k++) {
-    //     console.log(articles[i].Source.name);
-    //   }
-    //   // console.log(test/);
-    // }
   } else {
     logged = 0;
     categories = await Category.findAll({
       include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
     });
-    articles = await Articles.findAll();
+    articles = await Articles.findAll({
+      include: [
+        {
+          model: Source,
+          include: [
+            {
+              model: Articles,
+              include: [
+                {
+                  model: Category,
+                  include: [
+                    { model: CategoryTranslation, where: { languageId: 2 } },
+                  ],
+                },
+                {
+                  model: ArticleAction,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
   }
-  // console.log(articles);
-  // const categories = await Category.findAll({
-  //   include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-  // });
-
-  //   let message = req.flash("error");
-  //   if (message.length > 0) {
-  //     message = message[0];
-  //   } else {
-  //     message = null;
-  //   }
-  //   if (req.admin != undefined) {
-  //     res.redirect("/admin/orders");
-  //   }
 
   res.render("home/index", {
     path: "/login",
@@ -87,41 +88,6 @@ exports.getHome = async (req, res, next) => {
     articles: articles,
     categories: categories,
     logged: logged,
-    // errorMessage: message,
-    // oldInput: {
-    //   email: "",
-    //   password: "",
-    // },
-    // validationErrors: [],
-  });
-};
-
-exports.getViewedArticle = async (req, res, next) => {
-  let logged = 0;
-  let categories = [];
-  // let articles = [];
-  let interestedCategoryId = [];
-
-  const articles = await ArticleViewed.findAll({
-    where: { userId: req.user.id },
-    include: [{ model: Article }],
-  });
-  // console.log(articles);
-  for (let i = 0; i < articles.length; i++) {
-    console.log(articles[i].Article.imageUrl);
-  }
-  res.render("article/viewed-article", {
-    path: "/login",
-    pageTitle: "Login",
-    articles: articles,
-    categories: categories,
-    logged: logged,
-    // errorMessage: message,
-    // oldInput: {
-    //   email: "",
-    //   password: "",
-    // },
-    // validationErrors: [],
   });
 };
 
@@ -151,6 +117,7 @@ exports.getTest = async (req, res, next) => {
     // validationErrors: [],
   });
 };
+
 exports.getSignup = (req, res, next) => {
   if (req.admin != undefined) {
     res.redirect("/admin/orders");
@@ -244,4 +211,57 @@ exports.postOption = async (req, res, next) => {
   // },
   // validationErrors: [],
   // });
+};
+exports.getViewedArticleFromHome = async (req, res, next) => {
+  const editMode = req.query.edit;
+  const articleName = req.params.title;
+
+  try {
+    const article = await Article.findOne({
+      where: {
+        title: articleName,
+      },
+      include: [
+        {
+          model: Source,
+        },
+      ],
+    });
+    const comments = await ArticleComment.findAll({
+      include: [{ model: User }],
+    });
+    // Átadom a lekért adatokat a HTML oldalnak
+    res.render("article/article-detail", {
+      pageTitle: "Edit Product",
+      path: "/admin/edit-product",
+      editing: editMode,
+      article: article,
+      comments: comments,
+    });
+  } catch (err) {
+    console.log(err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
+};
+
+exports.getViewedSourceDetail = async (req, res, next) => {
+  let logged = 0;
+  let categories = [];
+
+  let interestedCategoryId = [];
+
+  const articles = await ArticleViewed.findAll({
+    where: { userId: req.user.id },
+    include: [{ model: Article }],
+  });
+
+  res.render("article/viewed-article", {
+    path: "/login",
+    pageTitle: "Login",
+    articles: articles,
+    categories: categories,
+    logged: logged,
+  });
 };

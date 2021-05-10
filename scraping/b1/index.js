@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 const Article = require("../../models/Article");
+const ArticleAction = require("../../models/ArticleAction");
 
 exports.postPolitics = async (req, res, next) => {
   async function scrapeListing() {
@@ -94,13 +95,19 @@ exports.postSport = async (req, res, next) => {
           where: { title: result[i].title },
         });
         if (checkDb.length == 0 && result[i].url !== undefined) {
-          await Article.create({
+          const articleId = await Article.create({
             imageUrl: result[i].imageUrl.trim(),
             link: result[i].url.trim(),
             title: result[i].title.trim(),
             time: "2021-04-27 16:46:03",
             categoryId: 1,
             sourceId: 1,
+          });
+          await ArticleAction.create({
+            articleId: articleId[i].id,
+            love: 0,
+            like: 0,
+            dislike: 0,
           });
         }
       }

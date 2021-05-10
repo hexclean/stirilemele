@@ -2,30 +2,49 @@ const express = require("express");
 const homeController = require("../controllers/home");
 const authController = require("../controllers/auth");
 const articleController = require("../controllers/ArticleDetail");
+const commentController = require("../controllers/comment");
 const isAuth = require("../../middleware/is-auth");
 const router = express.Router();
+const sourceController = require("../controllers/source");
 
 // LISTS
 router.get("/stiri", homeController.getHome);
-router.get("/test", homeController.getTest);
-router.get("/signup", authController.getSignup);
-router.post("/signup", authController.postSignup);
+// router.get("/test", homeController.getTest);
+// router.get("/signup", authController.getSignup);
+// router.post("/signup", authController.postSignup);
 router.get("/login", authController.getLogin);
-router.post("/login", authController.postLogin);
+// router.post("/login", authController.postLogin);
 
-router.get("/option", homeController.getOption);
-router.get("/viewed-articles", homeController.getViewedArticle);
+// router.get("/option", homeController.getOption);
+// router.get("/viewed-articles", homeController.getViewedArticle);
 
-router.post("/option", homeController.postOption);
+// router.post("/option", homeController.postOption);
 
-router.post("/article-action", articleController.postAction);
+// router.post("/article-action", articleController.postAction);
 
-router.post("/article-view", articleController.postView);
-//action
-router.post("/article-like", articleController.postLike);
-router.post("/article-love", articleController.postLove);
-router.post("/article-dislike", articleController.postDislike);
+// router.post("/article-view", articleController.postView);
+// //action
+// router.post("/article-like", articleController.postLike);
+// router.post("/article-love", articleController.postLove);
+// router.post("/article-dislike", articleController.postDislike);
 
-router.get("/stiri/:articleName", articleController.getViewArticle);
+// router.get("/stiri/:articleName", articleController.getViewArticle);
+
+// Főoldalról egy cikkre navigálás
+router.get("/stiri/:sourceName", sourceController.getViewSource);
+router.get("/walkthrough", sourceController.getTest1);
+
+router.get(
+  "/stiri/:sourceName/:categoryName",
+  sourceController.getViewSourceCategory
+);
+
+router.get(
+  "/stiri/:sourceName/:categoryName/:title",
+  homeController.getViewedArticleFromHome
+);
+
+// Add comment to the article
+router.post("/add-comment", commentController.postAddComment);
 
 module.exports = router;

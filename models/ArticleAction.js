@@ -11,7 +11,7 @@ const ArticleAction = sequelize.define("ArticleAction", {
   },
   like: Sequelize.INTEGER,
   love: Sequelize.INTEGER,
-  unlike: Sequelize.INTEGER,
+  dislike: Sequelize.INTEGER,
 });
 
 module.exports = ArticleAction;

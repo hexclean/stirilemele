@@ -9,8 +9,23 @@ const CategoryTranslation = require("../../models/CategoryTranslation");
 const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleAction = require("../../models/ArticleAction");
 const ArticleComment = require("../../models/ArticleComment");
+const SourceCategories = require("../../models/SourceCategories");
 
 function users() {
+  SourceCategories.belongsTo(Category, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "categoryId",
+  });
+  Category.hasMany(SourceCategories, { foreignKey: "categoryId" });
+  //
+  SourceCategories.belongsTo(Source, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "sourceId",
+  });
+  Source.hasMany(SourceCategories, { foreignKey: "sourceId" });
+  //
   ArticleComment.belongsTo(Article, {
     constrains: true,
     onDelete: "CASCADE",
@@ -24,13 +39,7 @@ function users() {
     foreignKey: "userId",
   });
   Users.hasMany(ArticleComment, { foreignKey: "userId" });
-  //
-  ArticleAction.belongsTo(Users, {
-    constrains: true,
-    onDelete: "CASCADE",
-    foreignKey: "userId",
-  });
-  Users.hasMany(ArticleAction, { foreignKey: "userId" });
+
   //
   ArticleAction.belongsTo(Article, {
     constrains: true,

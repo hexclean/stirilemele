@@ -9,6 +9,7 @@ const ArticleViewed = sequelize.define("ArticleViewed", {
     allowNull: false,
     primaryKey: true,
   },
+  operation: Sequelize.INTEGER,
 });
 
 module.exports = ArticleViewed;

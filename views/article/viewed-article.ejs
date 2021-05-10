@@ -67,14 +67,17 @@
                  </script>
                   <div  class="card-blog-post box1 like<%= articles[i].Article.id %>">
                      <h5 class="vieweds">Viewed</h5>
-                     <span class="txt-hed" style="font-size: 17px;">Jelezz vissza a cikk tartalmáról!</span>
-                     <div class="cmts1">
-                       <input hidden id="articleId<%= articles[i].Article.id %>" value="<%= articles[i].Article.id %>"/>
-                           <i id="love<%= articles[i].Article.id %>" class="fa fa-heart" aria-hidden="true"></i>
-                           <i id="like<%= articles[i].Article.id %>" class="fa fa-thumbs-up" aria-hidden="true"></i>
-                           <i id="dislike<%= articles[i].Article.id %>" class="fa fa-thumbs-down" aria-hidden="true"></i>
-                          
-         </div>
+                     <% if(articles[i].operation == 0){ %>
+                        <span class="txt-hed" style="font-size: 17px;">Jelezz vissza a cikk tartalmáról!</span>
+                        <div class="cmts1">
+                          <input hidden id="articleId<%= articles[i].Article.id %>" value="<%= articles[i].Article.id %>"/>
+                              <i id="love<%= articles[i].Article.id %>" class="fa fa-heart" aria-hidden="true"></i>
+                              <i id="like<%= articles[i].Article.id %>" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                              <i id="dislike<%= articles[i].Article.id %>" class="fa fa-thumbs-down" aria-hidden="true"></i>
+                             
+            </div>
+                     <% } %>
+          
                         <figure class="post-thumbnail card_media box2">
                            <a href=""><img style="opacity: 0.4 !important;" src="<%= articles[i].Article.imageUrl %>"></a>
                         </figure>
@@ -92,7 +95,7 @@
                      <div class="cmts"><a href=""><span>1</span><i class="fa fa-heart" aria-hidden="true"></i></a></div>
 
                        <div class="cmts"><a href=""><span>3</span><i class="fa fa-thumbs-up" aria-hidden="true"></a></i>
-         </div>
+                     </div>
                      </div>
                      </div>
                      </div>

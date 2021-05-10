@@ -1,162 +1,190 @@
-<%- include('../includes/head.ejs') %>
-</html>
-   <body>
-      <!-- start Container Wrapper -->
-      <div class="wrapper">
-         <div class="header">
-            <div class="col-md-2">
-               <img src="/img/logo.png">
-            </div>
-            <!-- <div class="col-md-10">
-               <ul>
-                  <li><a href=""><i class="fa fa-search" aria-hidden="true"></i>
-                     </a>
-                  </li>
-                  <li><a href=""><i class="fa fa-bell"></i></i></a></li>
-               </ul>
-            </div> -->
-            <% if(logged==1){ %>
-               <div class="menus">
-                  <% for (let i=0; i < categories.length; i++ ) { %>
-                     <input type="hidden" id="categoryId<%= categories[i].categoryId %>" value="<%= categories[i].categoryId %>" name="categoryId" />
-                     <a id="change<%= categories[i].categoryId %>" class="lists active"><%= categories[i].Category.CategoryTranslations[0].name %></a>
-                     <script type="text/javascript">
-                        $(document).ready(function () {
-                           $('#change<%= categories[i].id %>').on('click', function () {
-                              var categoryId = $("#categoryId<%= categories[i].categoryId %>").val();
-                              console.log(categoryId)
-                              
-                            });
-                           
-                         
-                        });
-                        
-                              
-                     </script>
-                     <% } %>
-                 
-                  </div>
-             <% } else{ %>  
-               <div class="menus">
-                  <% for (let i=0; i < categories.length; i++ ) { %>
-                     <input type="hidden" id="categoryId<%= categories[i].id %>" value="<%= categories[i].id %>" name="categoryId" />
-                     <a id="change<%= categories[i].id %>" class="lists active"><%= categories[i].CategoryTranslations[0].name %></a>
-                     <script type="text/javascript">
-                        $(document).ready(function () {
-                           $('#change<%= categories[i].id %>').on('click', function () {
-                              var categoryId = $("#categoryId<%= categories[i].id %>").val();
-                              console.log(categoryId)
-                              
-                            });
-                           
-                         
-                        });
-                        
-                              
-                     </script>
-                     <% } %>
-                 
-                  </div>
-            <% } %>
-         
-       
-		  </div>
-         <div class="content-area">
-            <% if(logged==1){ %>
-               <% for (let i=0; i < articles.length; i++ ) { %>
-                  <% for (let k=0; k < articles[i].Source.Articles.length; k++ ) { %>
-                    
-                     <script>
-                       $(function(){
-              $('.articleView<%= articles[i].Source.Articles[k].id %>').click(function(){
-              let articleId = $("#articleId<%= articles[i].Source.Articles[k].id %>").val();
-              
-               $.ajax({
-                         url: "http://localhost:3000/article-view",
-                         type: "POST",
-                         data: {
-                           articleId: articleId
-                         },   
-                       });     
-             })
-                    
-                     
-                     
-                   });
-                   </script>
-                  <div class="card-blog-post articleView<%= articles[i].Source.Articles[k].id %>">
-                     <input hidden id="articleId<%= articles[i].Source.Articles[k].id %>" name="articleId" value="<%= articles[i].Source.Articles[k].id %>"/>
-                     <figure class="post-thumbnail card_media">
-                        <a href="/stiri/<%= articles[i].Source.Articles[k].title %>"><img src="<%= articles[i].Source.Articles[k].imageUrl %>"></a>
-                     </figure>
-                     <div class="detail-info">
-                        <h1 class="card_title"><a><%= articles[i].Source.Articles[k].title %></a></h1>
-                        <span class="authors">Hírportál - <%= articles[i].Source.name %></span>
-                        <ul>
-                           <% if( articles[i].Source.Articles[k].action == 1){ %>
-                              <li><a href=""><span>&#8228;</span> Van itt valami </a></li>
-                              <%}%>
-                           <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <% } %>
-                  <% } %>
-             <% } else{ %>  
-               <% for (let i=0; i < articles.length; i++ ) { %>
-                  <div class="card-blog-post ">
-                     <figure class="post-thumbnail card_media">
-                        <a href=""><img src="<%= articles[i].imageUrl %>"></a>
-                     </figure>
-                     <div class="detail-info">
-                        <h1 class="card_title"><a><%= articles[i].title %></a></h1>
-                        <span class="authors">David</span>
-                        <ul>
-                           <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <% } %>
-            <% } %>
-          
-           
-         </div>
-         <div class="footer">
-            <ul>
-               <li><a class="foota" ><span><i class="fa fa-home" aria-hidden="true"></i>
-                  </span>Home</a>
-               </li>
-               <li><a class="foota"><span><i class="fa fa-line-chart" aria-hidden="true"></i></span>
-                  Trending </a>
-               </li>
-               <li><a class="foota"><span><i class="fa fa-stop-circle" aria-hidden="true"></i>
-                  </span></a>
-               </li>
-               <li><a class="foota"><span><i class="fa fa-book" aria-hidden="true"></i></span>
-                  Subscriptions </a>
-               </li>
-               <li><a href="/signup" class="foota"><span><i class="fa fa-music" aria-hidden="true"></i></span>Library
-                  </a>
-               </li>
-            </ul>
-         </div>
-      </div>
-      <script type="text/javascript" src="/js/jquery.min.js"></script>
-      <script type="text/javascript">
-         $(function(){
-             var $h3s = $('.lists').click(function(){
-                 $h3s.removeClass('active');
-                 $(this).addClass('active');
-             });
-         	
-         	    var $f3s = $('.foota').click(function(){
-                 $f3s.removeClass('active');
-                 $(this).addClass('active');
-             });
-          
-         });
-         
-         		
-      </script>
-   </body>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="theme-color" content="#2196f3">
+		<meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+		<title>NewsApp</title>
+		<link rel="stylesheet" href="/css/framework7.bundle.min.css">
+		<link rel="stylesheet" href="/css/app.css">
+		<link rel="stylesheet" href="/css/framework7-icons.css">
+		<link rel="stylesheet" href="/css/default.css">
+		<link rel="apple-touch-icon" href="/img/f7-icon-square.png">
+		<link rel="icon" href="img/f7-icon.png">
+		<style>
+		</style>
+	</head>
+	<body class="main-home">
+	
+	<div class="guidetab" style=" position: absolute;
+    top: 0px;
+    left: 0px;
+    background: var(--f7-guide-bg);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 9999;
+    display: none;" >
+	 
+	
+
+
+<div class="search-wrap1 block">
+						<div class="search-block">   
+					
+						
+						
+						
+					</div>
+						<div class="switch-toggle4">
+						
+						<i class="f7-icons">sun_max_fill</i>
+						</div>
+				</div>			
+			
+
+	
+<div class="block search-spacing guide">
+		
+<h4>Want to change<span class="block-100">theme to night mode?</span></h4>
+
+<p class="dismiss-window2-text">Tap the sun icon to turn night mode on <span class="block-100">so its easy to read at night.</span></p>
+
+<p class="dismiss-window-text" >Tap anywhere to dismiss</p>
+
+
+		
+</div>	
+
+
+
+
+
+</div>	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+		<div class="Cpreloader">
+			<div class="loader">
+				<div class="osum-logo">
+					<img class="lazy lazy-fade-in img-responsive" src="img/news-loader.svg" alt="">
+				</div>
+				<div class="osum-logo2">
+					<span class="power">Powered by</span>
+					<img class="lazy lazy-fade-in img-responsive" src="img/osum-logo2.png" alt="">
+				</div>
+			</div>
+		</div>
+		<div id="app">
+			<div id="nv" class="view view-main view-init custom-nv ">
+				<!-- Toolbar -->
+				<div class="toolbar customtoolbar toolbar-bottom  no-navbar no-toolbar">
+					<div class="toolbar-inner">
+						<a href="/today/" class="tab-link todaylist">
+						<span class="tabbar-label">
+						<i class="f7-icons">equal_square</i>
+						</span>
+						<span class="nv-txt">For You</span> 
+						</a>
+						<a href="/categorylist/" class="tab-link categorylist">
+						<span class="tabbar-label"><i class="f7-icons">layers_alt</i>
+						</span>
+						<span class="nv-txt">Categories </span>
+						</a>
+						<a href="/explore/" class="tab-link tab-link-active explore">
+						<span class="tabbar-label"><i class="f7-icons">house</i>
+						</span>
+						<span class="nv-txt">Explore </span>
+						</a>
+						<a href="/author/" class="tab-link profilelist">
+						<span class="tabbar-label">
+						<i class="f7-icons">person_fill</i>
+						</span>
+						<span class="nv-txt">Profile </span>
+						</a>
+						<a href="/profile/" class="tab-link pageslist">
+						<span class="tabbar-label"><i class="f7-icons">line_horizontal_3</i>
+						<span class="nv-txt">Pages</span>
+						</span>
+						</a>
+					</div>
+				</div>
+				<!-- Toolbar End -->
+				<!-- Login Section Start -->
+				<div class="page page-categorylayout no-toolbar">
+					<div class="page-content">
+						<div class="back-nav-header">
+							<div class="first-blok">
+							</div>
+							<div class="mid-block"></div>
+							<div class="last-block skip">
+								<a href="/walkthrough" class="link">Skip <i class="f7-icons">arrow_right</i></a>
+							</div>
+						</div>
+						<div class=" block select-interests log-b">
+							<h2 class="heading-c1">Log In</h2>
+							<form class="list Regform-style1 layer1" id="login" action="/walkthrough/" method="post" >
+								<ul>
+									<li class="item-content item-input item-input-with-value">
+										<div class="item-inner">
+											<div class="item-title item-floating-label">Username or Email</div>
+											<div class="item-input-wrap">
+												<input type="text" name="name" placeholder="Gypsy Hardinge" class="" value="">
+												<span class="input-clear-button"></span>
+											</div>
+										</div>
+									</li>
+									<li class="item-content item-input item-input-with-value">
+										<div class="item-inner">
+											<div class="item-title item-floating-label">Password</div>
+											<div class="item-input-wrap">
+												<input type="password" name="password" placeholder="*********" class="" value="">
+												<span class="input-clear-button"></span>
+											</div>
+										</div>
+									</li>
+									<a href="/forgotpassword/" class="forget-password">Forgot Password?</a>
+								</ul>
+								<a href="/explore/"><button class="dark-button scaleffect login-btn">log In</button></a>
+								
+								<span class="or display-block1">OR</span>	
+								<div class="share-post-block">
+									<a href="/explore/"><button   class="fb-button scaleffect">Facebook</button> </a>
+								<a href="/explore/">	<button   class="twit-button scaleffect">Twitter</button></a>
+								</div>
+								<span class="display-block1">Don’t have an account? </span>
+								<span class="display-block1">
+								<a href="/signup/" class="create now">Create Now</a>
+								</span>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- Login Section End -->
+			</div>
+		</div>
+		</div>
+		</div> 
+		<script src="/js/framework7.bundle.min.js"></script>
+		<script src="/js/routes.js"></script>
+		<script src="/js/app.js"></script>
+	</body>
 </html>

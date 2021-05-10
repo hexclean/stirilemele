@@ -39,10 +39,15 @@
          <button type="button" class="btn btn-primary ">Cikk megtekintése</button>
         </a>
       
-        <form action="/article-action" method="POST">
+
+        <% for (let i=0; i < comments.length; i++ ) { %>
+         <div><%= comments[i].comment %></div>
+         <span>dsa</span>
+         <% } %>
+        <form action="/add-comment" method="POST">
          <input hidden name="articleId" value="<%= article.id %>"/>
          <label for="fname">First name:</label><br>
-         <input type="text" id="coment" name="coment"><br>
+         <input type="text" id="comment" name="comment"><br>
          <input type="submit" value="Submit">
        </form> 
 
