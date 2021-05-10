@@ -2,16 +2,14 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../util/database");
 
-const ArticleAction = sequelize.define("ArticleAction", {
+const ArticleComment = sequelize.define("ArticleComment", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  like: Sequelize.INTEGER,
-  love: Sequelize.INTEGER,
-  unlike: Sequelize.INTEGER,
+  comment: Sequelize.TEXT("long"),
 });
 
-module.exports = ArticleAction;
+module.exports = ArticleComment;

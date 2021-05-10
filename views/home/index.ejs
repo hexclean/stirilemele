@@ -93,6 +93,9 @@
                         <h1 class="card_title"><a><%= articles[i].Source.Articles[k].title %></a></h1>
                         <span class="authors">Hírportál - <%= articles[i].Source.name %></span>
                         <ul>
+                           <% if( articles[i].Source.Articles[k].action == 1){ %>
+                              <li><a href=""><span>&#8228;</span> Van itt valami </a></li>
+                              <%}%>
                            <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
                         </ul>
                      </div>

@@ -21,6 +21,10 @@ router.post("/option", homeController.postOption);
 router.post("/article-action", articleController.postAction);
 
 router.post("/article-view", articleController.postView);
+//action
+router.post("/article-like", articleController.postLike);
+router.post("/article-love", articleController.postLove);
+router.post("/article-dislike", articleController.postDislike);
 
 router.get("/stiri/:articleName", articleController.getViewArticle);
 

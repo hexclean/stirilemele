@@ -15,67 +15,91 @@
                   <li><a href=""><i class="fa fa-bell"></i></i></a></li>
                </ul>
             </div> -->
-            <% if(logged==1){ %>
-               <div class="menus">
-                  <% for (let i=0; i < categories.length; i++ ) { %>
-                     <input type="hidden" id="categoryId<%= categories[i].categoryId %>" value="<%= categories[i].categoryId %>" name="categoryId" />
-                     <a id="change<%= categories[i].categoryId %>" class="lists active"><%= categories[i].Category.CategoryTranslations[0].name %></a>
-                     <script type="text/javascript">
-                        $(document).ready(function () {
-                           $('#change<%= categories[i].id %>').on('click', function () {
-                              var categoryId = $("#categoryId<%= categories[i].categoryId %>").val();
-                              console.log(categoryId)
-                              
-                            });
-                           
-                         
-                        });
-                        
-                              
-                     </script>
-                     <% } %>
-                 
-                  </div>
-             <% } else{ %>  
-               <div class="menus">
-                  <% for (let i=0; i < categories.length; i++ ) { %>
-                     <input type="hidden" id="categoryId<%= categories[i].id %>" value="<%= categories[i].id %>" name="categoryId" />
-                     <a id="change<%= categories[i].id %>" class="lists active"><%= categories[i].CategoryTranslations[0].name %></a>
-                     <script type="text/javascript">
-                        $(document).ready(function () {
-                           $('#change<%= categories[i].id %>').on('click', function () {
-                              var categoryId = $("#categoryId<%= categories[i].id %>").val();
-                              console.log(categoryId)
-                              
-                            });
-                           
-                         
-                        });
-                        
-                              
-                     </script>
-                     <% } %>
-                 
-                  </div>
-            <% } %>
+      
          
        
 		  </div>
          <div class="content-area">
            
                <% for (let i=0; i < articles.length; i++ ) { %>
-                  <div class="card-blog-post">
-                     <figure class="post-thumbnail card_media">
-                        <a href="#"><img class="viewed-article-img" src="<%= articles[i].Article.imageUrl %>"></a>
-                     </figure>
-                     <div class="detail-info" style="border: 1px solid #8e3546;">
-                        <h1 class="card_title"><a><%= articles[i].Article.title %></a></h1>
-                        <span class="authors">Hírportál - </span>
-                        <ul>
-                           <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
-                        </ul>
+                     
+                  <script>
+                     $(function(){
+                        $('#like<%= articles[i].Article.id %>').click(function() {
+                        let articleId = $("#articleId<%= articles[i].Article.id %>").val();
+                        $.ajax({
+                           url: "http://localhost:3000/article-like",
+                           type: "POST",
+                           data: {
+                              articleId: articleId
+                           },
+                        });
+                        })
+                        });
+                 </script>
+                  <script>
+                     $(function(){
+                        $('#love<%= articles[i].Article.id %>').click(function() {
+                        let articleId = $("#articleId<%= articles[i].Article.id %>").val();
+                        $.ajax({
+                           url: "http://localhost:3000/article-love",
+                           type: "POST",
+                           data: {
+                              articleId: articleId
+                           },
+                        });
+                        })
+                        });
+                 </script>
+                  <script>
+                     $(function(){
+                        $('#dislike<%= articles[i].Article.id %>').click(function() {
+                        let articleId = $("#articleId<%= articles[i].Article.id %>").val();
+                        $.ajax({
+                           url: "http://localhost:3000/article-dislike",
+                           type: "POST",
+                           data: {
+                              articleId: articleId
+                           },
+                        });
+                        })
+                        });
+                 </script>
+                  <div  class="card-blog-post box1 like<%= articles[i].Article.id %>">
+                     <h5 class="vieweds">Viewed</h5>
+                     <span class="txt-hed" style="font-size: 17px;">Jelezz vissza a cikk tartalmáról!</span>
+                     <div class="cmts1">
+                       <input hidden id="articleId<%= articles[i].Article.id %>" value="<%= articles[i].Article.id %>"/>
+                           <i id="love<%= articles[i].Article.id %>" class="fa fa-heart" aria-hidden="true"></i>
+                           <i id="like<%= articles[i].Article.id %>" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                           <i id="dislike<%= articles[i].Article.id %>" class="fa fa-thumbs-down" aria-hidden="true"></i>
+                          
+         </div>
+                        <figure class="post-thumbnail card_media box2">
+                           <a href=""><img style="opacity: 0.4 !important;" src="<%= articles[i].Article.imageUrl %>"></a>
+                        </figure>
+                        <div class="detail-info" style="border: 1px solid #8e3546;">
+                           <h1 class="card_title"><a><%= articles[i].Article.title %></a></h1>
+                       <div class="infobox1">
+                           <span class="authors">David</span>
+                           <ul>
+                              <li><a href=""><span>&#8228;</span> 3 days ago </a></li>
+                           </ul>
+                        </div>
+                     <div class="info1box1">
+                     <h6>3 Comments</h6>
+                     <div class="cmts"><a href=""><span>1</span><i class="fa fa-heart" aria-hidden="true"></i></a></div>
+                     <div class="cmts"><a href=""><span>1</span><i class="fa fa-heart" aria-hidden="true"></i></a></div>
+
+                       <div class="cmts"><a href=""><span>3</span><i class="fa fa-thumbs-up" aria-hidden="true"></a></i>
+         </div>
                      </div>
-                  </div>
+                     </div>
+                     </div>
+
+               
+                  
+                       
                   <% } %>
             
           

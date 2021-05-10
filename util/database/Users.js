@@ -8,8 +8,22 @@ const Source = require("../../models/Source");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleAction = require("../../models/ArticleAction");
+const ArticleComment = require("../../models/ArticleComment");
 
 function users() {
+  ArticleComment.belongsTo(Article, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "articleId",
+  });
+  Article.hasMany(ArticleComment, { foreignKey: "articleId" });
+  //
+  ArticleComment.belongsTo(Users, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "userId",
+  });
+  Users.hasMany(ArticleComment, { foreignKey: "userId" });
   //
   ArticleAction.belongsTo(Users, {
     constrains: true,

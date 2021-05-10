@@ -104,3 +104,82 @@ exports.postAction = async (req, res, next) => {
     console.log(error);
   }
 };
+
+exports.postLove = async (req, res, next) => {
+  const articleId = req.body.articleId;
+  console.log("LOVE", req.body);
+  // const articleId = req.body.articleId;
+  // console.log(req.body);
+  // console.log("articleId", articleId);
+  // // console.log(req.body);
+  // try {
+  //   await Article.update(
+  //     {
+  //       action: 1,
+  //     },
+  //     { where: { id: articleId } }
+  //   );
+  //   await ArticleAction.create({
+  //     userId: req.user.id,
+  //     articleId: articleId,
+  //     love: 2,
+  //     like: 1,
+  //     unlike: 0,
+  //     comment: "Jó cikk",
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }
+};
+
+exports.postLike = async (req, res, next) => {
+  const articleId = req.body.articleId;
+  console.log("LIKE", req.body);
+  // console.log("articleId", articleId);
+  // // console.log(req.body);
+  // try {
+  //   await Article.update(
+  //     {
+  //       action: 1,
+  //     },
+  //     { where: { id: articleId } }
+  //   );
+  //   await ArticleAction.create({
+  //     userId: req.user.id,
+  //     articleId: articleId,
+  //     love: 2,
+  //     like: 1,
+  //     unlike: 0,
+  //     comment: "Jó cikk",
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }
+};
+
+exports.postDislike = async (req, res, next) => {
+  const articleId = req.body.articleId;
+  console.log("DISLIKE", req.body);
+  // const articleId = req.body.articleId;
+  // console.log(req.body);
+  // console.log("articleId", articleId);
+  // // console.log(req.body);
+  // try {
+  //   await Article.update(
+  //     {
+  //       action: 1,
+  //     },
+  //     { where: { id: articleId } }
+  //   );
+  //   await ArticleAction.create({
+  //     userId: req.user.id,
+  //     articleId: articleId,
+  //     love: 2,
+  //     like: 1,
+  //     unlike: 0,
+  //     comment: "Jó cikk",
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }
+};
