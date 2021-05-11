@@ -10,6 +10,7 @@ const Source = sequelize.define("Source", {
     primaryKey: true,
   },
   name: Sequelize.STRING,
+  seoUrl: Sequelize.STRING,
 });
 
 module.exports = Source;

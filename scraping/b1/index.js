@@ -98,7 +98,7 @@ exports.postSport = async (req, res, next) => {
           const articleId = await Article.create({
             imageUrl: result[i].imageUrl.trim(),
             link: result[i].url.trim(),
-            title: result[i].title.trim(),
+            title: result[i].title.trim().replace(/ /g,"_");,
             time: "2021-04-27 16:46:03",
             categoryId: 1,
             sourceId: 1,

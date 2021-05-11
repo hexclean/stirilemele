@@ -10,6 +10,7 @@ const Category = sequelize.define("Category", {
     primaryKey: true,
   },
   secondary: Sequelize.INTEGER,
+  seoUrl: Sequelize.STRING,
 });
 
 module.exports = Category;

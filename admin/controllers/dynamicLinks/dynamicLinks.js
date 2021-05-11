@@ -47,20 +47,81 @@ exports.getChannelNewsByCategory = async (req, res, next) => {
     ],
   });
   categoryId = category.id;
-  const categories = await Category.findAll({
-    Where: { id: categoryId },
+  const categories = await Articles.findAll({
     include: [
       {
-        model: Articles,
-        include: [{ model: Source, where: { id: channelId } }],
+        model: Source,
+        where: { id: channelId },
+      },
+      {
+        model: Category,
+        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
       },
     ],
   });
+
   //   categoryName = categories.id;
+  //   for (let i = 0; i < categories.length; i++) {
+  //     for (let j = 0; j < categories[i].Articles.length; j++) {
+  //       console.log(categories[i].Articles[j].title);
+  //     }
+  //   }
   console.log(categories);
   res.render("dynamicLinks/channel-articles-by-category", {
     path: "/login",
     pageTitle: "Login",
     articles: categories,
+    channelName: channelName,
+    categoryName: categoryName,
+  });
+};
+
+exports.getArticleDetail = async (req, res, next) => {
+  const channelName = req.params.channelName;
+  const articleTitle = req.params.articleTitle;
+  const categoryName = req.params.categoryName;
+  let categoryId;
+  let channelId;
+
+  const channel = await Source.findOne({ where: { name: channelName } });
+  channelId = channel.id;
+  const category = await Category.findOne({
+    inlcude: [
+      {
+        model: CategoryTranslation,
+        where: { languageId: 2, name: categoryName },
+      },
+    ],
+  });
+  categoryId = category.id;
+
+  const article = await Articles.findOne({
+    where: { title: articleTitle },
+    include: [
+      {
+        model: Source,
+        where: { id: channelId },
+      },
+      {
+        model: Category,
+        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+      },
+    ],
+  });
+
+  //   //   categoryName = categories.id;
+  //   for (let i = 0; i < categories.length; i++) {
+  //     for (let j = 0; j < categories[i].Articles.length; j++) {
+  //       console.log(categories[i].Articles[j].title);
+  //     }
+  //   }
+  console.log(article);
+  res.render("dynamicLinks/article-detail", {
+    path: "/login",
+    pageTitle: "Login",
+    article: article,
+    // articles: categories,
+    // channelName: channelName,
+    // categoryName: categoryName,
   });
 };

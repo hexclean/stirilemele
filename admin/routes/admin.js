@@ -18,6 +18,11 @@ router.get(
   dynamicLinkController.getChannelNewsByCategory
 );
 
+router.get(
+  "/:channelName/:categoryName/:articleTitle",
+  dynamicLinkController.getArticleDetail
+);
+
 // Kategória oldal
 // router.get("/stiri/categorii", categoryController.getAllCategoryScreen);
 

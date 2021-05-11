@@ -213,6 +213,7 @@ exports.postOption = async (req, res, next) => {
   // validationErrors: [],
   // });
 };
+
 exports.getViewedArticleFromHome = async (req, res, next) => {
   const editMode = req.query.edit;
   const articleName = req.params.title;
