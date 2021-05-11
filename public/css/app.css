@@ -40,14 +40,14 @@
   --f7-theme-search-shadow:0 0 64px 12px rgba(103, 103, 103, 0.16), 0 0 1px 0 #d6d6d6;
 
 --f7-theme-placeholder-text-color:#737373;
---f7-theme-icon-color-white:url(img/search.svg);
+--f7-theme-icon-color-white:url(/img/search.svg);
 
- --f7-theme-icon-color-white:url(img/search-white.svg);   
- --f7-theme-toggle-icon:url(img/sun-white.svg);  
+ --f7-theme-icon-color-white:url(/img/search-white.svg);   
+ --f7-theme-toggle-icon:url(/img/sun-white.svg);  
  
   --f7-theme-circle-shadow:inset 90px 6px 6px #fffbfb;
- --f7-theme-sun1-white:url(img/sun-white.svg);
-   --f7-theme-search-icon:url(img/mic-white-theme.svg);
+ --f7-theme-sun1-white:url(/img/sun-white.svg);
+   --f7-theme-search-icon:url(/img/mic-white-theme.svg);
    --f7-theme-default-bg-color-light: #fff;
 
     --f7-theme-default-margin0:margin:0px;
@@ -82,9 +82,9 @@
 	 --f7-theme-filter-o:invert(47%) sepia(17%) saturate(10%) hue-rotate(32deg) brightness(92%) contrast(95%);
 	  --f7-theme-intrest-bg:#455b73;
       --f7-theme-intrest-color:#fff;
-	  --f7-theme-wave-bg:url(img/wave-white.svg);
+	  --f7-theme-wave-bg:url(/img/wave-white.svg);
 	   --f7-theme-tagh-color:#737373;
-	--f7-theme-blog-quotes-bg:url(img/blog-quotes.svg);
+	--f7-theme-blog-quotes-bg:url(/img/blog-quotes.svg);
 	   
  --f7-theme-color-posthead-color:#737373;
   --f7-theme-opacity-txt:0.5;
@@ -135,9 +135,9 @@
 	  --f7-theme-box-show-1:15px 15px 56px -8px rgba(0, 0, 0, 0.16);
 	 --f7-theme-opacity-txt:1;
 	 --f7-theme-color-posthead-color:#fff;
-		--f7-theme-blog-quotes-bg:url(img/blog-quotes.svg);
+		--f7-theme-blog-quotes-bg:url(/img/blog-quotes.svg);
 	 --f7-theme-tagh-color:#fff;
-	 --f7-theme-wave-bg:url(img/wave-black.svg);
+	 --f7-theme-wave-bg:url(/img/wave-black.svg);
     --f7-theme-intrest-color:#141414;
 	  --f7-theme-intrest-bg:#bef7e7;
 		 --f7-theme-filter-o:none;
@@ -173,13 +173,13 @@
      --f7-theme-default-white-filter: invert(47%) sepia(11%) saturate(13%) hue-rotate(331deg) brightness(92%) contrast(85%);
 	 --f7-theme-search-bg-color:#3f3f3f;  
   --f7-theme-search-shadow:none;
- --f7-theme-sun1-white:url(img/sun-black.svg);
---f7-theme-icon-color-white:url(img/search.svg);  
+ --f7-theme-sun1-white:url(/img/sun-black.svg);
+--f7-theme-icon-color-white:url(/img/search.svg);  
 
   --f7-theme-circle-shadow:inset 90px 6px 6px #3f3f3f;
 
    --f7-theme-color-tex:#fff;
-	 --f7-theme-search-icon:url(img/mic.svg);
+	 --f7-theme-search-icon:url(/img/mic.svg);
 	  --f7-theme-default-margin0:margin:0px; 
 	
 --f7-theme-font-roboto-slab:'Roboto Slab', serif;

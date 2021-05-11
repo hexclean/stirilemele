@@ -7,12 +7,26 @@ const { validationResult } = require("express-validator/check");
 const ArticleViewed = require("../../models/ArticleViewed");
 
 exports.getViewSource = async (req, res, next) => {
-  const sourceName = req.params.sourceName;
+  const sourceName = req.params.newsPortal;
+  console.log(req.params);
+  let sourceId;
   const source = await Source.findOne({ where: { name: sourceName } });
+  sourceId = source.id;
+  console.log(sourceId);
+  const categories = await SourceCategories.findAll({
+    where: { sourceId: sourceId },
+    include: [
+      {
+        model: Category,
+        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+      },
+    ],
+  });
   res.render("source/source-detail", {
     path: "/login",
     pageTitle: "Login",
     source: source,
+    categories: categories,
   });
 };
 
@@ -27,9 +41,12 @@ exports.getTest1 = async (req, res, next) => {
 };
 
 exports.getViewSourceCategory = async (req, res, next) => {
-  const sourceName = req.params.sourceName;
+  const sourceName = req.params.newsPortal;
+  const categoryName = req.params.categoryName;
+  console.log(req.params);
   let sourceId;
   const source = await Source.findOne({ where: { name: sourceName } });
+  console.log(source);
   sourceId = source.id;
   //   const categories = await Source.findAll({
   //     where: { id: sourceId },
@@ -40,11 +57,16 @@ exports.getViewSourceCategory = async (req, res, next) => {
     include: [
       {
         model: Category,
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+        include: [
+          {
+            model: CategoryTranslation,
+            where: { languageId: 2, name: categoryName },
+          },
+        ],
       },
     ],
   });
-  console.log(categories);
+  // console.log(categories);
   res.render("source/source-category", {
     path: "/login",
     pageTitle: "Login",

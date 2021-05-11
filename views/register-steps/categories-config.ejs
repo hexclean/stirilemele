@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <meta name="theme-color" content="#2196f3" />
+    <meta http-equiv="Content-Security-Policy" />
+    <title>NewsApp</title>
+    <link rel="stylesheet" href="/css/framework7.bundle.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/css/framework7-icons.css" />
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="apple-touch-icon" href="/img/f7-icon-square.png" />
+    <link rel="icon" href="/img/f7-icon.png" />
+    <style></style>
+  </head>
+  <body class="main-home">
+    <div
+      data-name="categories2"
+      class="page page-categorylayout no-navbar no-toolbar"
+    >
+      <form
+        method="POST"
+        action="/add-favourite-category"
+        enctype="multipart/form-data"
+      >
+        <div class="page-content">
+          <div class="back-nav-header">
+            <div class="first-blok"></div>
+            <div class="mid-block"></div>
+            <div class="last-block skip">
+              <a href="/profile/" class="link">
+                Skip <i class="f7-icons">arrow_right</i>
+              </a>
+            </div>
+          </div>
+
+          <div class="block select-interests">
+            <h2 class="heading-c1 margin-bottom1">Select Interests</h2>
+            <div class="hight-100">
+              <div class="block-container" id="bchips">
+                <% for (let i=0; i < categories.length; i++ ) { %>
+                <input hidden name="allCat" value="<%= categories[i].id %>" />
+                <script>
+                  $(document).ready(function () {
+                    $(".test<%= categories[i].id %>").click(function () {
+                      var categoryId = $(this).attr("data-categoryId");
+                      if (
+                        $(".addActive<%= categories[i].id %>").hasClass(
+                          "current-click"
+                        )
+                      ) {
+                        $(".addActive<%= categories[i].id %>").removeClass(
+                          "current-click"
+                        );
+
+                        $(".statusCategory-" + categoryId).val("off");
+                      } else {
+                        $(".addActive<%= categories[i].id %>").addClass(
+                          "current-click"
+                        );
+                        $(".statusCategory-" + categoryId).val("on");
+                      }
+                    });
+                  });
+                </script>
+
+                <div
+                  data-categoryId="<%= categories[i].id %>"
+                  class="chip test<%= categories[i].id %>"
+                  value="<%= categories[i].id %>"
+                  id="categoryId"
+                >
+                  <input
+                    type="hidden"
+                    value="off"
+                    class="statusCategory-<%= categories[i].id %>"
+                    name="categoryId[<%= categories[i].id %>]"
+                  />
+                  <div class="chip-label addActive<%= categories[i].id %>">
+                    <%= categories[i].CategoryTranslations[0].name %>
+                  </div>
+                </div>
+                <% } %>
+              </div>
+
+              <div class="save-interests-btn">
+                <button
+                  class="dark-button button item-content item-link card-scale scaleffect"
+                  type="submit"
+                >
+                  Save Interests
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

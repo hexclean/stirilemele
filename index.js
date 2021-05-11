@@ -1,10 +1,12 @@
 const express = require("express"),
   lingua = require("lingua");
-const User = require("./models/Users");
+const Admin = require("./models/Users");
+// const errorController = require("./admin/controllers/error");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
+const multer = require("multer");
 const path = require("path");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelize = require("./util/database");
@@ -43,11 +45,12 @@ app.use(
 app.use(cookieParser());
 
 // Init Middleware
-app.use(async (req, res, next) => {
+
+app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
   }
-  await User.findByPk(req.session.user.id)
+  Admin.findByPk(req.session.user.id)
 
     .then((user) => {
       req.user = user;
@@ -55,17 +58,53 @@ app.use(async (req, res, next) => {
     })
     .catch((err) => console.log(err));
 });
+// app.use((req, res, next) => {
+//   let languageCode;
+
+//   if (req.cookies.language == "ro") {
+//     languageCode = 1;
+//   } else if (req.cookies.language == "hu") {
+//     languageCode = 2;
+//   } else {
+//     languageCode = 3;
+//   }
+
+// });
 
 sessionStore.sync();
 
 app.use(express.json({ extended: false }));
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + "-" + file.originalname);
+  },
+});
+
+//
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 
 // EJS
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 const adminRoutes = require("./admin/routes/admin");
-const cronjob = require("./scraping/routes/cronjob");
+// const indexRoutes = require("./admin/routes/index");
+// const authRoutes = require("./admin/routes/auth");
+// const superRoutes = require("./admin/routes/super-admin");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
@@ -81,11 +120,16 @@ app.use(
 app.use(express.json({ extended: false }));
 
 app.use(flash());
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+);
 
 // Define Routes
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", adminRoutes);
-app.use("/cronjob", cronjob);
+// app.use("/super-admin", superRoutes);
+// app.use(indexRoutes);
+// app.use(authRoutes);
 // app.get("/500", errorController.get500);
 
 // Database configuration

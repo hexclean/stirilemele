@@ -9,6 +9,7 @@ const UserInterestedCategories = sequelize.define("UserInterestedCategories", {
     allowNull: false,
     primaryKey: true,
   },
+  active: Sequelize.INTEGER,
 });
 
 module.exports = UserInterestedCategories;

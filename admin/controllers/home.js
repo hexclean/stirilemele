@@ -17,71 +17,72 @@ const ArticleComment = require("../../models/ArticleComment");
 exports.getHome = async (req, res, next) => {
   let logged = 0;
   let categories = [];
-  let articles = [];
+  // let articles = [];
   let interestedCategoryId = [];
-  if (req.user != undefined) {
-    logged = 1;
-    categories = await UserInterestedCategories.findAll({
-      where: { userId: req.user.id },
-      include: [
-        {
-          model: Category,
-          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-        },
-      ],
-    });
+  // if (req.user != undefined) {
+  //   logged = 1;
+  //   categories = await UserInterestedCategories.findAll({
+  //     where: { userId: req.user.id },
+  //     include: [
+  //       {
+  //         model: Category,
+  //         include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  //       },
+  //     ],
+  //   });
 
-    articles = await UserInterestedSources.findAll({
-      where: {
-        userId: req.user.id,
-      },
-      include: [
-        {
-          model: Source,
-          include: [
-            {
-              model: Articles,
-              include: [{ model: ArticleAction }],
-              where: {
-                categoryId: {
-                  [Op.in]: interestedCategoryId,
-                },
+  //   articles = await UserInterestedSources.findAll({
+  //     where: {
+  //       userId: req.user.id,
+  //     },
+  //     include: [
+  //       {
+  //         model: Source,
+  //         include: [
+  //           {
+  //             model: Articles,
+  //             include: [{ model: ArticleAction }],
+  //             where: {
+  //               categoryId: {
+  //                 [Op.in]: interestedCategoryId,
+  //               },
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   });
+  // } else {
+  logged = 0;
+  categories = await Category.findAll({
+    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  });
+  const articles = await Articles.findAll({
+    include: [
+      {
+        model: Source,
+        include: [
+          {
+            model: Articles,
+            include: [
+              {
+                model: Category,
+                include: [
+                  { model: CategoryTranslation, where: { languageId: 2 } },
+                ],
               },
-            },
-          ],
-        },
-      ],
-    });
-  } else {
-    logged = 0;
-    categories = await Category.findAll({
-      include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-    });
-    articles = await Articles.findAll({
-      include: [
-        {
-          model: Source,
-          include: [
-            {
-              model: Articles,
-              include: [
-                {
-                  model: Category,
-                  include: [
-                    { model: CategoryTranslation, where: { languageId: 2 } },
-                  ],
-                },
-                {
-                  model: ArticleAction,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    });
-  }
-
+              {
+                model: ArticleAction,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+  // }
+  console.log(89765789);
+  console.log(articles);
   res.render("home/index", {
     path: "/login",
     pageTitle: "Login",
