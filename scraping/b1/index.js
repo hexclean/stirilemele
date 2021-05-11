@@ -98,17 +98,18 @@ exports.postSport = async (req, res, next) => {
           const articleId = await Article.create({
             imageUrl: result[i].imageUrl.trim(),
             link: result[i].url.trim(),
-            title: result[i].title.trim().replace(/ /g,"_");,
+            title: result[i].title.trim(),
+            seoUrl: result[i].title.trim().replace(/ /g, "-"),
             time: "2021-04-27 16:46:03",
             categoryId: 1,
-            sourceId: 1,
+            sourceId: 8,
           });
-          await ArticleAction.create({
-            articleId: articleId[i].id,
-            love: 0,
-            like: 0,
-            dislike: 0,
-          });
+          // await ArticleAction.create({
+          //   articleId: articleId[i].id,
+          //   love: 0,
+          //   like: 0,
+          //   dislike: 0,
+          // });
         }
       }
       return res.json({

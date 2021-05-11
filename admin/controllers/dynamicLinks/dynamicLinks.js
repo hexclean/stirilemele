@@ -7,7 +7,7 @@ const Articles = require("../../../models/Article");
 exports.getChannelDetail = async (req, res, next) => {
   const channelName = req.params.channelName;
   let channelId;
-  const channel = await Source.findOne({ where: { name: channelName } });
+  const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const categories = await SourceCategories.findAll({
     Where: { sourceId: channelId },
@@ -36,15 +36,10 @@ exports.getChannelNewsByCategory = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
   let channelId;
-  const channel = await Source.findOne({ where: { name: channelName } });
+  const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const category = await Category.findOne({
-    inlcude: [
-      {
-        model: CategoryTranslation,
-        where: { languageId: 2, name: categoryName },
-      },
-    ],
+    where: { seoUrl: categoryName },
   });
   categoryId = category.id;
   const categories = await Articles.findAll({

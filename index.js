@@ -102,7 +102,8 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 const adminRoutes = require("./admin/routes/admin");
-// const indexRoutes = require("./admin/routes/index");
+const cronjobRoutes = require("./scraping/routes/cronjob");
+// const indexRoutes = require(".");
 // const authRoutes = require("./admin/routes/auth");
 // const superRoutes = require("./admin/routes/super-admin");
 
@@ -127,6 +128,7 @@ app.use(
 // Define Routes
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", adminRoutes);
+app.use("/cronjob", cronjobRoutes);
 // app.use("/super-admin", superRoutes);
 // app.use(indexRoutes);
 // app.use(authRoutes);

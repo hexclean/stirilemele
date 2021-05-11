@@ -18,7 +18,7 @@
                 <% for (let i=0; i < articles.length; i++ ) { %>
                  
               <li>
-                <a href="/<%= articles[i].Source.name%>/<%= articles[i].Category.seoUrl %>/<%= articles[i].title %>">
+                <a href="/<%= articles[i].Source.seoUrl%>/<%= articles[i].Category.seoUrl %>/<%= articles[i].seoUrl %>">
                   <div class="item-content">
                     <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
                     <div class="item-inner">
