@@ -1,0 +1,42 @@
+<%- include('../includes/head.ejs') %>
+<body class="color-theme-pink">
+
+  <div id="view-search" class="view tab">
+    <div class="page author no-navbar" data-name="author">
+        <div class="page-content">
+          
+          
+          <div class="block">
+           
+           
+          
+            <div class="title-medium-container title-with-link">
+                
+              <h2>Legfrisebb hírek</h2>
+              <a href="/category/" class="col button button-small button-round button-fill">Összes hír megtekintése</a>
+            </div>
+            <ul class="list media-list post-list">
+                <% for (let i=0; i < articles.length; i++ ) { %>
+              <li>
+                <a href="/single/">
+                  <div class="item-content">
+                    <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
+                    <div class="item-inner">
+                      <div class="item-subtitle">Test</div>
+                      <div class="item-title"><%= articles[i].title %></div>
+                      <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>2 hours ago</div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+    <%- include('../includes/navigation.ejs') %>
+  </div>
+ 
+  <%- include('../includes/end.ejs') %>
+</body>

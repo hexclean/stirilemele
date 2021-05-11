@@ -17,6 +17,8 @@ const User = sequelize.define("User", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  commentEmail: Sequelize.INTEGER,
+  endOfDayEmail: Sequelize.INTEGER,
 });
 
 module.exports = User;

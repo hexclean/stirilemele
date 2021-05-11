@@ -1,0 +1,75 @@
+<%- include('../includes/head.ejs') %>
+<body class="color-theme-pink">
+
+  <div id="view-search" class="view tab">
+    <div class="page author no-navbar" data-name="author">
+        <div class="page-content">
+          
+          <div class="oval"></div>
+          <div class="block">
+            <div class="author-infos">
+              <img class="author-avatar" src="img/authors/author-3.jpg" alt="">
+              <div class="author-name"><%= channel.name %></div>
+              
+             
+            </div>
+            <div class="count-container">
+              <div class="count-block">
+                <div class="count-number">217</div>
+                <div class="count-label">Posts</div>
+              </div>
+              <div class="count-block">
+                <div class="count-number">87</div>
+                <div class="count-label">Comments</div>
+              </div>
+              <div class="count-block">
+                <div class="count-number">1.2k</div>
+                <div class="count-label">Likes</div>
+              </div>
+            </div>
+            <div class="block search-container">
+                <div class="searchbar-hide-on-search">
+                  <h2>Hírportál kategóriái</h2>
+                  <ul class="popular-tags">
+                    <% for (let i=0; i < categories.length; i++ ) { %>
+                        
+                    <li>
+                      <a href="#" class="link"
+                        ><span><%= categories[i].Category.CategoryTranslations[0].name %></span><i class="f7-icons">chevron_right</i></a
+                      >
+                    </li>
+                   
+                    <% } %>
+                  </ul>
+                </div>
+              </div>
+            <div class="title-medium-container title-with-link">
+                
+              <h2>Legfrisebb hírek</h2>
+              <a href="/category/" class="col button button-small button-round button-fill">Összes hír megtekintése</a>
+            </div>
+            <ul class="list media-list post-list">
+                <% for (let i=0; i < articles.length; i++ ) { %>
+              <li>
+                <a href="/single/">
+                  <div class="item-content">
+                    <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
+                    <div class="item-inner">
+                      <div class="item-subtitle"><%= channel.name %></div>
+                      <div class="item-title"><%= articles[i].title %></div>
+                      <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>2 hours ago</div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+    <%- include('../includes/navigation.ejs') %>
+  </div>
+ 
+  <%- include('../includes/end.ejs') %>
+</body>

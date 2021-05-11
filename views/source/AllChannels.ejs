@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs') %>
+<body class="color-theme-pink">
+  <div id="view-search" class="view tab">
+    <div class="page">
+      <div class="page-content" style="padding-top: 30px !important;">
+        <div class="block">
+          <div class="title-with-link category-title">
+            <h1>Hírportál lista</h1>
+            <div class="chip">
+              <div class="chip-label"><%= allChannelNumber %> Hírportál</div>
+            </div>
+          </div>
+          <ul class="popular-authors">
+            <% for (let i=0; i < source.length; i++ ) { %>
+            <li>
+              <a href="/author/">
+                <div class="author-image">
+                  <img src="img/authors/author-3.jpg" alt="" />
+                </div>
+                <div class="author-infos">
+                  <div class="author-name"><%= source[i].name %></div>
+                  <div class="author-description">
+                    Kategóriák: politika, sport, belfold, kulfold, tanc, extrem,
+                    auto
+                  </div>
+                </div>
+              </a>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../includes/navigation.ejs') %>
+  </div>
+
+  <%- include('../includes/end.ejs') %>
+</body>

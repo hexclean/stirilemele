@@ -6,6 +6,7 @@ const CategoryTranslation = require("../../models/CategoryTranslation");
 const { validationResult } = require("express-validator/check");
 const ArticleViewed = require("../../models/ArticleViewed");
 
+// Hírportál adatlapja
 exports.getViewSource = async (req, res, next) => {
   const sourceName = req.params.newsPortal;
   console.log(req.params);
@@ -27,6 +28,27 @@ exports.getViewSource = async (req, res, next) => {
     pageTitle: "Login",
     source: source,
     categories: categories,
+  });
+};
+
+exports.getViewChannels = async (req, res, next) => {
+  const source = await Source.findAll();
+  console.log(source);
+  // const categories = await SourceCategories.findAll({
+  //   where: { sourceId: sourceId },
+  //   include: [
+  //     {
+  //       model: Category,
+  //       include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  //     },
+  //   ],
+  // });
+  res.render("source/AllChannels", {
+    path: "/login",
+    pageTitle: "Login",
+    source: source,
+    allChannelNumber: source.length,
+    // categories: categories,
   });
 };
 

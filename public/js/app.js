@@ -1,573 +1,485 @@
+"use strict";
 
-// Theme
-var theme = 'ios';
-         if (location.href.indexOf('theme=md') >= 0) theme = 'md';
-         if (location.href.indexOf('theme=aurora') >= 0) theme = 'aurora';
-         var plugin = {
-           params: {
-             theme: theme,
-             root: '#app',
-           }
-         };
-         if (Framework7.use) Framework7.use(plugin);
-         else if (Framework7.Class && Framework7.Class.use) Framework7.Class.use(plugin);
-		 
-		 
-		 
-// Init App
-var app = new Framework7({
-  id: 'io.framework7.testapp',
-  root: '#app',
-  theme: theme,
-  routes: routes,
-  popup: {
-    closeOnEscape: true,
-  },
-  sheet: {
-    closeOnEscape: true,
-  },
-  popover: {
-    closeOnEscape: true,
-  },
-  actions: {
-    closeOnEscape: true,
-  },
-  vi: {
-    placementId: 'pltd4o7ibb9rc653x14',
-  },
-});
-
-
-app.on('pageBeforeIn', function (page) {
-	
-	  var $$ = Dom7;
-	 if (page.$el.hasClass('catagories-list-root') )
-	 {
-		$$('.toolbar-bottom .tab-link').removeClass('tab-link-active');
-		$$('.toolbar-bottom .tab-link.categorylist').addClass('tab-link-active');
-	 }
-	 else if (page.$el.hasClass('author-root') )
-	 {
-		//	$$('.toolbar-bottom .tab-link').removeClass('tab-link-active');
-		//	$$('.toolbar-bottom .tab-link.explore').addClass('tab-link-active');
-		$$('.toolbar-bottom .tab-link').removeClass('tab-link-active');
-		$$('.toolbar-bottom .tab-link.profilelist').addClass('tab-link-active');
-		
-	 } 
-	  else if (page.$el.hasClass('profilepagelist-root') )
-	 {
-		
-		$$('.toolbar-bottom .tab-link').removeClass('tab-link-active');
-		$$('.toolbar-bottom .tab-link.pageslist').addClass('tab-link-active');
-		
-	 } 
-	 
-	 if (page.$el.hasClass('explore-root') )
-	 {
-			if($$('body').hasClass('loaded')){ $$('body .guidetab').css('display','none');}
-			else{ $$('body .guidetab').css('display','block');  }
-	  
-	 }
-	
-	 
-	
-});
-
-app.on('pageAfterIn', function (page) {
-	
- var $$ = Dom7;
-
- if ($$(".search-wrap")[0] && $$('.toggle input')[0]){
-		 
-				
-				if($$('.toggle input')[0].checked)
-				{
-						var ch='checked="checked"';
-				}
-				else
-				{
-						var ch  ="";
-				}
-				
-				$$('.search-wrap').empty();
-				$$(".search-wrap").addClass("hidekaro");
-				 $$('.page-current .search-wrap').html('<div class="search-block"><div id="search-bar" class="searchbar customsearchbar"  ><span class="search-ic"></span><div class="searchbar-input"><input type="text" placeholder="Search" class="customsearchbar"><a style="display: none" class="searchresultlink" href="/searchresult/"></a><a href="#" class="searchbar-clear"></a></div><span class="search-mic"><a href="/searchmic/"> <i class="f7-icons">mic</i></a></span>	</div></div><div class="switch-toggle"><span id="swither"><label class="toggle toggle-init"><input type="checkbox" '+ch+'><span class="toggle-icon"> </span></label></span></div> ');
-		 
-			
-	} 
-	
-	if(!$$(".search-wrap #search-bar")[0]){ 
-	
-		 $$('.search-wrap').html('<div class="search-block"><div id="search-bar" class="searchbar customsearchbar"  ><span class="search-ic"></span><div class="searchbar-input"><input type="text" placeholder="Search" class="customsearchbar"><a style="display: none" class="searchresultlink" href="/searchresult/"></a><a href="#" class="searchbar-clear"></a></div><span class="search-mic"><a href="/searchmic/"> <i class="f7-icons">mic</i></a></span>	</div></div><div class="switch-toggle"><span id="swither"><label class="toggle toggle-init"><input type="checkbox" '+ch+'><span class="toggle-icon"> </span></label></span></div> ');
-	
-	
-	}
-	
-	 $$('.toggle input').on('change', function () {
-
-           if (this.checked) {
-             $$('.view').addClass('theme-dark');
-           } else {
-             $$('.view').removeClass('theme-dark');
-           }
-         });
-		 
-		 
-		 
-		/* Custom Search Functionality Integration .customsearchbar */
-
-	$$('.customsearchbar').on('keypress', function(event) {
-		
-        if (event.keyCode == 13) {
-             $$( ".searchresultlink" ).trigger( "click");
-        }
-    });
-	
-	
-});
-app.on('pageInit', function (page) {
-
-
-
-
-		/* This JS Code works when each page load onclick */
-
-         var $$ = Dom7;
-        /* $$('input[name="color-radio"]').on('change', function () {
-                 if (this.checked) {
-             $$('.view').attr('class', 'view view-main view-init');
-             $$('.view').addClass('color-theme-' + $$(this).val());
-             if ($$('.toggle input')[0].checked) {
-               $$('.view').addClass('theme-dark');
-             }
-           }
-         });
-         $$('.toggle input').on('change', function () {
-			
-           if (this.checked) {
-             $$('.view').addClass('theme-dark');
-           } else {
-             $$('.view').removeClass('theme-dark');
-           }
-         });*/
-		 
-	$$('.toolbar-bottom .tab-link').on('click', function () {
-	  
-			$$('.toolbar-bottom .tab-link').removeClass('tab-link-active');
-			$$(this).addClass('tab-link-active');
-	  
-	});
-	
-	
-
-	$$('.scaleffect').on('touchstart', function () {
-
-		$$(this).addClass('box-scale'); 
-	});
-
-	$$('.scaleffect').on('touchend', function () {
-
-		$$(this).removeClass('box-scale'); 
-	});
-
-	$$('.show-custom-tab').on('click', function () {
-		
-		var tabid = $$(this).attr('data-tab-id');
-		$$('.show-custom-tab').removeClass('active'); 
-		$$(this).addClass('active'); 
-		app.showTab(tabid);
-	});
-	
-	
-	$$('.walkthroughskip').on('click', function () {
-	  
-			var swiper = app.swiper.get('.swiper-container');
-			swiper.slideNext();
-	  
-	});
-	
-	
-
-	
-	
-	var menu = ['Health', 'Sports', 'Politics','World']
-	var mySwiper = new Swiper ('.swiper-timeline', {
-		autoplay: true,
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-			clickable: true,
-        renderBullet: function (index, className) {
-          return '<span class="' + className + '"> <span class="text-nv">' + (menu[index]) + '</span></span>';
-        },
-    },
-
-  })
-
-    $$('#bchips > div.chip').click(function(){
-        $$(this).toggleClass('current-click');
-     });
-	 
-
-
-
-  
-        $$('.reply-back-like ').click(function(){
-        $$(this).toggleClass('fill-heart');
-     });
- 
-  
-        $$('.reply-back-back ').click(function(){
-        $$(this).toggleClass('fill-relpy');
-     });
- 
-    $$('.tag-c ').click(function(){
-        $$(this).toggleClass('fill-relpy');
-     });
-	 
-	 
-	 
-	 	 
-	  $$('.tri').on('click', function (e) {
-
-			  $$('.w3mission').css('display', 'block');
-			  $$(".w3mission").focus(); 
-			   //$$('#w3mission').addClass('input-focused')
-		 });
-
-		/* Guide Window styling */
-
-		$$('.guidetab').on('click', function () {
-				$$(this).css('display','none');
-				$$('body').addClass('loaded');
-			
-		});
-
-		
-
-	 	/* Popup Gallery */
-
-		/*=== Default standalone ===*/
-		var myPhotoBrowserStandalone = app.photoBrowser.create({
-			photos : [
-				'img/nws-gallery1.jpg',
-				'img/nws-gallery2.jpg',
-				'img/nws-gallery3.jpg',
-				'img/nws-gallery4.jpg',
-				'img/slide2.jpg',
-				
-			]
-		});
-	
-		//Open photo browser on click
-		$$('.pb-standalone').on('click', function () {
-			var index = $$(this).data('id');
-			if(index == 0){myPhotoBrowserStandalone.open(); }
-			else{			myPhotoBrowserStandalone.open(index); }
-		});
-	 
-	 /*News Listing Pull to refresh */
-// Pull to refresh content
-var $ptrContent = $$('.ptr-content');
-// Add 'refresh' listener on it
-$ptrContent.on('ptr:refresh', function (e) {
-	
-  // Emulate 2s loading
-  setTimeout(function () {
-    var picURL = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-	 var picURL2 = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-    
-		var parentid = $$(".tab.tab-active").attr("id");
-
-		if(parentid == 'listview')
-		{
-		
-		var itemHTML = '<div class="wrap2"><div class="post-wraper flx-direction"><a href="/videodetail/" class="flx-anc "><div class="post-thumb video-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/2.jpg" alt=""><i class="f7-icons video-thumb-icon">play_fill</i></div><div class="post-text-outer"><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div><div class="post-wrap-border"></div><div class="post-wraper flx-direction"><a href="/postdetail/"><div class="post-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/3.jpg" alt=""></div><div class="post-text-outer"><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div><div class="post-wrap-border"></div></div>';
-		}
-		else
-		{
-		var itemHTML ='<div class="flex2"><div class="post-wraper flx-direction"><a href="/videodetail/"><div class="post-thumb video-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/2.jpg" alt=""><i class="f7-icons video-thumb-icon">play_fill</i></div><div class="post-text-outer"><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div><div class="post-wraper flx-direction"><a href="/postdetail/"><div class="post-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/3.jpg" alt=""></div><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text-outer"><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div></div>';
-		}
-
-    // Prepend new list element
-    $ptrContent.find('.tab.tab-active .margin0-top').prepend(itemHTML);
-    // When loading done, we need to reset it
-    //app.ptr.done(); // or e.detail();
-  }, 2000); 
-});		
-
-
-
-
-
-
-
-
-
-//channel data 
-
-$$('a.refreshautnw').on('click', function (e) {
-			//app.ptr.refresh(); 
-			
-			$$(this).html('<div class="preloader color-white"><span class="preloader-inner"><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span></span></div>');
-			
-			
-			  // Emulate 2s loading
-  setTimeout(function () {
-    var picURL = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-	 var picURL2 = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-    
-		var parentid = $$(".tab.tab-active").attr("id");
-if(parentid == 'listc')
-		{
-		
-		var itemHTML ='<div class="nw-row"> <div class="channel-row"> <div class="channel-thumb"> <span class="overly-channel"></span> <img class="lazy-fade-in img-responsive lazy-loaded" src="img/10.jpg" alt=""> </div><div class="channel-content"> <h4>CNN</h4> <p>Dally News Globally <span class="channel-co">23.7K Users</span></p></div><div class="Follow-button-wrpper"> <a href="#"><button class="follow-b scaleffect">Follow</button></a> </div></div><div class="channel-row"> <div class="channel-thumb"> <span class="overly-channel"></span> <img class="lazy-fade-in img-responsive lazy-loaded" src="img/7.jpg" alt=""> </div><div class="channel-content"> <h4>Discovery</h4> <p>Automobile News <span class="channel-co">32.2K Users</span></p></div><div class="Follow-button-wrpper"> <a href="#"><button class="follow-b scaleffect">Follow</button></a> </div></div></div>';
-		}
-		else
-		{
-		var itemHTML ='<div class="nw-row"> <div class="channel-row"> <div class="channel-thumb"> <span class="overly-channel"></span> <img class="lazy-fade-in img-responsive lazy-loaded" src="img/10.jpg" alt=""> </div><div class="channel-content"> <h4>CNN</h4> <p>Dally News Globally <span class="channel-co">23.7K Users</span></p></div><div class="Follow-button-wrpper"> <a href="#"><button class="follow-b scaleffect">Follow</button></a> </div></div><div class="channel-row"> <div class="channel-thumb"> <span class="overly-channel"></span> <img class="lazy-fade-in img-responsive lazy-loaded" src="img/7.jpg" alt=""> </div><div class="channel-content"> <h4>Discovery</h4> <p>Automobile News <span class="channel-co">32.2K Users</span></p></div><div class="Follow-button-wrpper"> <a href="#"><button class="follow-b scaleffect">Follow</button></a> </div></div></div>';
-		}
-
-    // Prepend new list element
-    $ptrContent.find('#listc').append(itemHTML);
-	$ptrContent.find('a.refreshautnw').html('See All');
-    // When loading done, we need to reset it
-   // app.ptr.done(); // or e.detail();
-	
-	/* $$('.follow-b').on('click',function(){
-        $$(this).toggleClass('follow-h');
-		            $$(this).text($$(this).text() == 'Followed' ? 'Follow' : 'Followed');
-			
-     }); */
-  }, 1000); 
-		 });
-
-//channel
-
-
-
-
-
-
-
-
-
-
-//author data 
-
-$$('a.refreshaut').on('click', function (e) {
-			//app.ptr.refresh(); 
-			
-			$$(this).html('<div class="preloader color-white"><span class="preloader-inner"><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span></span></div>');
-			
-			  // Emulate 2s loading
-  setTimeout(function () {
-    var picURL = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-	 var picURL2 = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-    
-		var parentid = $$(".tab.tab-active").attr("id");
-		if(parentid == 'listb')
-		{
-		
-		var itemHTML ='<div class="author-flx"><div class="channel-row author-bg"><div class="channel-thumb"><img class="lazy-fade-in img-responsive lazy-loaded author-img-radius" src="img/nws-gallery1.jpg" alt=""></div><div class="channel-content author-addtions"><h4>Author Name</h4><p>Company &amp; Post</p><div class="followed-by-wrap news-flx"><span class="follow-icon1 "><img class="lazy-fade-in img-responsive lazy-loaded author-img-radius" src="img/nws-gallery3.jpg"> </span><span class="follow-icon1 ua-img"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/author-img.png"> </span> <span class="follow-name">Followed 1231 </span></div></div><div class="Follow-button-wrpper follow-btn-width"><a href="#"><button class="follow-b scaleffect no-active-state">Follow</button></a></div></div><div class="channel-row author-bg"><div class="channel-thumb"><img class="lazy-fade-in img-responsive lazy-loaded author-img-radius" src="img/profile2.jpg" alt=""></div><div class="channel-content author-addtions"><h4>Author Name</h4><p>Company &amp; Post</p><div class="followed-by-wrap news-flx"><span class="follow-icon1 "><img class="lazy-fade-in img-responsive lazy-loaded" src="img/nws-gallery3.jpg"> </span><span class="follow-icon1 ua-img"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/author-img.png"> </span> <span class="follow-name">Followed 1231 </span></div></div><div class="Follow-button-wrpper follow-btn-width"><a href="#"><button class="follow-b scaleffect no-active-state">Follow</button></a></div></div></div>';
-		}
-		else
-		{
-		var itemHTML ='<div class="author-flx"><div class="channel-row author-bg"><div class="channel-thumb"><img class="lazy-fade-in img-responsive lazy-loaded author-img-radius" src="img/nws-gallery1.jpg" alt=""></div><div class="channel-content author-addtions"><h4>Author Name</h4><p>Company &amp; Post</p><div class="followed-by-wrap news-flx"><span class="follow-icon1 "><img class="lazy-fade-in img-responsive lazy-loaded author-img-radius" src="img/nws-gallery3.jpg"> </span><span class="follow-icon1 ua-img"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/author-img.png"> </span> <span class="follow-name">Followed 1231 </span></div></div><div class="Follow-button-wrpper follow-btn-width"><a href="#"><button class="follow-b scaleffect no-active-state">Follow</button></a></div></div><div class="channel-row author-bg"><div class="channel-thumb"><img class="lazy-fade-in img-responsive lazy-loaded author-img-radius" src="img/profile2.jpg" alt=""></div><div class="channel-content author-addtions"><h4>Author Name</h4><p>Company &amp; Post</p><div class="followed-by-wrap news-flx"><span class="follow-icon1 "><img class="lazy-fade-in img-responsive lazy-loaded" src="img/nws-gallery3.jpg"> </span><span class="follow-icon1 ua-img"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/author-img.png"> </span> <span class="follow-name">Followed 1231 </span></div></div><div class="Follow-button-wrpper follow-btn-width"><a href="#"><button class="follow-b scaleffect no-active-state">Follow</button></a></div></div></div>';
-		}
-
-    // Prepend new list element
-    $ptrContent.find('#listb').append(itemHTML);
-	$ptrContent.find('a.refreshaut').html('See All');
-    // When loading done, we need to reset it
-    //app.ptr.done(); // or e.detail();
-	
-	
-	/* $$('.follow-b').on('click',function(){
-        $$(this).toggleClass('follow-h');
-		            $$(this).text($$(this).text() == 'Followed' ? 'Follow' : 'Followed');
-					
-			
-					
-				
-		
-     });*/
-	
-	
-	
-	
-  }, 2000); 
-		 });
-
-//authordata
-
-
-
-
-//Contibutors
-
-$$('a.refreshautt').on('click', function (e) {
-			//app.ptr.refresh(); 
-			
-			$$(this).html('<div class="preloader color-white"><span class="preloader-inner"><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span></span></div>');
-			
-			  // Emulate 2s loading
-  setTimeout(function () {
-    var picURL = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-	 var picURL2 = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-    
-		var parentid = $$(".tab.tab-active").attr("id");
-		if(parentid == 'Contributors-block')
-		{
-		
-		var itemHTML =' <div class="follow-us-row"> <div class="News-story-info"> <div class="News-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/user-b.jpg"></div><div class="News-title"> <a href="/authoroot/"> <span class="News-head">Erin Green</span> <span class="News-date">Ireland</span><span class="seprator">|</span><span class="News-time">2.5k Followers</span> </a> </div></div><div class="follow-us-btn"><button class="follow-b scaleffect no-active-state">Follow</button></div></div><div class="post-wrap-border"></div><div class="follow-us-row"> <div class="News-story-info"> <div class="News-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/user-b.jpg"></div><div class="News-title"> <a href="/authoroot/"> <span class="News-head">Mathijn Agter</span> <span class="News-date">India</span><span class="seprator">|</span><span class="News-time">3k Followers</span> </a> </div></div><div class="follow-us-btn"><button class="follow-b scaleffect no-active-state">Follow</button></div></div><div class="post-wrap-border"></div>';
-		}
-		else
-		{
-		var itemHTML =' <div class="follow-us-row"> <div class="News-story-info"> <div class="News-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/user-b.jpg"></div><div class="News-title"> <a href="/authoroot/"> <span class="News-head">Erin Green</span> <span class="News-date">Ireland</span><span class="seprator">|</span><span class="News-time">2.5k Followers</span> </a> </div></div><div class="follow-us-btn"><button class="follow-b scaleffect no-active-state">Follow</button></div></div><div class="post-wrap-border"></div><div class="follow-us-row"> <div class="News-story-info"> <div class="News-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/user-b.jpg"></div><div class="News-title"> <a href="/authoroot/"> <span class="News-head">Mathijn Agter</span> <span class="News-date">India</span><span class="seprator">|</span><span class="News-time">3k Followers</span> </a> </div></div><div class="follow-us-btn"><button class="follow-b scaleffect no-active-state">Follow</button></div></div><div class="post-wrap-border"></div>';
-		}
-
-    // Prepend new list element
-    $ptrContent.find('#Contributors-block').append(itemHTML);
-	$ptrContent.find('a.refreshautt').html('See All');
-    // When loading done, we need to reset it
-    //app.ptr.done(); // or e.detail();
-	
-	
-	/* $$('.follow-b').on('click',function(){
-        $$(this).toggleClass('follow-h');
-		            $$(this).text($$(this).text() == 'Followed' ? 'Follow' : 'Followed');
-					
-			
-					
-				
-		
-     });*/
-	
-	
-	
-	
-  }, 2000); 
-		 });
-
-//Contibutors
-
-
-
-$$('a.refreshPage').on('click', function (e) {
-			//app.ptr.refresh(); 
-			
-			
-				$$(this).html('<div class="preloader color-white"><span class="preloader-inner"><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span><span class="preloader-inner-line"></span></span></div>');
-			
-			  // Emulate 2s loading
-  setTimeout(function () {
-    var picURL = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-	 var picURL2 = 'https://cdn.framework7.io/placeholder/abstract-88x88-' + (Math.floor(Math.random() * 10) + 1) + '.jpg';
-    
-		var parentid = $$(".tab.tab-active").attr("id");
-
-		if(parentid == 'listview')
-		{
-		
-		var itemHTML = '<div class="wrap2"><div class="post-wraper flx-direction"><a href="/videodetail/" class="flx-anc "><div class="post-thumb video-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/2.jpg" alt=""><i class="f7-icons video-thumb-icon">play_fill</i></div><div class="post-text-outer"><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div><div class="post-wrap-border"></div><div class="post-wraper flx-direction"><a href="/postdetail/"><div class="post-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/3.jpg" alt=""></div><div class="post-text-outer"><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div><div class="post-wrap-border"></div></div>';
-		}
-		else
-		{
-		var itemHTML ='<div class="flex2"><div class="post-wraper flx-direction"><a href="/videodetail/"><div class="post-thumb video-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/2.jpg" alt=""><i class="f7-icons video-thumb-icon">play_fill</i></div><div class="post-text-outer"><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div><div class="post-wraper flx-direction"><a href="/postdetail/"><div class="post-thumb"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/3.jpg" alt=""></div><div class="post-user-info"> <span class="author-profile"><img class="lazy-fade-in img-responsive lazy-loaded" src="img/profile2.jpg"></span><span class="author-name">Jennifer Reid <span class="post-time">1m ago</span></span></div><div class="post-text-outer"><div class="post-text"><p>24 Things to See and Do in Italy this Season.</p></div></div></a></div></div>';
-		}
-
-    // Prepend new list element
-    $ptrContent.find('.tab.tab-active .margin0-top').append(itemHTML);
-    // When loading done, we need to reset it
-    //app.ptr.done(); // or e.detail();
-	
-		$ptrContent.find('a.refreshPage').html('See All');
-  }, 2000); 
-		 });
-		
-
-   
-		
-
-});
-
-
-//list data
-
-
-/* This JS Code works when first load */
 var $$ = Dom7;
 
- $$('.toolbar.customtoolbar.toolbar-bottom ').addClass('toolbar-hidden');
+// App configuration
+var app = new Framework7({
+  root: '#app',
+  theme: 'ios',
+  tapHold: true,
+  view: {
+    stackPages: true
+  },
+  // Create routes for all pages
+  routes: [
+    {
+      path: '/',
+      url: 'index.html',
+    },
+    {
+      path: '/single/',
+      url: 'pages/single.html',
+    },
+    {
+      path: '/single-2/',
+      url: 'pages/single-2.html',
+    },
+    {
+      path: '/single-elements/',
+      url: 'pages/single-elements.html',
+    },
+    {
+      path: '/author/',
+      url: 'pages/author.html',
+    },
+    {
+      path: '/cards/',
+      url: 'pages/cards.html',
+    },
+    {
+      path: '/cards-author-comments/',
+      url: 'pages/cards-author-comments.html',
+    },
+    {
+      path: '/cards-category/',
+      url: 'pages/cards-category.html',
+    },
+    {
+      path: '/cards-chip/',
+      url: 'pages/cards-chip.html',
+    },
+    {
+      path: '/cards-footer/',
+      url: 'pages/cards-footer.html',
+    },
+    {
+      path: '/cards-medium/',
+      url: 'pages/cards-medium.html',
+    },
+    {
+      path: '/cards-columns/',
+      url: 'pages/cards-columns.html',
+    },
+    {
+      path: '/list-category/',
+      url: 'pages/list-category.html',
+    },
+    {
+      path: '/list-category-author/',
+      url: 'pages/list-category-author.html',
+    },
+    {
+      path: '/list-category-date/',
+      url: 'pages/list-category-date.html',
+    },
+    {
+      path: '/slider-1/',
+      url: 'pages/slider-1.html',
+    },
+    {
+      path: '/slider-2/',
+      url: 'pages/slider-2.html',
+    },
+    {
+      path: '/slider-3/',
+      url: 'pages/slider-3.html',
+    },
+    {
+      path: '/slider-4/',
+      url: 'pages/slider-4.html',
+    },
+    {
+      path: '/categories-cards/',
+      url: 'pages/categories-cards.html',
+    },
+    {
+      path: '/categories-columns/',
+      url: 'pages/categories-columns.html',
+    },
+    {
+      path: '/category/',
+      url: 'pages/category.html',
+    },
+    {
+      path: '/author-list/',
+      url: 'pages/author-list.html',
+    },
+    {
+      path: '/contact/',
+      url: 'pages/contact.html',
+    },
+    {
+      path: '/pull-to-refresh/',
+      url: 'pages/pull-to-refresh.html',
+    },
+    {
+      path: '/infinite-scroll/',
+      url: 'pages/infinite-scroll.html',
+    },
+    {
+      path: '/promo-banner/',
+      url: 'pages/promo-banner.html',
+    }
+  ]
+});
 
-		$$(document).on('change', 'input[name="color-radio"]', function(){ 
-                 if (this.checked) {
-             $$('.view').attr('class', 'view view-main view-init');
-           
-             if ($$('.toggle input')[0].checked) {
-				   $$('.view').addClass('theme-dark color-theme-' + $$(this).val()); 
-               //$$('.view').addClass('theme-dark');
-             }
-			 else
-			 {
-				  $$('.view').addClass('color-theme-' + $$(this).val()); 
-			 }
-			
-           }
-         });
-		
-		 $$(document).on('change', '.toggle input', function(){ 
-           if (this.checked) {
-             $$('.view').addClass('theme-dark');
-           } else {
-             $$('.view').removeClass('theme-dark');
-           }
-         });
-		 
-		 
-		 
-$$('.toolbar-bottom .tab-link').on('click', function (e) {
-		//e.preventDefault();
-			$$('.toolbar-bottom .tab-link').toggleClass('tab-link-active');
-			//$$(this).addClass('tab-link-active');
-		//return false;
-	});
 
-	$$('.scaleffect').on('touchstart', function () {
+// Create the tabs views
+var mainView = app.views.create('.view-main');
+var categoriesView = app.views.create('#view-categories');
+var discoverView = app.views.create('#view-discover');
+var searchView = app.views.create('#view-search');
+var pagesView = app.views.create('#view-pages');
 
-		$$(this).addClass('box-scale'); 
-	});
 
-	$$('.scaleffect').on('touchend', function () {
+// Function to scale cards when pushed
+function activeCardTouch() {
+  $$('.card').on('touchstart', function(e){
+    $$(this).addClass('card-scale');
+  });
+  $$('.card').on('touchend', function(e){
+    $$(this).removeClass('card-scale');
+  });
 
-		$$(this).removeClass('box-scale'); 
-	});
-	
-		var delay=1000;
-	setTimeout(function() {
-			$$('.Cpreloader').addClass('loadedComplete');
-			
-		}, delay);
-		
-	
-	$$(document).on('click', '.follow-b', function(){ 
+  $$('.card').on('mousedown', function(){
+    $$(this).addClass('card-scale');
+  });
+  $$('.card').on('mouseup', function(){
+    $$(this).removeClass('card-scale');
+  });
 
-        $$(this).toggleClass('follow-h');
-		            $$(this).text($$(this).text() == 'Followed' ? 'Follow' : 'Followed');
-			
-     });
+  $$('.swiper-slide a').on('click', function(e){
+    app.views.current.router.navigate($$(this).attr('data-href'));
+  });
+}
 
-	  $$(document).on('click', '.followe-now', function(){ 
-        $$(this).toggleClass('followdd');
-		            $$(this).text($$(this).text() == 'Followed' ? 'Follow' : 'Followed');
-						
-		
-     });
+// Load the fonction on app init
+activeCardTouch();
 
-		 	
-		
-		
-/*   $$('.button').click(function () {
-                $$('#w3mission').css('display', 'block');
-            }); */
+// Load the function on new elements when a page is opened
+app.on('pageInit', function(page) {
+  activeCardTouch();
+});
+
+
+// Create searchbar
+var searchbar = app.searchbar.create({
+  el: '.searchbar',
+  searchContainer: '.list',
+  searchIn: '.item-title',
+  customSearch: true,
+  on: {
+    search(sb, query) {
+      if(query == ''){
+        $$('.search-results').hide();
+      }
+      else{
+        $$('.search-preloader').show();
+        // Emulate 0.5s loading for the demo
+        // You can do an Ajax request here
+        setTimeout(function () {
+          $$('.search-preloader').hide();
+          $$('.search-results').show();
+        }, 500);
+      }
+    },
+    clear(sb, previousQuery) {
+      $$('.search-results').hide();
+    },
+    disable(sb) {
+      $$('.search-results').hide();
+    }
+  }
+});
+
+// Automatically fill in the search field when you click on a suggestion
+$$('.page-search .popular-tags li').on('click', function(e){
+  searchbar.search($$(this).find('span').text());
+})
+$$('.page-search .trending-search ul li').on('click', function(e){
+  searchbar.search($$(this).find('.item-title a').text());
+})
+
+
+
+// Common options to all sliders
+var swiperOptions = {
+  spaceBetween: 10,
+  touchMoveStopPropagation: false,
+  on: {
+    touchStart: function(e){
+      $$(e.target.closest('.card')).addClass('card-scale');
+    },
+    touchEnd: function(e){
+      $$(e.target.closest('.card')).removeClass('card-scale');
+    }
+  }
+};
+
+
+// Create the Discover tab sliders
+var discoverSwiper = new Swiper ('#discover-swiper', Object.assign({}, swiperOptions, {width: 320}));
+var discoverSwiper2 = new Swiper ('#discover-swiper2', Object.assign({}, swiperOptions, {width: 260}));
+var discoverSwiper3 = new Swiper ('#discover-swiper3', Object.assign({}, swiperOptions, {width: 360}));
+
+
+// Create the Related Posts slider on Single pages
+$$(document).on('page:init', '.page[data-name="single"]', function (e) {
+  var rpSwiper = new Swiper (e.detail.$el.find('.single-swiper'), Object.assign({}, swiperOptions, {width: 280}));
+});
+
+
+// Pull to refresh on Today tab
+$$('.ptr-content').on('ptr:refresh', function (e) {
+  // Emulate 1s loading
+  // You can do an Ajax request here to retrieve your posts from a database
+  setTimeout(function () {
+    var html =
+    '<div class="title-container">'+
+      '<span class="title-date">Tuesday 19 March</span>'+
+      '<h1>Just Now</h1>'+
+    '</div>'+
+    '<a href="/single/">'+
+      '<div class="card">'+
+        '<img class="card-image" src="img/thumb-14.jpg" alt="">'+
+        '<div class="card-infos">'+
+          '<h2 class="card-title">How to Get Your First Tattoo Right</h2>'+
+          '<div class="card-bottom">'+
+            '<div class="card-author">'+
+              '<img class="card-author-image" src="img/authors/author-1.jpg" alt="">'+
+              '<div>Camille Aline</div>'+
+            '</div>'+
+            '<div class="card-comments"><i class="f7-icons">chat_bubble_fill</i></i>3</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+    '</a>';
+
+    // Prepend new list element
+    $$('.ptr-content').find('#today-content').prepend(html);
+    // Active cards animation to the new elements
+    activeCardTouch();
+    // When loading done, we reset it
+    app.ptr.done();
+  }, 1000);
+});
+
+
+// Infinite scroll on Today tab
+var allowInfinite = true;
+
+$$('.infinite-scroll-content').on('infinite', function () {
+  // Exit, if loading in progress
+  if (!allowInfinite) return;
+  allowInfinite = false;
+
+  // Emulate 1s loading
+  // (You can do an Ajax request here to retrieve your next posts)
+  setTimeout(function () {
+    allowInfinite = true;
+
+    // Generate new items HTML for the demo
+    var html =
+    '<li>'+
+      '<a href="/single/">'+
+        '<div class="item-content">'+
+          '<div class="item-media"><img src="img/thumb-15.jpg" width="44"/></div>'+
+          '<div class="item-inner">'+
+            '<div class="item-subtitle">Fashion</div>'+
+            '<div class="item-title">Archery at the 2024 Olympic Games</div>'+
+            '<div class="item-subtitle bottom-subtitle"><img src="img/authors/author-3.jpg">Jess Roxana</div>'+
+          '</div>'+
+        '</div>'+
+      '</a>'+
+    '</li>'+
+    '<li>'+
+      '<a href="/single/">'+
+        '<div class="item-content">'+
+          '<div class="item-media"><img src="img/thumb-16.jpg" width="44"/></div>'+
+          '<div class="item-inner">'+
+            '<div class="item-subtitle">Fashion</div>'+
+            '<div class="item-title">Most Beautiful Beach of the Costa Brava</div>'+
+            '<div class="item-subtitle bottom-subtitle"><img src="img/authors/author-2.jpg">Zorka Ivka</div>'+
+          '</div>'+
+        '</div>'+
+      '</a>'+
+    '</li>';
+
+    // Append new items
+    $$('#infinite-content').append(html);
+
+    // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+    app.infiniteScroll.destroy('.infinite-scroll-content');
+
+    // Remove preloader
+    $$('.infinite-scroll-preloader').remove();
+  }, 1000);
+});
+
+
+/*********************************************
+All the code below is for the Pages tab.
+You can remove elements that you do not need.
+*********************************************/
+
+
+// Create the Pages tab sliders
+$$(document).on('page:init', '.page[data-name="slider-1"]', function (e) {
+  var pagesSwiper = new Swiper ('#pages-swiper', Object.assign({}, swiperOptions, {width: 320}));
+})
+$$(document).on('page:init', '.page[data-name="slider-2"]', function (e) {
+  var pagesSwiper2 = new Swiper ('#pages-swiper2', Object.assign({}, swiperOptions, {width: 260}));
+})
+$$(document).on('page:init', '.page[data-name="slider-3"]', function (e) {
+  var pagesSwiper3 = new Swiper ('#pages-swiper3', Object.assign({}, swiperOptions, {width: 360}));
+})
+$$(document).on('page:init', '.page[data-name="slider-4"]', function (e) {
+  var pagesSwiper4 = new Swiper ('#pages-swiper4', Object.assign({}, swiperOptions, {width: 280}));
+})
+
+
+// Pull to Refresh on Pages tab
+$$(document).on('page:init', '.page[data-name="pull-to-refresh"]', function (e) {
+  $$('#pages-ptr').on('ptr:refresh', function (e) {
+    // Emulate 1s loading
+    // You can do an Ajax request here to retrieve your posts from a database
+    setTimeout(function () {
+      var html =
+      '<li>'+
+        '<a href="/single/">'+
+          '<div class="item-content">'+
+            '<div class="item-media"><img src="img/thumb-25.jpg" width="44"/></div>'+
+            '<div class="item-inner">'+
+              '<div class="item-subtitle">Fashion</div>'+
+              '<div class="item-title">The Best Diet for a Flatter Belly</div>'+
+              '<div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i>2 hours ago</div>'+
+            '</div>'+
+          '</div>'+
+        '</a>'+
+      '</li>';
+
+      // Prepend new list element
+      $$('#pages-ptr').find('#pages-ptr-list').prepend(html);
+      // When loading done, we reset it
+      app.ptr.done($$('#pages-ptr'));
+    }, 1000);
+  });
+});
+
+
+// Infinite Scroll on Pages tab
+$$(document).on('page:init', '.page[data-name="infinite-scroll"]', function (e) {
+  var allowInfinite = true;
+  $$('#pages-infinite-scroll').on('infinite', function () {
+    // Exit, if loading in progress
+    if (!allowInfinite) return;
+    allowInfinite = false;
+
+    // Emulate 1s loading
+    // (You can do an Ajax request here to retrieve your next posts)
+    setTimeout(function () {
+      allowInfinite = true;
+
+      // Generate new items HTML for the demo
+      var html =
+      '<li>'+
+        '<a href="/single/">'+
+          '<div class="item-content">'+
+            '<div class="item-media"><img src="img/thumb-26.jpg" width="44"/></div>'+
+            '<div class="item-inner">'+
+              '<div class="item-subtitle">Fashion</div>'+
+              '<div class="item-title">The Best Diet for a Flatter Belly</div>'+
+              '<div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>2 hours ago</div>'+
+            '</div>'+
+          '</div>'+
+        '</a>'+
+      '</li>';
+
+      // Append new items
+      $$('#pages-infinite-scroll-list').append(html);
+
+      // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+      app.infiniteScroll.destroy('#pages-infinite-scroll');
+
+      // Remove preloader
+      $$('#pages-infinite-scroll .infinite-scroll-preloader').remove();
+    }, 800);
+  });
+});
+
+
+// Share Dialog feature
+var shareActions = app.actions.create({
+  buttons: [
+    [
+      {
+        text: 'Share this on:',
+        label: true
+      },
+      {
+        text: 'Facebook',
+        bold: true,
+        onClick: function () {
+         window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A//themeforest.net', '_blank');
+       }
+      },
+      {
+        text: 'Twitter',
+        bold: true,
+        onClick: function () {
+         window.open('http://twitter.com/share?text=Welcome%20To%20Yui&url=http://themeforest.net&hashtags=template,mobile', '_blank');
+       }
+      },
+      {
+        text: 'Mail',
+        bold: true,
+        onClick: function () {
+         window.open('mailto:someone@example.com?Subject=Hello', '_blank');
+       }
+      }
+    ],
+    [
+      {
+        text: 'Cancel',
+        color: 'red'
+      }
+    ]
+  ]
+});
+
+// Attach the Share Dialog event to all elements that have the share-actions class
+$$('.share-actions').on('click', function () {
+  shareActions.open();
+});
+
+
+// Notification feature / Create the notification
+var myNotification = app.notification.create({
+  icon: '<i class="f7-icons">bell_fill</i>',
+  title: 'Yui Template',
+  subtitle: 'This is a mobile notification',
+  text: 'Click (x) button to close me',
+  closeButton: true,
+});
+
+// Attach the notification event to all elements that have the open-notification class
+$$('.open-notification').on('click', function () {
+  myNotification.open();
+});
+
+
+// Toggle Dark Theme for the demo
+var toggleTheme = app.toggle.get('.toggle-theme');
+
+toggleTheme.on('change', function(){
+  $$('body').toggleClass('theme-dark');
+});
+
+// Change Color Theme for the demo
+var currentTheme = 'color-theme-pink';
+
+$$('[name="radio-color-theme"]').on('change', function(e){
+  var selectedTheme = $$('[name="radio-color-theme"]:checked').attr('id');
+  $$('body').toggleClass(currentTheme + ' ' + selectedTheme);
+  currentTheme = selectedTheme;
+});
