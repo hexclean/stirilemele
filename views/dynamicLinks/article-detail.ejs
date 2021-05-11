@@ -2,16 +2,17 @@
 <body class="color-theme-pink">
   <div class="page single single-1 no-navbar" data-name="single">
     <div class="page-content">
-      <img class="cover-image" src="/img/dog.jpg" alt="" />
+      <img class="cover-image" src=" <%= article.imageUrl %>" alt="" />
       <div class="block article">
         <div class="post-infos">
-          <div class="post-category">Fashion</div>
+          <div class="post-category"><%= categoryName %></div>
           <div class="post-date">2 hours ago</div>
         </div>
         <h1>
           <%= article.title %>
         </h1>
       </div>
+
       <div class="block">
         <div class="title-medium-container">
           <h2>Share This Post</h2>

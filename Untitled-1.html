@@ -1,7 +1,7 @@
 <%- include('../includes/head.ejs') %>
 <body class="color-theme-pink">
 
-  <div id="view-categories" class="view tab view-main">
+  <div id="view-search" class="view tab">
     <div class="page author" data-name="author">
         <div class="page-content" style="padding-top: 2px !important;">
           
@@ -18,7 +18,7 @@
                 <% for (let i=0; i < articles.length; i++ ) { %>
                  
               <li>
-                <a href="/stiri/<%= articles[i].Source.seoUrl%>/<%= articles[i].Category.seoUrl %>/<%= articles[i].seoUrl %>">
+                <a href="/<%= articles[i].Source.name%>/<%= articles[i].Category.CategoryTranslations[0].name %>/<%= articles[i].title %>">
                   <div class="item-content">
                     <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
                     <div class="item-inner">
@@ -40,3 +40,4 @@
 
  
   <%- include('../includes/end.ejs') %>
+</body>

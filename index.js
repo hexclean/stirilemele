@@ -58,18 +58,6 @@ app.use((req, res, next) => {
     })
     .catch((err) => console.log(err));
 });
-// app.use((req, res, next) => {
-//   let languageCode;
-
-//   if (req.cookies.language == "ro") {
-//     languageCode = 1;
-//   } else if (req.cookies.language == "hu") {
-//     languageCode = 2;
-//   } else {
-//     languageCode = 3;
-//   }
-
-// });
 
 sessionStore.sync();
 
@@ -101,8 +89,9 @@ const fileFilter = (req, file, cb) => {
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-const adminRoutes = require("./admin/routes/admin");
+const stiriRoutes = require("./admin/routes/stiri");
 const cronjobRoutes = require("./scraping/routes/cronjob");
+const profileRoutes = require("./admin/routes/profile");
 // const indexRoutes = require(".");
 // const authRoutes = require("./admin/routes/auth");
 // const superRoutes = require("./admin/routes/super-admin");
@@ -127,8 +116,9 @@ app.use(
 
 // Define Routes
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/", adminRoutes);
+app.use("/stiri", stiriRoutes);
 app.use("/cronjob", cronjobRoutes);
+app.use("/profile", profileRoutes);
 // app.use("/super-admin", superRoutes);
 // app.use(indexRoutes);
 // app.use(authRoutes);

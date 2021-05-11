@@ -42,6 +42,7 @@ exports.getChannelNewsByCategory = async (req, res, next) => {
     where: { seoUrl: categoryName },
   });
   categoryId = category.id;
+
   const categories = await Articles.findAll({
     include: [
       {
@@ -78,7 +79,7 @@ exports.getArticleDetail = async (req, res, next) => {
   let categoryId;
   let channelId;
 
-  const channel = await Source.findOne({ where: { name: channelName } });
+  const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const category = await Category.findOne({
     inlcude: [
@@ -91,7 +92,7 @@ exports.getArticleDetail = async (req, res, next) => {
   categoryId = category.id;
 
   const article = await Articles.findOne({
-    where: { title: articleTitle },
+    where: { seoUrl: articleTitle },
     include: [
       {
         model: Source,
@@ -103,18 +104,11 @@ exports.getArticleDetail = async (req, res, next) => {
       },
     ],
   });
-
-  //   //   categoryName = categories.id;
-  //   for (let i = 0; i < categories.length; i++) {
-  //     for (let j = 0; j < categories[i].Articles.length; j++) {
-  //       console.log(categories[i].Articles[j].title);
-  //     }
-  //   }
-  console.log(article);
   res.render("dynamicLinks/article-detail", {
     path: "/login",
     pageTitle: "Login",
     article: article,
+    categoryName: article.Category.CategoryTranslations[0].name,
     // articles: categories,
     // channelName: channelName,
     // categoryName: categoryName,

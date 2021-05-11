@@ -1,27 +1,10 @@
 const express = require("express");
-const homeController = require("../controllers/home");
-const authController = require("../controllers/auth");
-const articleController = require("../controllers/ArticleDetail");
-const commentController = require("../controllers/comment");
-const categoryController = require("../controllers/category");
-const stepsController = require("../controllers/steps");
-const isAuth = require("../../middleware/is-auth");
+const profileController = require("../controllers/profile");
 const router = express.Router();
-const sourceController = require("../controllers/source");
-// Dinamikus link mappa //
-const dynamicLinkController = require("../controllers/dynamicLinks/dynamicLinks");
-// Dinamikus linkek
-router.get("/:channelName", dynamicLinkController.getChannelDetail);
-// Hírportál hírei kategória szerint
-router.get(
-  "/:channelName/:categoryName",
-  dynamicLinkController.getChannelNewsByCategory
-);
 
-router.get(
-  "/:channelName/:categoryName/:articleTitle",
-  dynamicLinkController.getArticleDetail
-);
+// Profil betöltése
+router.get("/", profileController.getProfile);
+router.get("/send-email-all-day", profileController.getSendEmailEndOfTheDay);
 
 // Kategória oldal
 // router.get("/stiri/categorii", categoryController.getAllCategoryScreen);
@@ -56,7 +39,7 @@ router.get(
 // );
 
 // LISTS
-router.get("/", homeController.getHome);
+
 // router.get("/test", homeController.getTest);
 // router.get("/signup", authController.getSignup);
 // router.post("/signup", authController.postSignup);
