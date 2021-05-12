@@ -4,6 +4,7 @@ const UserInterestedCategories = require("../../models/UserInterestedCategories"
 const SourceCategories = require("../../models/SourceCategories");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const Articles = require("../../models/Article");
+const UserInterestedSources = require("../../models/UserInterestedSources");
 
 exports.getProfile = async (req, res, next) => {
   res.render("profile/index", {
@@ -34,7 +35,9 @@ exports.getChannelEditing = async (req, res, next) => {
   const categories = await Category.findAll({
     include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
   });
-
+  const activeSwitch = await UserInterestedSources.findAll({
+    where: { userId: req.user.id },
+  });
   const channels = await Source.findAll();
 
   res.render("profile/channel-edit", {
@@ -42,5 +45,6 @@ exports.getChannelEditing = async (req, res, next) => {
     pageTitle: "Login",
     categories: categories,
     channels: channels,
+    activeSwitch: activeSwitch,
   });
 };

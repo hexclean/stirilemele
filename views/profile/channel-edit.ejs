@@ -28,7 +28,7 @@
           $(document).ready(function () {
             $(".statusChannel-checkbox").click(function () {
               console.log("dasd");
-              var extraId = $(this).attr("data-boxId");
+              var extraId = $(this).attr("data-channelId");
               if ($(this).is(":checked")) {
                 $(".statusChannel-" + extraId).val("on");
               } else {
@@ -37,6 +37,19 @@
             });
           });
         </script>
+        <% for (let i = 0; i < activeSwitch.length; i++) { %> <% if
+        (activeSwitch[i].active == 1) { %>
+        <script>
+          $(document).ready(function () {
+            var activeCheckbox = "<%= activeSwitch[i].sourceId %>";
+            $(".statusChannel-checkbox-" + activeCheckbox).prop(
+              "checked",
+              true
+            );
+            $(".statusChannel-" + activeCheckbox).val("on");
+          });
+        </script>
+        <% } %> <% } %>
         <div class="block article" style="padding: 0px 20px 0 20px;">
           <div class="list pages-list">
             <% for (let i=0; i < channels.length; i++ ) { %>
@@ -58,7 +71,7 @@
                   name="statusChannel[<%= channels[i].id %>]"
                 />
                 <input
-                  data-boxId="<%= channels[i].id %>"
+                  data-channelId="<%= channels[i].id %>"
                   type="checkbox"
                   class="custom-control-input statusChannel-checkbox statusChannel-checkbox-<%= channels[i].id %>"
                   type="checkbox"
