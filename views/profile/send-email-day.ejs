@@ -1,0 +1,172 @@
+<%- include('../includes/head.ejs') %>
+
+<body class="color-theme-pink framework7-root">
+  <div class="page">
+    <%- include('../includes/logo.ejs') %>
+
+    <div style="padding-top: 0px !important;" class="page-content">
+      <div class="block">
+        <h2>Hírcsatornák beállítása</h2>
+        <p>
+          Jelöld be azokat a hírcsatornákat, amelyekről értesülni szeretnél.
+        </p>
+      </div>
+
+      <form
+        name="myForm"
+        class="ms-content-wrapper"
+        action="/action/send-email-days"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="card-footer">
+          <button type="submit" class="btn btn-secondary">
+            Mentés
+          </button>
+        </div>
+        <script>
+          $(document).ready(function () {
+            $(".statusChannel-checkbox").click(function () {
+              console.log("dasd");
+              var extraId = $(this).attr("data-channelId");
+              if ($(this).is(":checked")) {
+                $(".statusChannel-" + extraId).val("on");
+              } else {
+                $(".statusChannel-" + extraId).val("off");
+              }
+            });
+          });
+        </script>
+        <script>
+          $(document).ready(function () {
+            $(".statusCategory-checkbox").click(function () {
+              var extraId = $(this).attr("data-categoryId");
+              if ($(this).is(":checked")) {
+                $(".statusCategory-" + extraId).val("on");
+              } else {
+                $(".statusCategory-" + extraId).val("off");
+              }
+            });
+          });
+        </script>
+        <% for (let i = 0; i < activeSwitchCategory.length; i++) { %> <% if
+        (activeSwitchCategory[i].active == 1) { %>
+        <script>
+          $(document).ready(function () {
+            var activeCheckbox = "<%= activeSwitchCategory[i].categoryId %>";
+            $(".statusCategory-checkbox-" + activeCheckbox).prop(
+              "checked",
+              true
+            );
+            $(".statusCategory-" + activeCheckbox).val("on");
+          });
+        </script>
+        <% } %> <% } %> <% for (let i = 0; i < activeSwitchSource.length; i++) {
+        %> <% if (activeSwitchSource[i].active == 1) { %>
+        <script>
+          $(document).ready(function () {
+            var activeCheckbox = "<%= activeSwitchSource[i].sourceId %>";
+            $(".statusChannel-checkbox-" + activeCheckbox).prop(
+              "checked",
+              true
+            );
+            $(".statusChannel-" + activeCheckbox).val("on");
+          });
+        </script>
+        <% } %> <% } %>
+
+        <div class="block article" style="padding: 0px 20px 0 20px;">
+          <div class="list pages-list">
+            <% for (let i=0; i < channels.length; i++ ) { %>
+            <div class="item-inner" style="padding-top: 0px !important;">
+              <div style="margin-top: 20px !important;" class="item-title">
+                <b><%= channels[i].name %></b>
+              </div>
+              <input
+                type="hidden"
+                value="<%= channels[i].id %>"
+                name="channelId"
+              />
+
+              <label class="toggle toggle-init color-green toggle-theme">
+                <input
+                  type="hidden"
+                  value="off"
+                  class="statusChannel-<%= channels[i].id %> status-hidden-box"
+                  name="statusChannel[<%= channels[i].id %>]"
+                />
+                <input
+                  data-channelId="<%= channels[i].id %>"
+                  type="checkbox"
+                  class="custom-control-input statusChannel-checkbox statusChannel-checkbox-<%= channels[i].id %>"
+                  type="checkbox"
+                />
+                <span class="toggle-icon"></span>
+              </label>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <h2>das</h2>
+        <div class="block article" style="padding: 0px 20px 0 20px;">
+          <div class="list pages-list">
+            <% for (let i=0; i < categories.length; i++ ) { %>
+            <div class="item-inner" style="padding-top: 0px !important;">
+              <div style="margin-top: 20px !important;" class="item-title">
+                <b><%= categories[i].CategoryTranslations[0].name %></b>
+              </div>
+              <input
+                type="hidden"
+                value="<%= categories[i].id %>"
+                name="categoryId"
+              />
+
+              <label class="toggle toggle-init color-green toggle-theme">
+                <input
+                  type="hidden"
+                  value="off"
+                  class="statusCategory-<%= categories[i].id %> status-hidden-box"
+                  name="statusCategory[<%= categories[i].id %>]"
+                />
+                <input
+                  data-categoryId="<%= categories[i].id %>"
+                  type="checkbox"
+                  class="custom-control-input statusCategory-checkbox statusCategory-checkbox-<%= categories[i].id %>"
+                  type="checkbox"
+                />
+                <span class="toggle-icon"></span>
+              </label>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom">
+      <div class="toolbar-inner">
+        <a href="#view-today" class="tab-link">
+          <i class="f7-icons">today</i>
+          <span class="tabbar-label">Főoldal</span>
+        </a>
+        <a href="#view-categories" class="tab-link">
+          <i class="f7-icons">square_grid_2x2_fill</i>
+          <span class="tabbar-label">Kategóriák</span>
+        </a>
+        <a href="#view-discover" class="tab-link">
+          <i class="f7-icons">star_fill</i>
+          <span class="tabbar-label">Discover</span>
+        </a>
+        <a href="/profile" class="tab-link tab-link-active">
+          <i class="f7-icons">search</i>
+          <span class="tabbar-label">Beállítások</span>
+        </a>
+        <a href="#view-pages" class="tab-link">
+          <i class="f7-icons">square_stack_fill</i>
+          <span class="tabbar-label">Beállítások</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('../includes/end.ejs') %>

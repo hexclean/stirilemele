@@ -8,5 +8,6 @@ const router = express.Router();
 router.post("/send-comment", actionController.postAddComment);
 router.post("/edit-channels", actionController.postEditChannels);
 router.post("/edit-categories", actionController.postEditCategory);
+router.post("/send-email-days", actionController.postSendEmailDay);
 
 module.exports = router;

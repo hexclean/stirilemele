@@ -10,8 +10,38 @@ const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleAction = require("../../models/ArticleAction");
 const ArticleComment = require("../../models/ArticleComment");
 const SourceCategories = require("../../models/SourceCategories");
+const SendEmailCategory = require("../../models/SendEmailCategory");
+const SendEmailSource = require("../../models/SendEmailSource");
 
 function users() {
+  SendEmailSource.belongsTo(Users, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "userId",
+  });
+  Users.hasMany(SendEmailSource, { foreignKey: "userId" });
+  //
+  SendEmailCategory.belongsTo(Users, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "userId",
+  });
+  Users.hasMany(SendEmailCategory, { foreignKey: "userId" });
+  //
+  SendEmailCategory.belongsTo(Category, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "categoryId",
+  });
+  Category.hasMany(SendEmailCategory, { foreignKey: "categoryId" });
+  //
+  SendEmailSource.belongsTo(Source, {
+    constrains: true,
+    onDelete: "CASCADE",
+    foreignKey: "sourceId",
+  });
+  Source.hasMany(SendEmailSource, { foreignKey: "sourceId" });
+  //
   SourceCategories.belongsTo(Category, {
     constrains: true,
     onDelete: "CASCADE",
