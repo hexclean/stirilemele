@@ -2,6 +2,7 @@ const Article = require("../../models/Article");
 const Source = require("../../models/Source");
 const ArticleViewed = require("../../models/ArticleViewed");
 const UserInterestedSources = require("../../models/UserInterestedSources");
+const UserInterestedCategories = require("../../models/UserInterestedCategories");
 const ArticleComment = require("../../models/ArticleComment");
 
 exports.postAddComment = async (req, res, next) => {
@@ -49,11 +50,12 @@ exports.postEditChannels = async (req, res, next) => {
 };
 
 exports.postEditCategory = async (req, res, next) => {
+  console.log(req.body);
   const filteredCategory = req.body.statusCategory.filter(Boolean);
   let channelId = req.body.categoryId;
   try {
     for (let i = 0; i < filteredCategory.length; i++) {
-      await UserInterestedSources.update(
+      await UserInterestedCategories.update(
         {
           active: filteredCategory[i] == "on" ? 1 : 0,
           userId: req.user.id,

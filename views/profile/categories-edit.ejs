@@ -15,7 +15,7 @@
       <form
         name="myForm"
         class="ms-content-wrapper"
-        action="/action/edit-channels"
+        action="/action/edit-categories"
         method="POST"
         enctype="multipart/form-data"
       >
@@ -41,7 +41,7 @@
             <% for (let i=0; i < categories.length; i++ ) { %>
             <div class="item-inner" style="padding-top: 0px !important;">
               <div style="margin-top: 20px !important;" class="item-title">
-                <b><%= categories[i].name %></b>
+                <b><%= categories[i].CategoryTranslations[0].name %></b>
               </div>
               <input
                 type="hidden"

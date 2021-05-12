@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post("/send-comment", actionController.postAddComment);
 router.post("/edit-channels", actionController.postEditChannels);
+router.post("/edit-categories", actionController.postEditCategory);
 
 module.exports = router;
