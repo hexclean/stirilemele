@@ -17,63 +17,79 @@ const ArticleComment = require("../../models/ArticleComment");
 exports.getHome = async (req, res, next) => {
   let logged = 0;
   let categories = [];
-  // let articles = [];
+  let articles = [];
   let interestedCategoryId = [];
-  // if (req.user != undefined) {
-  //   logged = 1;
-  //   categories = await UserInterestedCategories.findAll({
-  //     where: { userId: req.user.id },
-  //     include: [
-  //       {
-  //         model: Category,
-  //         include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-  //       },
-  //     ],
-  //   });
-
-  //   articles = await UserInterestedSources.findAll({
-  //     where: {
-  //       userId: req.user.id,
-  //     },
-  //     include: [
-  //       {
-  //         model: Source,
-  //         include: [
-  //           {
-  //             model: Articles,
-  //             include: [{ model: ArticleAction }],
-  //             where: {
-  //               categoryId: {
-  //                 [Op.in]: interestedCategoryId,
-  //               },
-  //             },
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   });
-  // } else {
-  logged = 0;
-  categories = await Category.findAll({
-    where: { secondary: 1 },
-    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-  });
-  const articles = await Articles.findAll({
-    include: [
-      {
-        model: Source,
-      },
-      { model: Category },
-    ],
-  });
-  console.log(articles);
-  res.render("home/index", {
-    path: "/login",
-    pageTitle: "Login",
-    articles: articles,
-    categories: categories,
-    logged: logged,
-  });
+  try {
+    if (req.user != undefined) {
+      logged = 1;
+      categories = await UserInterestedCategories.findAll({
+        where: { userId: req.user.id, active: 1 },
+        include: [
+          {
+            model: Category,
+            include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+          },
+        ],
+      });
+      for (let i = 0; i < categories.length; i++) {
+        interestedCategoryId.push(categories[i].categoryId);
+      }
+      // console.log(interestedCategoryId);
+      articles = await UserInterestedSources.findAll({
+        where: {
+          userId: req.user.id,
+        },
+        include: [
+          {
+            model: Source,
+            include: [
+              {
+                model: Articles,
+                where: {
+                  categoryId: {
+                    [Op.in]: interestedCategoryId,
+                  },
+                },
+              },
+            ],
+          },
+        ],
+      });
+      for (let i = 0; i < articles.length; i++) {
+        // if (articles[i].Source.length) {
+        //   console.log(articles[i].Source.Article);
+        // }
+        if (articles[i].Source !== null) {
+          console.log(articles[i].Source);
+          // for (let j = 0; j < articles[i].Source.length; j++) {
+        }
+      }
+    } else {
+      logged = 0;
+      categories = await Category.findAll({
+        where: { secondary: 1 },
+        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+      });
+      articles = await Articles.findAll({
+        order: [["createdAt", "ASC"]],
+        include: [
+          {
+            model: Source,
+          },
+          { model: Category },
+        ],
+      });
+    }
+    res.render("home/index", {
+      path: "/login",
+      pageTitle: "Login",
+      articles: articles,
+      categories: categories,
+      logged: logged,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.getTest = async (req, res, next) => {

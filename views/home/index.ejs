@@ -24,13 +24,7 @@
           <div class="searchbar-hide-on-search">
             <h2>Popular Categories</h2>
             <ul class="popular-tags">
-              <% for (let i=0; i < categories.length; i++ ) { %>
-              <li>
-                <a href="/stiri/<%= categories[i].seoUrl %>" class="link"
-                  ><span><%=categories[i].CategoryTranslations[0].name %></span><i class="f7-icons">chevron_right</i></a
-                >
-              </li>
-              <% } %>
+            
              
             </ul>
             <h2>Legfrisebb cikkek</h2>
@@ -41,23 +35,38 @@
         <div class="page-content">
           <div class="block">
             <ul class="list media-list post-list">
-              
-              <% for (let i=0; i < articles.length; i++ ) { %>
-               
-              <li>
-                <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].seoUrl %>/<%= articles[i].title %>"><img src="">
-                  <div class="item-content">
-                    <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
-                    <div class="item-inner">
-                      <div class="item-subtitle"><%= articles[i].Source.name %></div>
-                      <div class="item-title"><%= articles[i].title %></div>
-                      <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
+              <% if(logged == 1){ %>
+                <% for (let i=0; i < articles.length; i++ ) { %> 
+                <li>
+                  <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].seoUrl %>/<%= articles[i].title %>"><img src="">
+                    <div class="item-content">
+                      <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
+                      <div class="item-inner">
+                        <div class="item-subtitle"><%= articles[i].Source.name %></div>
+                        <div class="item-title"><%= articles[i].title %></div>
+                        <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </li>
-             
-              <% } %>
+                  </a>
+                </li>
+                <% } %>
+              <% } else{ %>  
+                <% for (let i=0; i < articles.length; i++ ) { %> 
+                  <li>
+                    <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].seoUrl %>/<%= articles[i].title %>"><img src="">
+                      <div class="item-content">
+                        <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
+                        <div class="item-inner">
+                          <div class="item-subtitle"><%= articles[i].Source.name %></div>
+                          <div class="item-title"><%= articles[i].title %></div>
+                          <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <% } %>
+             <% } %>
+              
             
             </ul>
           </div>

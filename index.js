@@ -94,7 +94,7 @@ const cronjobRoutes = require("./scraping/routes/cronjob");
 const profileRoutes = require("./admin/routes/profile");
 const channelRoutes = require("./admin/routes/channel");
 // const indexRoutes = require(".");
-// const authRoutes = require("./admin/routes/auth");
+const authRoutes = require("./admin/routes/auth");
 // const superRoutes = require("./admin/routes/super-admin");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -118,6 +118,7 @@ app.use(
 // Define Routes
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/stiri", stiriRoutes);
+app.use("/auth", authRoutes);
 app.use("/cronjob", cronjobRoutes);
 app.use("/profile", profileRoutes);
 app.use("/channels", channelRoutes);
