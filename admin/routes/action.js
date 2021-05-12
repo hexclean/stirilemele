@@ -6,5 +6,6 @@ const actionController = require("../controllers/action");
 const router = express.Router();
 
 router.post("/send-comment", actionController.postAddComment);
+router.post("/edit-channels", actionController.postEditChannels);
 
 module.exports = router;

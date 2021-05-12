@@ -1,57 +1,101 @@
 <%- include('../includes/head.ejs') %>
-<body class="color-theme-pink">
-  <div class="page single page-elements">
-    <div class="navbar">
-      <div class="navbar-bg"></div>
-      <div class="navbar-inner sliding">
-        <div class="left">
-          <a href="#" class="link back">
-            <i class="icon icon-back"></i>
-            <span>Back</span>
-          </a>
-        </div>
-        <div class="title">Single Elements</div>
-      </div>
-    </div>
 
-    <div class="page-content">
-      <div class="block article" style="padding: 0px 20px 0 20px;">
-        <div class="list pages-list">
-          <h2>Nap végi összefoglaló</h2>
-          <p>
-            Értesítés bekapcsolásával minden nap végén e-mailt fogunk küldeni a
-            számodra fontos témákról.
-          </p>
+<body class="color-theme-pink framework7-root">
+  <div class="page">
+    <%- include('../includes/logo.ejs') %>
 
-          <div class="item-inner" style="padding-top: 0px !important;">
-            <div class="item-title">Értesítés bekapcsolása</div>
-            <label class="toggle toggle-init color-green toggle-theme">
-              <input type="hidden" value="off" />
-              <input type="checkbox" />
-              <span class="toggle-icon"></span>
-            </label>
-          </div>
-        </div>
+    <div style="padding-top: 0px !important;" class="page-content">
+      <div class="block">
+        <h2>Hírcsatornák beállítása</h2>
+        <p>
+          Jelöld be azokat a hírcsatornákat, amelyekről értesülni szeretnél.
+        </p>
       </div>
-      <div class="block article" style="padding: 0px 20px 0 20px;">
-        <div class="list pages-list">
-          <h2>Érdekelt Hírportál választása</h2>
-          <% for (let i=0; i < channels.length; i++ ) { %>
-          <div class="item-inner" style="padding-top: 0px !important;">
-            <div class="item-title">
-              <%= channels[i].name %>
+
+      <form
+        name="myForm"
+        class="ms-content-wrapper"
+        action="/action/edit-channels"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="card-footer">
+          <button type="submit" class="btn btn-secondary">
+            Mentés
+          </button>
+        </div>
+        <script>
+          $(document).ready(function () {
+            $(".statusChannel-checkbox").click(function () {
+              console.log("dasd");
+              var extraId = $(this).attr("data-boxId");
+              if ($(this).is(":checked")) {
+                $(".statusChannel-" + extraId).val("on");
+              } else {
+                $(".statusChannel-" + extraId).val("off");
+              }
+            });
+          });
+        </script>
+        <div class="block article" style="padding: 0px 20px 0 20px;">
+          <div class="list pages-list">
+            <% for (let i=0; i < channels.length; i++ ) { %>
+            <div class="item-inner" style="padding-top: 0px !important;">
+              <div style="margin-top: 20px !important;" class="item-title">
+                <b><%= channels[i].name %></b>
+              </div>
+              <input
+                type="hidden"
+                value="<%= channels[i].id %>"
+                name="channelId"
+              />
+
+              <label class="toggle toggle-init color-green toggle-theme">
+                <input
+                  type="hidden"
+                  value="off"
+                  class="statusChannel-<%= channels[i].id %> status-hidden-box"
+                  name="statusChannel[<%= channels[i].id %>]"
+                />
+                <input
+                  data-boxId="<%= channels[i].id %>"
+                  type="checkbox"
+                  class="custom-control-input statusChannel-checkbox statusChannel-checkbox-<%= channels[i].id %>"
+                  type="checkbox"
+                />
+                <span class="toggle-icon"></span>
+              </label>
             </div>
-            <label class="toggle toggle-init color-green toggle-theme">
-              <input type="hidden" value="off" />
-              <input type="checkbox" />
-              <span class="toggle-icon"></span>
-            </label>
+            <% } %>
           </div>
-          <% } %>
         </div>
+      </form>
+    </div>
+
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom">
+      <div class="toolbar-inner">
+        <a href="#view-today" class="tab-link">
+          <i class="f7-icons">today</i>
+          <span class="tabbar-label">Főoldal</span>
+        </a>
+        <a href="#view-categories" class="tab-link">
+          <i class="f7-icons">square_grid_2x2_fill</i>
+          <span class="tabbar-label">Kategóriák</span>
+        </a>
+        <a href="#view-discover" class="tab-link">
+          <i class="f7-icons">star_fill</i>
+          <span class="tabbar-label">Discover</span>
+        </a>
+        <a href="/profile" class="tab-link tab-link-active">
+          <i class="f7-icons">search</i>
+          <span class="tabbar-label">Beállítások</span>
+        </a>
+        <a href="#view-pages" class="tab-link">
+          <i class="f7-icons">square_stack_fill</i>
+          <span class="tabbar-label">Beállítások</span>
+        </a>
       </div>
     </div>
-    <%- include('../includes/navigation.ejs') %>
   </div>
-  <%-include('../includes/end.ejs') %>
 </body>
+<%- include('../includes/end.ejs') %>
