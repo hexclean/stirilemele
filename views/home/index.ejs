@@ -24,36 +24,14 @@
           <div class="searchbar-hide-on-search">
             <h2>Popular Categories</h2>
             <ul class="popular-tags">
+              <% for (let i=0; i < categories.length; i++ ) { %>
               <li>
-                <a href="#" class="link"
-                  ><span>Politics</span><i class="f7-icons">chevron_right</i></a
+                <a href="/stiri/<%= categories[i].seoUrl %>" class="link"
+                  ><span><%=categories[i].CategoryTranslations[0].name %></span><i class="f7-icons">chevron_right</i></a
                 >
               </li>
-              <li>
-                <a href="#" class="link"
-                  ><span>Sports</span><i class="f7-icons">chevron_right</i></a
-                >
-              </li>
-              <li>
-                <a href="#" class="link"
-                  ><span>Fashion</span><i class="f7-icons">chevron_right</i></a
-                >
-              </li>
-              <li>
-                <a href="#" class="link"
-                  ><span>Animals</span><i class="f7-icons">chevron_right</i></a
-                >
-              </li>
-              <li>
-                <a href="#" class="link"
-                  ><span>Travel</span><i class="f7-icons">chevron_right</i></a
-                >
-              </li>
-              <li>
-                <a href="#" class="link"
-                  ><span>Movies</span><i class="f7-icons">chevron_right</i></a
-                >
-              </li>
+              <% } %>
+             
             </ul>
             <h2>Legfrisebb cikkek</h2>
           
@@ -65,20 +43,20 @@
             <ul class="list media-list post-list">
               
               <% for (let i=0; i < articles.length; i++ ) { %>
-                <% for (let k=0; k < articles[i].Source.Articles.length; k++ ) { %>
+               
               <li>
-                <a href="/"><img src="">
+                <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].seoUrl %>/<%= articles[i].title %>"><img src="">
                   <div class="item-content">
-                    <div class="item-media"><img src="<%= articles[i].Source.Articles[k].imageUrl %>" alt=""></div>
+                    <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
                     <div class="item-inner">
                       <div class="item-subtitle"><%= articles[i].Source.name %></div>
-                      <div class="item-title"><%= articles[i].Source.Articles[k].title %></div>
+                      <div class="item-title"><%= articles[i].title %></div>
                       <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
                     </div>
                   </div>
                 </a>
               </li>
-              <% } %>
+             
               <% } %>
             
             </ul>

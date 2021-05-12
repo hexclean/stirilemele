@@ -47,7 +47,6 @@ exports.getViewChannels = async (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     source: source,
-    allChannelNumber: source.length,
     // categories: categories,
   });
 };

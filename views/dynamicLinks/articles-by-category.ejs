@@ -12,13 +12,13 @@
           
             <div class="title-medium-container title-with-link">
                 
-              <h2><%= channelName %> <%= categoryName %> hírei</h2>
+              <h2>hírei</h2>
             </div>
             <ul class="list media-list post-list">
                 <% for (let i=0; i < articles.length; i++ ) { %>
                  
               <li>
-                <a href="/stiri/<%= articles[i].Source.seoUrl%>/<%= articles[i].Category.seoUrl %>/<%= articles[i].seoUrl %>">
+                <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl%>/<%= articles[i].seoUrl %>">
                   <div class="item-content">
                     <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
                     <div class="item-inner">

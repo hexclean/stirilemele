@@ -4,29 +4,58 @@ const SourceCategories = require("../../../models/SourceCategories");
 const CategoryTranslation = require("../../../models/CategoryTranslation");
 const Articles = require("../../../models/Article");
 
-exports.getChannelDetail = async (req, res, next) => {
-  const channelName = req.params.channelName;
-  let channelId;
-  const channel = await Source.findOne({ where: { seoUrl: channelName } });
-  channelId = channel.id;
-  const categories = await SourceCategories.findAll({
-    Where: { sourceId: channelId },
-    include: [
-      {
-        model: Category,
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-      },
-    ],
-  });
+// exports.getChannelDetail = async (req, res, next) => {
+//   const channelName = req.params.channelName;
+//   let channelId;
+//   const channel = await Source.findOne({ where: { seoUrl: channelName } });
+//   channelId = channel.id;
+//   const categories = await SourceCategories.findAll({
+//     Where: { sourceId: channelId },
+//     include: [
+//       {
+//         model: Category,
+//         include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+//       },
+//     ],
+//   });
+//   const articles = await Articles.findAll({
+//     where: { sourceId: channelId },
+//     limit: 7,
+//   });
+//   res.render("dynamicLinks/channel-detail", {
+//     path: "/login",
+//     pageTitle: "Login",
+//     categories: categories,
+//     channel: channel,
+//     articles: articles,
+//   });
+// };
+
+exports.getSelectedCategoryArticles = async (req, res, next) => {
+  const categoryName = req.params.categoryName;
+  let categoryId;
+  const category = await Category.findOne({ where: { seoUrl: categoryName } });
+  categoryId = category.id;
+  // const categories = await SourceCategories.findAll({
+  //   Where: { sourceId: channelId },
+  //   include: [
+  //     {
+  //       model: Category,
+  //       include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  //     },
+  //   ],
+  // });
   const articles = await Articles.findAll({
-    where: { sourceId: channelId },
+    where: { categoryId: categoryId },
     limit: 7,
+    include: [{ model: Category }, { model: Source }],
   });
-  res.render("dynamicLinks/channel-detail", {
+  console.log(articles);
+  res.render("dynamicLinks/articles-by-category", {
     path: "/login",
     pageTitle: "Login",
-    categories: categories,
-    channel: channel,
+    // categories: categories,
+    // channel: channel,
     articles: articles,
   });
 };
@@ -44,6 +73,7 @@ exports.getChannelNewsByCategory = async (req, res, next) => {
   categoryId = category.id;
 
   const categories = await Articles.findAll({
+    where: { categoryId: categoryId },
     include: [
       {
         model: Source,

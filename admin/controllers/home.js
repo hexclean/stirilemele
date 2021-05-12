@@ -55,33 +55,17 @@ exports.getHome = async (req, res, next) => {
   // } else {
   logged = 0;
   categories = await Category.findAll({
+    where: { secondary: 1 },
     include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
   });
   const articles = await Articles.findAll({
     include: [
       {
         model: Source,
-        include: [
-          {
-            model: Articles,
-            include: [
-              {
-                model: Category,
-                include: [
-                  { model: CategoryTranslation, where: { languageId: 2 } },
-                ],
-              },
-              {
-                model: ArticleAction,
-              },
-            ],
-          },
-        ],
       },
+      { model: Category },
     ],
   });
-  // }
-  console.log(89765789);
   console.log(articles);
   res.render("home/index", {
     path: "/login",
