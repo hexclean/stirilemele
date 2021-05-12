@@ -22,12 +22,27 @@
         </div>
         <div class="block search-container">
           <div class="searchbar-hide-on-search">
-            <h2>Popular Categories</h2>
+            <% if(logged == 1){ %>
+            <h2>Kedvelt kategóriáid</h2>
+            <% } else{ %> <h2>Popular Categories</h2> <% } %>
             <ul class="popular-tags">
-            
-             
+              <% if(logged == 1){ %>
+              <% for (let i=0; i < categories.length; i++ ) { %>
+              <li>
+                <a href="/stiri/<%= categories[i].Category.seoUrl %>" class="link"
+                  ><span><%= categories[i].Category.CategoryTranslations[0].name %></span><i class="f7-icons">chevron_right</i></a>
+                </li>
+                <% } %><% } else{ %>
+                  <% for (let i=0; i < categories.length; i++ ) { %>
+                    <li>
+                      <a href="/stiri/<%= categories[i].seoUrl %>" class="link"
+                        ><span><%= categories[i].CategoryTranslations[0].name %></span><i class="f7-icons">chevron_right</i></a>
+                      </li>
+                      <% } %>
+                <% } %>
             </ul>
-            <h2>Legfrisebb cikkek</h2>
+           
+            <h2>Legfrisebb cikkek</h2>  
           
           </div>
          

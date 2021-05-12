@@ -34,8 +34,14 @@ const Articles = require("../../../models/Article");
 exports.getSelectedCategoryArticles = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
-  const category = await Category.findOne({ where: { seoUrl: categoryName } });
+  let categoryNameView;
+  const category = await Category.findOne({
+    where: { seoUrl: categoryName },
+    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  });
+  console.log(category);
   categoryId = category.id;
+  categoryNameView = category.CategoryTranslations[0].name;
   // const categories = await SourceCategories.findAll({
   //   Where: { sourceId: channelId },
   //   include: [
@@ -50,12 +56,11 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
     limit: 7,
     include: [{ model: Category }, { model: Source }],
   });
-  console.log(articles);
   res.render("dynamicLinks/articles-by-category", {
     path: "/login",
     pageTitle: "Login",
     // categories: categories,
-    // channel: channel,
+    categoryNameView: categoryNameView,
     articles: articles,
   });
 };
