@@ -38,6 +38,7 @@ exports.getHome = async (req, res, next) => {
       articles = await UserInterestedSources.findAll({
         where: {
           userId: req.user.id,
+          active: 1,
         },
         include: [
           {
@@ -56,13 +57,6 @@ exports.getHome = async (req, res, next) => {
           },
         ],
       });
-      for (let i = 0; i < articles.length; i++) {
-        if (articles[i].Source !== null) {
-          for (let j = 0; j < articles[i].Source.Articles.length; j++) {
-            console.log(articles[i].Source.Articles[j].Category.seoUrl);
-          }
-        }
-      }
     } else {
       logged = 0;
       categories = await Category.findAll({

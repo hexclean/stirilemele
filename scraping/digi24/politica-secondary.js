@@ -6,7 +6,7 @@ exports.postPoliticaSecondary = async (req, res, next) => {
   async function scrapeListing() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto("https://www.digi24.ro/stiri/actualitate/politica");
+    await page.goto("https://www.digi24.ro/stiri/sport");
     const html = await page.content();
     const $ = cheerio.load(html);
 
@@ -34,8 +34,12 @@ exports.postPoliticaSecondary = async (req, res, next) => {
         if (checkDb.length == 0) {
           await News.create({
             imageUrl: result[i].imageUrl.trim(),
-            href: "result[i].url",
+            link: result[i].url.trim(),
             title: result[i].title.trim(),
+            seoUrl: result[i].title.trim().replace(/ /g, "-"),
+            time: "2021-04-27 16:46:03",
+            categoryId: 1,
+            sourceId: 1,
           });
         }
       }

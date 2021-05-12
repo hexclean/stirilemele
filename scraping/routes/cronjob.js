@@ -14,6 +14,7 @@ const transindex = require("../transindex/politic");
 const libertea = require("../libertatea/index");
 const stirileprotv = require("../stirileprotv/index");
 const jurulnat = require("../jurulnat/index");
+const digi24 = require("../digi24/politica-secondary");
 const router = express.Router();
 
 // https://www.b1.ro
@@ -23,6 +24,8 @@ router.post("/b1-economic", b1Controller.postEconomic);
 
 // // MASZOL.RO
 router.post("/maszol-sport", maszolSportController.postSport);
+router.post("/digi24-sport", digi24.postPoliticaSecondary);
+
 // router.post(
 //   "/digi24-politica-secondary",
 //   maszolSpodasdartController.postPoliticaSecondary
