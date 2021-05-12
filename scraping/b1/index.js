@@ -69,7 +69,7 @@ exports.postSport = async (req, res, next) => {
   async function scrapeListing() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto("https://www.b1.ro/stiri/sport/");
+    await page.goto("https://www.b1.ro/stiri/politica/");
     const html = await page.content();
     const $ = cheerio.load(html);
 
@@ -101,7 +101,7 @@ exports.postSport = async (req, res, next) => {
             title: result[i].title.trim(),
             seoUrl: result[i].title.trim().replace(/ /g, "-"),
             time: "2021-04-27 16:46:03",
-            categoryId: 1,
+            categoryId: 2,
             sourceId: 8,
           });
           // await ArticleAction.create({

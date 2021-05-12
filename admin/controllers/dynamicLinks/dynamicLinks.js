@@ -39,7 +39,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
     where: { seoUrl: categoryName },
     include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
   });
-  console.log(category);
+
   categoryId = category.id;
   categoryNameView = category.CategoryTranslations[0].name;
   // const categories = await SourceCategories.findAll({
@@ -113,10 +113,11 @@ exports.getArticleDetail = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
   let channelId;
-
+  console.log(articleTitle);
   const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const category = await Category.findOne({
+    where: { seoUrl: categoryName },
     inlcude: [
       {
         model: CategoryTranslation,
