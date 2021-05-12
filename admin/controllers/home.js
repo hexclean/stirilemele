@@ -50,18 +50,17 @@ exports.getHome = async (req, res, next) => {
                     [Op.in]: interestedCategoryId,
                   },
                 },
+                include: [{ model: Category }],
               },
             ],
           },
         ],
       });
       for (let i = 0; i < articles.length; i++) {
-        // if (articles[i].Source.length) {
-        //   console.log(articles[i].Source.Article);
-        // }
         if (articles[i].Source !== null) {
-          console.log(articles[i].Source);
-          // for (let j = 0; j < articles[i].Source.length; j++) {
+          for (let j = 0; j < articles[i].Source.Articles.length; j++) {
+            console.log(articles[i].Source.Articles[j].Category.seoUrl);
+          }
         }
       }
     } else {
