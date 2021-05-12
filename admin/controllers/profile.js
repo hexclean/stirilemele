@@ -18,7 +18,22 @@ exports.getSendEmailEndOfTheDay = async (req, res, next) => {
 
   const channels = await Source.findAll();
 
-  res.render("profile/emailEndOfDay", {
+  res.render("profile/categories-edit", {
+    path: "/login",
+    pageTitle: "Login",
+    categories: categories,
+    channels: channels,
+  });
+};
+
+exports.getChannelEditing = async (req, res, next) => {
+  const categories = await Category.findAll({
+    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  });
+
+  const channels = await Source.findAll();
+
+  res.render("profile/channel-edit", {
     path: "/login",
     pageTitle: "Login",
     categories: categories,

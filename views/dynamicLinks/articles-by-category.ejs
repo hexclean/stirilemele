@@ -1,42 +1,40 @@
 <%- include('../includes/head.ejs') %>
+
 <body class="color-theme-pink framework7-root">
-
-  <div id="view-categories" class="view tab view-main">
-    <div class="page author" data-name="author">
-        <div class="page-content" style="padding-top: 2px !important;">
-          
-          
-          <div class="block">
+  <div class="page">
+    <!-- <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding"></div>
+         -->
+          <%- include('../includes/logo.ejs') %>
+        
+      <!-- </div>
+    </div> -->
+    <div class="page-content" style="padding-top: 5px !important">
+      <div class="block">
+        <h2 style="margin: 0px 0 0;"><%= categoryNameView %> hírek</h2>
+        <ul class="list media-list post-list" style="margin: 0px 0;">
+          <% for (let i=0; i < articles.length; i++ ) { %>
            
-           
-          
-            <div class="title-medium-container title-with-link">
-                
-              <h2><%= categoryNameView %> hírek</h2>
+        <li>
+          <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl%>/<%= articles[i].seoUrl %>">
+            <div class="item-content">
+              <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
+              <div class="item-inner">
+                <div class="item-subtitle"><%= articles[i].Source.name %></div>
+                <div class="item-title"><%= articles[i].title %></div>
+                <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>2 hours ago</div>
+              </div>
             </div>
-            <ul class="list media-list post-list">
-                <% for (let i=0; i < articles.length; i++ ) { %>
-                 
-              <li>
-                <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl%>/<%= articles[i].seoUrl %>">
-                  <div class="item-content">
-                    <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
-                    <div class="item-inner">
-                      <div class="item-subtitle"><%= articles[i].Source.name %></div>
-                      <div class="item-title"><%= articles[i].title %></div>
-                      <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>2 hours ago</div>
-                    </div>
-                  </div>
-                </a>
-              </li>
-             
-              <% } %>
-            </ul>
-          </div>
-        </div>
+          </a>
+        </li>
+       
+        <% } %>
+      </ul>
       </div>
-      
+    </div>
     <%- include('../includes/navigation.ejs') %>
-
- 
-  <%- include('../includes/end.ejs') %>
+  </div>
+  
+</body>
+<%- include('../includes/end.ejs') %>

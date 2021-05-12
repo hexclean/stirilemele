@@ -4,7 +4,8 @@ const router = express.Router();
 
 // Profil betöltése
 router.get("/", profileController.getProfile);
-router.get("/send-email-all-day", profileController.getSendEmailEndOfTheDay);
+router.get("/select-category", profileController.getSendEmailEndOfTheDay);
+router.get("/select-channel", profileController.getSendEmailEndOfTheDay);
 
 // Kategória oldal
 // router.get("/stiri/categorii", categoryController.getAllCategoryScreen);

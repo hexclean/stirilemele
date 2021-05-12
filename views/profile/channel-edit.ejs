@@ -1,0 +1,57 @@
+<%- include('../includes/head.ejs') %>
+<body class="color-theme-pink">
+  <div class="page single page-elements">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span>Back</span>
+          </a>
+        </div>
+        <div class="title">Single Elements</div>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <div class="block article" style="padding: 0px 20px 0 20px;">
+        <div class="list pages-list">
+          <h2>Nap végi összefoglaló</h2>
+          <p>
+            Értesítés bekapcsolásával minden nap végén e-mailt fogunk küldeni a
+            számodra fontos témákról.
+          </p>
+
+          <div class="item-inner" style="padding-top: 0px !important;">
+            <div class="item-title">Értesítés bekapcsolása</div>
+            <label class="toggle toggle-init color-green toggle-theme">
+              <input type="hidden" value="off" />
+              <input type="checkbox" />
+              <span class="toggle-icon"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="block article" style="padding: 0px 20px 0 20px;">
+        <div class="list pages-list">
+          <h2>Érdekelt Hírportál választása</h2>
+          <% for (let i=0; i < channels.length; i++ ) { %>
+          <div class="item-inner" style="padding-top: 0px !important;">
+            <div class="item-title">
+              <%= channels[i].name %>
+            </div>
+            <label class="toggle toggle-init color-green toggle-theme">
+              <input type="hidden" value="off" />
+              <input type="checkbox" />
+              <span class="toggle-icon"></span>
+            </label>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <%- include('../includes/navigation.ejs') %>
+  </div>
+  <%-include('../includes/end.ejs') %>
+</body>

@@ -3,6 +3,8 @@ const Category = require("../../../models/Category");
 const SourceCategories = require("../../../models/SourceCategories");
 const CategoryTranslation = require("../../../models/CategoryTranslation");
 const Articles = require("../../../models/Article");
+const ArticleComment = require("../../../models/ArticleComment");
+const User = require("../../../models/Users");
 
 // exports.getChannelDetail = async (req, res, next) => {
 //   const channelName = req.params.channelName;
@@ -140,12 +142,17 @@ exports.getArticleDetail = async (req, res, next) => {
       },
     ],
   });
+  const comments = await ArticleComment.findAll({
+    where: { articleId: article.id },
+    include: [{ model: User }],
+  });
+  console.log(comments);
   res.render("dynamicLinks/article-detail", {
     path: "/login",
     pageTitle: "Login",
     article: article,
     categoryName: article.Category.CategoryTranslations[0].name,
-    // articles: categories,
+    comments: comments,
     // channelName: channelName,
     // categoryName: categoryName,
   });

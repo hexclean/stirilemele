@@ -1,23 +1,25 @@
 const Article = require("../../models/Article");
 const Source = require("../../models/Source");
 const ArticleViewed = require("../../models/ArticleViewed");
+const ArticleComment = require("../../models/ArticleComment");
 const ArticleAction = require("../../models/ArticleAction");
 
 exports.getViewArticle = async (req, res, next) => {
   const editMode = req.query.edit;
   const articleName = req.params.articleName;
-
+  const 
   try {
     const article = await Article.findOne({
-      where: {
-        title: articleName,
-      },
-      include: [
-        {
-          model: Source,
+                  where: {
+                    seoUrl: articleName,
+                  },
+                  include: [
+                    {
+                      model: Source,
         },
       ],
     });
+    const comments = await ArticleComment.findAll({         where:{articleId: article.id}});
 
     // Átadom a lekért adatokat a HTML oldalnak
     res.render("article/article-detail", {
@@ -25,6 +27,7 @@ exports.getViewArticle = async (req, res, next) => {
       path: "/admin/edit-product",
       editing: editMode,
       article: article,
+      comments: comments
     });
   } catch (err) {
     console.log(err);
