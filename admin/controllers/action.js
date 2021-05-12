@@ -50,7 +50,6 @@ exports.postEditChannels = async (req, res, next) => {
 };
 
 exports.postEditCategory = async (req, res, next) => {
-  console.log(req.body);
   const filteredCategory = req.body.statusCategory.filter(Boolean);
   let channelId = req.body.categoryId;
   try {

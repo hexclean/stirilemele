@@ -36,6 +36,19 @@
             });
           });
         </script>
+        <% for (let i = 0; i < activeSwitch.length; i++) { %> <% if
+        (activeSwitch[i].active == 1) { %>
+        <script>
+          $(document).ready(function () {
+            var activeCheckbox = "<%= activeSwitch[i].categoryId %>";
+            $(".statusCategory-checkbox-" + activeCheckbox).prop(
+              "checked",
+              true
+            );
+            $(".statusCategory-" + activeCheckbox).val("on");
+          });
+        </script>
+        <% } %> <% } %>
         <div class="block article" style="padding: 0px 20px 0 20px;">
           <div class="list pages-list">
             <% for (let i=0; i < categories.length; i++ ) { %>
