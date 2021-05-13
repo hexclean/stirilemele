@@ -8,5 +8,6 @@ const sourceController = require("../controllers/source");
 router.get("/categorii", otherController.getCategoryScreen);
 router.get("/history", otherController.getHistoryArticles);
 router.get("/top", otherController.getTopArticles);
+router.get("/comment-email", otherController.getTopArticles);
 
 module.exports = router;

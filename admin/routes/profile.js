@@ -1,5 +1,6 @@
 const express = require("express");
 const profileController = require("../controllers/profile");
+const actionController = require("../controllers/action");
 const router = express.Router();
 
 // Profil betöltése
@@ -7,7 +8,7 @@ router.get("/", profileController.getProfile);
 router.get("/select-category", profileController.getCategoryEditing);
 router.get("/select-channel", profileController.getChannelEditing);
 router.get("/send-email", profileController.getSendEmailEndOfTheDay);
-
+router.get("/email-sender", actionController.getEmailSender);
 // Kategória oldal
 // router.get("/stiri/categorii", categoryController.getAllCategoryScreen);
 

@@ -1,4 +1,5 @@
 const Article = require("../../models/Article");
+const Articles = require("../../models/Article");
 const Source = require("../../models/Source");
 const ArticleViewed = require("../../models/ArticleViewed");
 const UserInterestedSources = require("../../models/UserInterestedSources");
@@ -6,7 +7,10 @@ const UserInterestedCategories = require("../../models/UserInterestedCategories"
 const ArticleComment = require("../../models/ArticleComment");
 const SendEmailSource = require("../../models/SendEmailSource");
 const SendEmailCategory = require("../../models/SendEmailCategory");
-
+const Category = require("../../models/Category");
+const CategoryTranslation = require("../../models/CategoryTranslation");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 exports.postAddComment = async (req, res, next) => {
   const articleId = req.body.articleId;
   const comment = req.body.comment;
@@ -20,11 +24,6 @@ exports.postAddComment = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
-  //   res.render("source/source-detail", {
-  //     path: "/login",
-  //     pageTitle: "Login",
-  //     source: source,
-  //   });
 };
 
 exports.postEditChannels = async (req, res, next) => {
@@ -96,6 +95,59 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
       { where: { id: articleId } }
     );
     res.redirect(article.link);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getEmailSender = async (req, res, next) => {
+  let categories = [];
+  console.log(req.user.id);
+  let articles = [];
+  let interestedCategoryId = [];
+  try {
+    categories = await SendEmailCategory.findAll({
+      where: { userId: req.user.id, active: 1 },
+    });
+    for (let i = 0; i < categories.length; i++) {
+      interestedCategoryId.push(categories[i].categoryId);
+    }
+    articles = await SendEmailSource.findAll({
+      where: {
+        userId: req.user.id,
+        active: 1,
+      },
+      include: [
+        {
+          model: Source,
+          include: [
+            {
+              model: Articles,
+              where: {
+                categoryId: {
+                  [Op.in]: interestedCategoryId,
+                },
+              },
+              include: [{ model: Category }],
+            },
+          ],
+        },
+      ],
+    });
+
+    for (let i = 0; i < articles.length; i++) {
+      if (articles[i].Source !== null) {
+        for (let j = 0; j < articles[i].Source.Articles.length; j++) {
+          console.log(1, articles[i].Source.Articles[j].title);
+        }
+      }
+    }
+
+    res.render("home/test", {
+      path: "/login",
+      pageTitle: "Login",
+      // source: source,
+    });
   } catch (error) {
     console.log(error);
   }
