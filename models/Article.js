@@ -23,6 +23,7 @@ const Article = sequelize.define("Article", {
   timeCreated: Sequelize.DATE,
   action: Sequelize.INTEGER,
   seoUrl: Sequelize.STRING,
+  clicked: Sequelize.INTEGER,
 });
 
 module.exports = Article;

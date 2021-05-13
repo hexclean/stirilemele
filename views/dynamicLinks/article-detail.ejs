@@ -12,7 +12,20 @@
           <%= article.title %>
         </h1>
       </div>
-
+      <form
+        action="/action/save-article"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="block">
+          <a href="<%= article.link %>">
+            <input hidden name="articleId" value="<%= article.id %>" />
+            <button type="submit" class="btn btn-primary">
+              Cikk elolvasása
+            </button>
+          </a>
+        </div>
+      </form>
       <div class="block">
         <div class="title-medium-container">
           <h2>Ha tetszett oszd meg!</h2>

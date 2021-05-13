@@ -6,33 +6,6 @@ const Articles = require("../../../models/Article");
 const ArticleComment = require("../../../models/ArticleComment");
 const User = require("../../../models/Users");
 
-// exports.getChannelDetail = async (req, res, next) => {
-//   const channelName = req.params.channelName;
-//   let channelId;
-//   const channel = await Source.findOne({ where: { seoUrl: channelName } });
-//   channelId = channel.id;
-//   const categories = await SourceCategories.findAll({
-//     Where: { sourceId: channelId },
-//     include: [
-//       {
-//         model: Category,
-//         include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-//       },
-//     ],
-//   });
-//   const articles = await Articles.findAll({
-//     where: { sourceId: channelId },
-//     limit: 7,
-//   });
-//   res.render("dynamicLinks/channel-detail", {
-//     path: "/login",
-//     pageTitle: "Login",
-//     categories: categories,
-//     channel: channel,
-//     articles: articles,
-//   });
-// };
-
 exports.getSelectedCategoryArticles = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
@@ -44,15 +17,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
 
   categoryId = category.id;
   categoryNameView = category.CategoryTranslations[0].name;
-  // const categories = await SourceCategories.findAll({
-  //   Where: { sourceId: channelId },
-  //   include: [
-  //     {
-  //       model: Category,
-  //       include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-  //     },
-  //   ],
-  // });
+
   const articles = await Articles.findAll({
     where: { categoryId: categoryId },
     limit: 7,
@@ -61,7 +26,6 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
   res.render("dynamicLinks/articles-by-category", {
     path: "/login",
     pageTitle: "Login",
-    // categories: categories,
     categoryNameView: categoryNameView,
     articles: articles,
   });
@@ -115,7 +79,13 @@ exports.getArticleDetail = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
   let channelId;
-  console.log(articleTitle);
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+
   const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const category = await Category.findOne({
@@ -153,7 +123,6 @@ exports.getArticleDetail = async (req, res, next) => {
     article: article,
     categoryName: article.Category.CategoryTranslations[0].name,
     comments: comments,
-    // channelName: channelName,
-    // categoryName: categoryName,
+    logged: logged,
   });
 };

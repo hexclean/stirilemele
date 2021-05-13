@@ -74,6 +74,32 @@ exports.postEditCategory = async (req, res, next) => {
     console.log(error);
   }
 };
+
+exports.postSendpostSaveToHistory = async (req, res, next) => {
+  const articleId = req.body.articleId;
+  let clicked = 0;
+  const article = await Article.findOne({
+    where: { id: articleId },
+  });
+  clicked = article.clicked;
+  ++clicked;
+
+  try {
+    await ArticleViewed.create({
+      userId: req.user.id,
+      articleId: articleId,
+    });
+    await Article.update(
+      {
+        clicked: clicked,
+      },
+      { where: { id: articleId } }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.postSendEmailDay = async (req, res, next) => {
   const filteredCategory = req.body.statusCategory.filter(Boolean);
   let categoryId = req.body.categoryId;

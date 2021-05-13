@@ -85,33 +85,6 @@ exports.getHome = async (req, res, next) => {
   }
 };
 
-exports.getTest = async (req, res, next) => {
-  const articles = await Articles.findAll();
-
-  //   let message = req.flash("error");
-  //   if (message.length > 0) {
-  //     message = message[0];
-  //   } else {
-  //     message = null;
-  //   }
-  //   if (req.admin != undefined) {
-  //     res.redirect("/admin/orders");
-  //   }
-
-  res.render("home/test", {
-    path: "/login",
-    pageTitle: "Login",
-    articles: articles,
-
-    // errorMessage: message,
-    // oldInput: {
-    //   email: "",
-    //   password: "",
-    // },
-    // validationErrors: [],
-  });
-};
-
 exports.getSignup = (req, res, next) => {
   if (req.admin != undefined) {
     res.redirect("/admin/orders");
