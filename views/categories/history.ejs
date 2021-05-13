@@ -6,49 +6,27 @@
           <%- include('../includes/logo.ejs') %>
 
     <div class="page-content" style="padding-top: 5px !important">
-      <div class="block search-container">
       
-       
-      </div>
       <div class="block">
-        <h2 style="margin: 25px 0px 15px;">Előzmények</h2>  
-      <p>Itt jelennek meg azok a cikkek amelyeket elolvastad</p>
+        <h2 style="margin: 25px 0px 15px;">Legfrisebb cikkek</h2>  
+      
         <ul class="list media-list post-list">
-          <% if(logged == 1){ %>
+
             <% for (let i=0; i < articles.length; i++ ) { %>
-              <%if (articles[i].Source !== null) { %>
-                <% for (let j=0; j < articles[i].Source.Articles.length; j++ ) { %>
                   <li>
-                    <a href="/stiri/<%= articles[i].Source.Articles[j].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].Source.Articles[j].seoUrl %>"><img src="">
+                    <a href="/stiri/<%= articles[i].Article.Category.seoUrl %>/<%= articles[i].Article.Source.seoUrl %>/<%= articles[i].Article.seoUrl %>"><img src="">
                       <div class="item-content">
-                        <div class="item-media"><img src="<%= articles[i].Source.Articles[j].imageUrl %>" alt=""></div>
+                        <div class="item-media"><img src="<%= articles[i].Article.imageUrl %>" alt=""></div>
                         <div class="item-inner">
-                          <div class="item-subtitle"><%= articles[i].Source.name %></div>
-                          <div class="item-title"><%= articles[i].Source.Articles[j].title %></div>
+                          <div class="item-subtitle"><%= articles[i].Article.Source.name %></div>
+                          <div class="item-title"><%= articles[i].title %></div>
                           <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
                         </div>
                       </div>
                     </a>
                   </li>
            <% } %>
-           <% } %>
-           <% } %>
-          <% } else{ %>  
-            <% for (let i=0; i < articles.length; i++ ) { %> 
-              <li>
-                <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"><img src="">
-                  <div class="item-content">
-                    <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
-                    <div class="item-inner">
-                      <div class="item-subtitle"><%= articles[i].Source.name %></div>
-                      <div class="item-title"><%= articles[i].title %></div>
-                      <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <% } %>
-         <% } %>
+
           
         
         </ul>
@@ -56,7 +34,7 @@
     </div>
     <div class="toolbar tabbar tabbar-labels toolbar-bottom">
       <div class="toolbar-inner">
-        <a href="/stiri" class="tab-link">
+        <a href="#view-today" class="tab-link tab-link-active">
           <i class="f7-icons">house_fill</i>
           <span class="tabbar-label">Főoldal</span>
         </a>
@@ -64,11 +42,11 @@
           <i class="f7-icons">square_grid_2x2_fill</i>
           <span class="tabbar-label">Kategóriák</span>
         </a>
-        <a href="#view-discover" class="tab-link">
+        <a href="/top" class="tab-link">
           <i class="f7-icons">tornado</i>
           <span class="tabbar-label">Top hírek</span>
         </a>
-        <a href="#" class="tab-link tab-link-active">
+        <a href="/history" class="tab-link">
           <i class="f7-icons">heart</i>
           <span class="tabbar-label">Előzmények</span>
         </a>

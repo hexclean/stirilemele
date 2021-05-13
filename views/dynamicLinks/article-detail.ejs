@@ -18,12 +18,10 @@
         enctype="multipart/form-data"
       >
         <div class="block">
-          <a href="<%= article.link %>">
-            <input hidden name="articleId" value="<%= article.id %>" />
-            <button type="submit" class="btn btn-primary">
-              Cikk elolvasása
-            </button>
-          </a>
+          <input hidden name="articleId" value="<%= article.id %>" />
+          <button type="submit" class="btn btn-primary">
+            Cikk elolvasása
+          </button>
         </div>
       </form>
       <div class="block">
