@@ -14,13 +14,22 @@ const Op = Sequelize.Op;
 exports.postAddComment = async (req, res, next) => {
   const articleId = req.body.articleId;
   const comment = req.body.comment;
-  console.log(req.body);
+  let logged = 0;
+
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+
   try {
-    await ArticleComment.create({
-      articleId: articleId,
-      userId: req.user.id,
-      comment: comment,
-    });
+    if (logged == 1) {
+      await ArticleComment.create({
+        articleId: articleId,
+        userId: req.user.id,
+        comment: comment,
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -77,6 +86,12 @@ exports.postEditCategory = async (req, res, next) => {
 exports.postSendpostSaveToHistory = async (req, res, next) => {
   const articleId = req.body.articleId;
   let clicked = 0;
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
   const article = await Article.findOne({
     where: { id: articleId },
   });
@@ -84,10 +99,12 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
   ++clicked;
 
   try {
-    await ArticleViewed.create({
-      userId: req.user.id,
-      articleId: articleId,
-    });
+    if (logged == 1) {
+      await ArticleViewed.create({
+        userId: req.user.id,
+        articleId: articleId,
+      });
+    }
     await Article.update(
       {
         clicked: clicked,
@@ -95,6 +112,43 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
       { where: { id: articleId } }
     );
     res.redirect(article.link);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getHistoryArticles = async (req, res, next) => {
+  try {
+    const articles = await ArticleViewed.findAll({
+      where: {
+        userId: req.user.id,
+      },
+      include: [
+        {
+          model: Articles,
+          include: [
+            {
+              model: Source,
+            },
+            {
+              model: Category,
+            },
+          ],
+        },
+      ],
+    });
+    for (let i = 0; i < articles.length; i++) {
+      console.log(articles[i].Article);
+      // for (let j = 0; j < articles[i].Article.length; j++) {
+      //   console.log(articles[i].Article[j]);
+      // }
+    }
+
+    res.render("categories/history", {
+      path: "/login",
+      pageTitle: "Login",
+      articles: articles,
+    });
   } catch (error) {
     console.log(error);
   }

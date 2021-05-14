@@ -47,40 +47,20 @@
         
       
         <ul class="list media-list post-list">
-          <% if(logged == 1){ %>
-            <% for (let i=0; i < articles.length; i++ ) { %>
-              <%if (articles[i].Source !== null) { %>
-                <% for (let j=0; j < articles[i].Source.Articles.length; j++ ) { %>
+         
+                <% for (let i=0; i < articles.length; i++ ) { %>
                   <li>
-                    <a href="/stiri/<%= articles[i].Source.Articles[j].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].Source.Articles[j].seoUrl %>"><img src="">
+                    <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"><img src="">
                       <div class="item-content">
-                        <div class="item-media"><img src="<%= articles[i].Source.Articles[j].imageUrl %>" alt=""></div>
+                        <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
                         <div class="item-inner">
-                          <div class="item-subtitle"><%= articles[i].Source.name %></div>
-                          <div class="item-title"><%= articles[i].Source.Articles[j].title %></div>
+                          <div class="item-subtitle"><%= articles[i].Source.name %> - <%= articles[i].Category.CategoryTranslations[0].name %></div>
+                          <div class="item-title"><%= articles[i].title %></div>
                           <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
                         </div>
                       </div>
                     </a>
                   </li>
-           <% } %>
-           <% } %>
-           <% } %>
-          <% } else{ %>  
-            <% for (let i=0; i < articles.length; i++ ) { %> 
-              <li>
-                <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"><img src="">
-                  <div class="item-content">
-                    <div class="item-media"><img src="<%= articles[i].imageUrl %>" alt=""></div>
-                    <div class="item-inner">
-                      <div class="item-subtitle"><%= articles[i].Source.name %></div>
-                      <div class="item-title"><%= articles[i].title %></div>
-                      <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <% } %>
          <% } %>
           
         

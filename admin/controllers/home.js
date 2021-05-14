@@ -34,7 +34,7 @@ exports.getHome = async (req, res, next) => {
       for (let i = 0; i < categories.length; i++) {
         interestedCategoryId.push(categories[i].categoryId);
       }
-      // console.log(interestedCategoryId);
+
       articles = await UserInterestedSources.findAll({
         where: {
           userId: req.user.id,
@@ -51,7 +51,14 @@ exports.getHome = async (req, res, next) => {
                     [Op.in]: interestedCategoryId,
                   },
                 },
-                include: [{ model: Category }],
+                include: [
+                  {
+                    model: Category,
+                    include: [
+                      { model: CategoryTranslation, where: { languageId: 2 } },
+                    ],
+                  },
+                ],
               },
             ],
           },
@@ -69,10 +76,16 @@ exports.getHome = async (req, res, next) => {
           {
             model: Source,
           },
-          { model: Category },
+          {
+            model: Category,
+            include: [
+              { model: CategoryTranslation, where: [{ languageId: 2 }] },
+            ],
+          },
         ],
       });
     }
+
     res.render("home/index", {
       path: "/login",
       pageTitle: "Login",

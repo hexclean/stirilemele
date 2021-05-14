@@ -56,9 +56,9 @@
               <div class="item-inner">
                 <div class="item-title-row">
                   <div class="item-title"><%= comments[i].User.name %></div>
-                  <div class="item-after">
+                  <!-- <div class="item-after">
                     <i class="f7-icons">heart_fill</i>27
-                  </div>
+                  </div> -->
                 </div>
                 <div class="item-text">
                   <%= comments[i].comment %>
@@ -69,6 +69,7 @@
           </ul>
         </div>
 
+        <% if(logged == 1){ %>
         <div class="title-medium-container title-small">
           <h2>Írj véleményt a cikkről</h2>
         </div>
@@ -100,6 +101,7 @@
             <i class="f7-icons">paperplane_fill</i>Hozzászólás küldése
           </button>
         </form>
+        <% } %>
       </div>
     </div>
     <%- include('../includes/navigation.ejs') %>

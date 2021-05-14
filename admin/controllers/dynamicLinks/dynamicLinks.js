@@ -21,7 +21,13 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
   const articles = await Articles.findAll({
     where: { categoryId: categoryId },
     limit: 7,
-    include: [{ model: Category }, { model: Source }],
+    include: [
+      {
+        model: Category,
+        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+      },
+      { model: Source },
+    ],
   });
   res.render("dynamicLinks/articles-by-category", {
     path: "/login",
@@ -85,7 +91,7 @@ exports.getArticleDetail = async (req, res, next) => {
   } else {
     logged = 0;
   }
-
+  console.log(articleTitle);
   const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const category = await Category.findOne({
