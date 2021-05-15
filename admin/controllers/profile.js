@@ -95,11 +95,11 @@ exports.getEmailSender = async (req, res, next) => {
     });
     const channels = await Source.findAll();
 
-    const activeSwitch = await UserInterestedCategories.findAll({
+    const activeSwitch = await SendEmailCategory.findAll({
       where: { userId: req.user.id },
     });
 
-    const activeSwitchChannel = await UserInterestedSources.findAll({
+    const activeSwitchChannel = await SendEmailSource.findAll({
       where: { userId: req.user.id },
     });
 

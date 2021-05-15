@@ -6,6 +6,8 @@ const Category = require("../../models/Category");
 const { validationResult } = require("express-validator/check");
 const UserInterestedCategories = require("../../models/UserInterestedCategories");
 const UserInterestedSources = require("../../models/UserInterestedSources");
+const SendEmailCategory = require("../../models/SendEmailCategory");
+const SendEmailSource = require("../../models/SendEmailSource");
 
 exports.getLogin = async (req, res, next) => {
   if (req.user != undefined) {
@@ -100,9 +102,19 @@ exports.postSignup = async (req, res, next) => {
           categoryId: categories[i].id,
           active: 1,
         });
+        await SendEmailCategory.create({
+          userId: user.id,
+          categoryId: categories[i].id,
+          active: 1,
+        });
       }
       for (let i = 0; i < channels.length; i++) {
         await UserInterestedSources.create({
+          userId: user.id,
+          sourceId: channels[i].id,
+          active: 1,
+        });
+        await SendEmailSource.create({
           userId: user.id,
           sourceId: channels[i].id,
           active: 1,

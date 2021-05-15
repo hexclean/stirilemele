@@ -159,6 +159,7 @@ exports.postSendEmailDay = async (req, res, next) => {
   let categoryId = req.body.categoryId;
   const filteredChannel = req.body.statusChannel.filter(Boolean);
   let channelId = req.body.channelId;
+  console.log(req.body);
   try {
     for (let i = 0; i < filteredCategory.length; i++) {
       await SendEmailCategory.update(
