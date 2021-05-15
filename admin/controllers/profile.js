@@ -15,6 +15,20 @@ exports.getProfile = async (req, res, next) => {
   });
 };
 
+exports.getContact = async (req, res, next) => {
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  res.render("profile/contact", {
+    path: "/login",
+    pageTitle: "Login",
+    logged: logged,
+  });
+};
+
 exports.getCategoryEditing = async (req, res, next) => {
   const categories = await Category.findAll({
     include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
@@ -72,4 +86,32 @@ exports.getSendEmailEndOfTheDay = async (req, res, next) => {
     activeSwitchSource: activeSwitchSource,
     activeSwitchCategory: activeSwitchCategory,
   });
+};
+
+exports.getEmailSender = async (req, res, next) => {
+  try {
+    const categories = await Category.findAll({
+      include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+    });
+    const channels = await Source.findAll();
+
+    const activeSwitch = await UserInterestedCategories.findAll({
+      where: { userId: req.user.id },
+    });
+
+    const activeSwitchChannel = await UserInterestedSources.findAll({
+      where: { userId: req.user.id },
+    });
+
+    res.render("profile/send-email-day", {
+      path: "/login",
+      pageTitle: "Login",
+      categories: categories,
+      channels: channels,
+      activeSwitch: activeSwitch,
+      activeSwitchChannel: activeSwitchChannel,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

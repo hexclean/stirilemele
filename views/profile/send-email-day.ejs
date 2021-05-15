@@ -81,6 +81,65 @@
             <% } %>
           </div>
         </div>
+
+        <script>
+          $(document).ready(function () {
+            $(".statusChannel-checkbox").click(function () {
+              console.log("dasd");
+              var extraId = $(this).attr("data-channelId");
+              if ($(this).is(":checked")) {
+                $(".statusChannel-" + extraId).val("on");
+              } else {
+                $(".statusChannel-" + extraId).val("off");
+              }
+            });
+          });
+        </script>
+        <% for (let i = 0; i < activeSwitchChannel.length; i++) { %> <% if
+        (activeSwitchChannel[i].active == 1) { %>
+        <script>
+          $(document).ready(function () {
+            var activeCheckbox = "<%= activeSwitchChannel[i].sourceId %>";
+            $(".statusChannel-checkbox-" + activeCheckbox).prop(
+              "checked",
+              true
+            );
+            $(".statusChannel-" + activeCheckbox).val("on");
+          });
+        </script>
+        <% } %> <% } %>
+        <div class="block article" style="padding: 0px 20px 0 20px;">
+          <div class="list pages-list">
+            <% for (let i=0; i < channels.length; i++ ) { %>
+            <div class="item-inner" style="padding-top: 0px !important;">
+              <div style="margin-top: 20px !important;" class="item-title">
+                <b><%= channels[i].name %></b>
+              </div>
+              <input
+                type="hidden"
+                value="<%= channels[i].id %>"
+                name="channelId"
+              />
+
+              <label class="toggle toggle-init color-green toggle-theme">
+                <input
+                  type="hidden"
+                  value="off"
+                  class="statusChannel-<%= channels[i].id %> status-hidden-box"
+                  name="statusChannel[<%= channels[i].id %>]"
+                />
+                <input
+                  data-channelId="<%= channels[i].id %>"
+                  type="checkbox"
+                  class="custom-control-input statusChannel-checkbox statusChannel-checkbox-<%= channels[i].id %>"
+                  type="checkbox"
+                />
+                <span class="toggle-icon"></span>
+              </label>
+            </div>
+            <% } %>
+          </div>
+        </div>
       </form>
     </div>
 

@@ -8,8 +8,9 @@ router.get("/", profileController.getProfile);
 router.get("/select-category", profileController.getCategoryEditing);
 router.get("/select-channel", profileController.getChannelEditing);
 router.get("/send-email", profileController.getSendEmailEndOfTheDay);
-router.get("/email-sender", actionController.getEmailSender);
+router.get("/email-sender", profileController.getEmailSender);
 router.get("/history", actionController.getHistoryArticles);
+router.get("/contact", profileController.getContact);
 // Kategória oldal
 // router.get("/stiri/categorii", categoryController.getAllCategoryScreen);
 

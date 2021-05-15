@@ -154,46 +154,6 @@ exports.getHistoryArticles = async (req, res, next) => {
   }
 };
 
-exports.getEmailSender = async (req, res, next) => {
-  const filteredChannel = req.body.statusChannel.filter(Boolean);
-  let channelId = req.body.channelId;
-  const filteredCategory = req.body.statusCategory.filter(Boolean);
-  let categoryId = req.body.categoryId;
-  try {
-    for (let i = 0; i < filteredChannel.length; i++) {
-      await UserInterestedSources.update(
-        {
-          active: filteredChannel[i] == "on" ? 1 : 0,
-          userId: req.user.id,
-        },
-        {
-          where: {
-            userId: req.user.id,
-            sourceId: channelId[i],
-          },
-        }
-      );
-    }
-    const categories = await Category.findAll({
-      include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-    });
-
-    const activeSwitch = await UserInterestedCategories.findAll({
-      where: { userId: req.user.id },
-    });
-    res.render("profile/send-email-day", {
-      path: "/login",
-      pageTitle: "Login",
-      categories: categories,
-      channels: channels,
-      activeSwitch: activeSwitch,
-    });
-    return res.redirect("/stiri");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 exports.postSendEmailDay = async (req, res, next) => {
   const filteredCategory = req.body.statusCategory.filter(Boolean);
   let categoryId = req.body.categoryId;
