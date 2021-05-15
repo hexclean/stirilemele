@@ -4,6 +4,7 @@ const router = express.Router();
 
 // Hírportálok betöltése
 router.get("/", channelController.getAllChannel);
+router.get("/:channelName", channelController.getChannelCategories);
 
 // Kategória oldal
 // router.get("/stiri/categorii", categoryController.getAllCategoryScreen);

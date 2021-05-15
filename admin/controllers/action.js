@@ -155,53 +155,40 @@ exports.getHistoryArticles = async (req, res, next) => {
 };
 
 exports.getEmailSender = async (req, res, next) => {
-  let categories = [];
-  console.log(req.user.id);
-  let articles = [];
-  let interestedCategoryId = [];
+  const filteredChannel = req.body.statusChannel.filter(Boolean);
+  let channelId = req.body.channelId;
+  const filteredCategory = req.body.statusCategory.filter(Boolean);
+  let categoryId = req.body.categoryId;
   try {
-    categories = await SendEmailCategory.findAll({
-      where: { userId: req.user.id, active: 1 },
-    });
-    for (let i = 0; i < categories.length; i++) {
-      interestedCategoryId.push(categories[i].categoryId);
-    }
-    articles = await SendEmailSource.findAll({
-      where: {
-        userId: req.user.id,
-        active: 1,
-      },
-      include: [
+    for (let i = 0; i < filteredChannel.length; i++) {
+      await UserInterestedSources.update(
         {
-          model: Source,
-          include: [
-            {
-              model: Articles,
-              where: {
-                categoryId: {
-                  [Op.in]: interestedCategoryId,
-                },
-              },
-              include: [{ model: Category }],
-            },
-          ],
+          active: filteredChannel[i] == "on" ? 1 : 0,
+          userId: req.user.id,
         },
-      ],
+        {
+          where: {
+            userId: req.user.id,
+            sourceId: channelId[i],
+          },
+        }
+      );
+    }
+    const categories = await Category.findAll({
+      include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
     });
 
-    for (let i = 0; i < articles.length; i++) {
-      if (articles[i].Source !== null) {
-        for (let j = 0; j < articles[i].Source.Articles.length; j++) {
-          console.log(1, articles[i].Source.Articles[j].title);
-        }
-      }
-    }
-
-    res.render("home/test", {
+    const activeSwitch = await UserInterestedCategories.findAll({
+      where: { userId: req.user.id },
+    });
+    res.render("profile/send-email-day", {
       path: "/login",
       pageTitle: "Login",
-      // source: source,
+      categories: categories,
+      channels: channels,
+      activeSwitch: activeSwitch,
     });
+    return res.redirect("/stiri");
   } catch (error) {
     console.log(error);
   }

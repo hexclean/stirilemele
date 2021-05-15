@@ -8,5 +8,4 @@ const sourceController = require("../controllers/source");
 router.get("/categorii", otherController.getCategoryScreen);
 router.get("/top", otherController.getTopArticles);
 router.get("/comment-email", otherController.getTopArticles);
-router.get("/channels", otherController.getChannels);
 module.exports = router;

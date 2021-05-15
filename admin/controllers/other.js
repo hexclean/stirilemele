@@ -99,15 +99,3 @@ exports.getCategoryScreen = async (req, res, next) => {
     console.log(error);
   }
 };
-
-exports.getChannels = async (req, res, next) => {
-  if (req.admin != undefined) {
-    res.redirect("/admin/orders");
-  }
-  const channels = await Articles.findAll();
-  res.render("categories/channels", {
-    path: "/signup",
-    pageTitle: "Signup",
-    channels: channels,
-  });
-};

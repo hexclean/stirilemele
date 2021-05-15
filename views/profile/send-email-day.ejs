@@ -15,7 +15,7 @@
       <form
         name="myForm"
         class="ms-content-wrapper"
-        action="/action/send-email-days"
+        action="/action/edit-categories"
         method="POST"
         enctype="multipart/form-data"
       >
@@ -24,19 +24,6 @@
             Mentés
           </button>
         </div>
-        <script>
-          $(document).ready(function () {
-            $(".statusChannel-checkbox").click(function () {
-              console.log("dasd");
-              var extraId = $(this).attr("data-channelId");
-              if ($(this).is(":checked")) {
-                $(".statusChannel-" + extraId).val("on");
-              } else {
-                $(".statusChannel-" + extraId).val("off");
-              }
-            });
-          });
-        </script>
         <script>
           $(document).ready(function () {
             $(".statusCategory-checkbox").click(function () {
@@ -49,11 +36,11 @@
             });
           });
         </script>
-        <% for (let i = 0; i < activeSwitchCategory.length; i++) { %> <% if
-        (activeSwitchCategory[i].active == 1) { %>
+        <% for (let i = 0; i < activeSwitch.length; i++) { %> <% if
+        (activeSwitch[i].active == 1) { %>
         <script>
           $(document).ready(function () {
-            var activeCheckbox = "<%= activeSwitchCategory[i].categoryId %>";
+            var activeCheckbox = "<%= activeSwitch[i].categoryId %>";
             $(".statusCategory-checkbox-" + activeCheckbox).prop(
               "checked",
               true
@@ -61,53 +48,7 @@
             $(".statusCategory-" + activeCheckbox).val("on");
           });
         </script>
-        <% } %> <% } %> <% for (let i = 0; i < activeSwitchSource.length; i++) {
-        %> <% if (activeSwitchSource[i].active == 1) { %>
-        <script>
-          $(document).ready(function () {
-            var activeCheckbox = "<%= activeSwitchSource[i].sourceId %>";
-            $(".statusChannel-checkbox-" + activeCheckbox).prop(
-              "checked",
-              true
-            );
-            $(".statusChannel-" + activeCheckbox).val("on");
-          });
-        </script>
         <% } %> <% } %>
-
-        <div class="block article" style="padding: 0px 20px 0 20px;">
-          <div class="list pages-list">
-            <% for (let i=0; i < channels.length; i++ ) { %>
-            <div class="item-inner" style="padding-top: 0px !important;">
-              <div style="margin-top: 20px !important;" class="item-title">
-                <b><%= channels[i].name %></b>
-              </div>
-              <input
-                type="hidden"
-                value="<%= channels[i].id %>"
-                name="channelId"
-              />
-
-              <label class="toggle toggle-init color-green toggle-theme">
-                <input
-                  type="hidden"
-                  value="off"
-                  class="statusChannel-<%= channels[i].id %> status-hidden-box"
-                  name="statusChannel[<%= channels[i].id %>]"
-                />
-                <input
-                  data-channelId="<%= channels[i].id %>"
-                  type="checkbox"
-                  class="custom-control-input statusChannel-checkbox statusChannel-checkbox-<%= channels[i].id %>"
-                  type="checkbox"
-                />
-                <span class="toggle-icon"></span>
-              </label>
-            </div>
-            <% } %>
-          </div>
-        </div>
-        <h2>das</h2>
         <div class="block article" style="padding: 0px 20px 0 20px;">
           <div class="list pages-list">
             <% for (let i=0; i < categories.length; i++ ) { %>
