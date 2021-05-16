@@ -8,7 +8,13 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 exports.getTopArticles = async (req, res, next) => {
+  let logged = 0;
   try {
+    if (req.user != undefined) {
+      logged = 1;
+    } else {
+      top = 0;
+    }
     const articles = await Articles.findAll({
       order: [["clicked", "DESC"]],
       include: [
@@ -18,11 +24,12 @@ exports.getTopArticles = async (req, res, next) => {
         { model: Category },
       ],
     });
-    console.log(articles);
+
     res.render("categories/top", {
       path: "/login",
       pageTitle: "Login",
       articles: articles,
+      logged: logged,
     });
   } catch (error) {
     console.log(error);
