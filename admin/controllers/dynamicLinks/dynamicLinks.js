@@ -5,7 +5,7 @@ const CategoryTranslation = require("../../../models/CategoryTranslation");
 const Articles = require("../../../models/Article");
 const ArticleComment = require("../../../models/ArticleComment");
 const User = require("../../../models/Users");
-
+const moment = require("moment");
 exports.getSelectedCategoryArticles = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
@@ -20,7 +20,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
 
   const articles = await Articles.findAll({
     where: { categoryId: categoryId },
-    limit: 7,
+    order: [["createdAt", "DESC"]],
     include: [
       {
         model: Category,
@@ -91,7 +91,7 @@ exports.getArticleDetail = async (req, res, next) => {
   } else {
     logged = 0;
   }
-  console.log(articleTitle);
+
   const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const category = await Category.findOne({
@@ -118,6 +118,14 @@ exports.getArticleDetail = async (req, res, next) => {
       },
     ],
   });
+  var a = moment(article.createdAt); //now
+  var b = moment("2021-05-16T20:03:55");
+
+  console.log(a.diff(b, "minutes")); // 44700
+  console.log(a.diff(b, "hours")); // 745
+  console.log(a.diff(b, "days")); // 31
+  console.log(a.diff(b, "weeks")); // 4
+
   const comments = await ArticleComment.findAll({
     where: { articleId: article.id },
     include: [{ model: User }],
