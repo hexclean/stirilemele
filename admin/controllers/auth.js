@@ -48,12 +48,12 @@ exports.postLogin = (req, res, next) => {
   const password = req.body.password;
   console.log(req.body);
   if (email.length < 5 && password.length < 5) {
-    return res.redirect("/login");
+    return res.redirect("/autentificare/login");
   }
   User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
-        return res.redirect("/login");
+        return res.redirect("/autentificare/login");
       }
       bcrypt
         .compare(password, user.password)
@@ -67,7 +67,7 @@ exports.postLogin = (req, res, next) => {
               res.redirect("/");
             });
           }
-          res.redirect("/");
+          res.redirect("/profile");
         })
         .catch((err) => {
           console.log(err);
@@ -81,7 +81,7 @@ exports.postSignup = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   if (email.length < 5 && password.length < 5) {
-    return res.redirect("/login");
+    return res.redirect("/autentificare/login");
   }
   let categories = await Category.findAll();
   let channels = await Channels.findAll();

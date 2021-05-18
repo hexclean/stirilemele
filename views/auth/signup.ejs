@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Title Of Site -->
     <title>Login</title>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/login.css" />
   </head>
   <body>
-    <!-- start Container Wrapper -->
     <div class="main-wrapper">
       <div class="login-area">
-        <div class="sign-up"><a href="/autentificare/login">Belépés</a></div>
+        <div class="sign-up">
+          <a href="/autentificare/login">Belépés</a>
+        </div>
         <h1 class="heder">Regisztráció!</h1>
-        <span class="smlp"
-          >Regisztráció után lehetőséged van testreszabni a hírek megjelenését
-          és még sok más dolgot!</span
+        <span class="smlp">Regisztrálj hogy testreszabhasd az oldalt</span>
+        <span class="smlp">
+          Egyéni beállítások, Kedvenc kategóriák, E-mail értesítés, Hozzászólás
+          küldés</span
         >
-
-        <form action="/auth/signup" method="POST">
+        <form action="/autentificare/signup" method="POST">
           <input type="text" placeholder="E-mail címed" name="email" />
-          <input type="text" placeholder="Jelszó" name="password" />
-          <input
-            type="text"
-            placeholder="Jelszó újra"
-            name="confirmPassword"
-            id="confirmPassword"
-          />
-          <a class="fgt">Elfelejtett jelszó</a>
+          <input type="password" placeholder="Jelszavad" name="password" />
+
           <div class="form-grou">
             <input class="submit-btn" type="submit" value="Regisztráció" />
           </div>
         </form>
       </div>
     </div>
-    <div class="login-image"><img src="img/login.jpg" /></div>
+    <div class="login-image"><img src="/img/stiri.jpeg" /></div>
   </body>
 </html>

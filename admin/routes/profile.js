@@ -1,16 +1,18 @@
 const express = require("express");
 const profileController = require("../controllers/profile");
 const actionController = require("../controllers/action");
+const isAuth = require("../../middleware/is-auth");
+
 const router = express.Router();
 
 // Profil betöltése
-router.get("/", profileController.getProfile);
-router.get("/select-category", profileController.getCategoryEditing);
-router.get("/select-channel", profileController.getChannelEditing);
-router.get("/send-email", profileController.getSendEmailEndOfTheDay);
-router.get("/email-sender", profileController.getEmailSender);
-router.get("/history", actionController.getHistoryArticles);
-router.get("/contact", profileController.getContact);
+router.get("/", isAuth, profileController.getProfile);
+router.get("/select-category", isAuth, profileController.getCategoryEditing);
+router.get("/select-channel", isAuth, profileController.getChannelEditing);
+router.get("/send-email", isAuth, profileController.getSendEmailEndOfTheDay);
+router.get("/email-sender", isAuth, profileController.getEmailSender);
+router.get("/history", isAuth, actionController.getHistoryArticles);
+router.get("/contact", isAuth, profileController.getContact);
 // Kategória oldal
 // router.get("/stiri/categorii", categoryController.getAllCategoryScreen);
 
