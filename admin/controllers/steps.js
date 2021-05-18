@@ -81,7 +81,7 @@ exports.postAddFavouriteChannel = async (req, res, next) => {
         }
       );
     }
-    return res.redirect("/stiri");
+    return res.redirect("/");
   } catch (error) {
     console.log(error);
   }

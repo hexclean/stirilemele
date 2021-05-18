@@ -11,7 +11,7 @@ const SendEmailSource = require("../../models/SendEmailSource");
 
 exports.getLogin = async (req, res, next) => {
   if (req.user != undefined) {
-    await res.redirect("/stiri");
+    await res.redirect("/");
   }
   let message = req.flash("error");
   if (message.length > 0) {
@@ -34,7 +34,7 @@ exports.getLogin = async (req, res, next) => {
 
 exports.getSignup = async (req, res, next) => {
   if (req.user != undefined) {
-    await res.redirect("/stiri");
+    await res.redirect("/");
   }
   res.render("auth/signup", {
     path: "/signup",
@@ -64,7 +64,7 @@ exports.postLogin = (req, res, next) => {
             console.log(user);
             return req.session.save((err) => {
               console.log(err);
-              res.redirect("/stiri");
+              res.redirect("/");
             });
           }
           res.redirect("/");

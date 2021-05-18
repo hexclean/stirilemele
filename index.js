@@ -90,7 +90,6 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 const stiriRoutes = require("./admin/routes/stiri");
-const cronjobRoutes = require("./scraping/routes/cronjob");
 const profileRoutes = require("./admin/routes/profile");
 const channelRoutes = require("./admin/routes/channel");
 const actionRoutes = require("./admin/routes/action");
@@ -121,7 +120,6 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", stiriRoutes);
 app.use("/autentificare", authRoutes);
-app.use("/cronjob", cronjobRoutes);
 app.use("/profile", profileRoutes);
 app.use("/channels", channelRoutes);
 app.use("/action", actionRoutes);

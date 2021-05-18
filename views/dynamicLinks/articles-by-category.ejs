@@ -6,10 +6,10 @@
           <%- include('../includes/logo.ejs') %>
         
 
-    <div class="page-content" style="padding-top: 5px !important">
+    <div class="page-content" style="padding-top: 5px !important; padding-bottom: 95px !important;">
       <div class="block">
         <% if(articles.length == 0){ %>
-          <p>Állítsd be hírcsatornát, hogy a(z) <b><%= categoryNameView %></b> hírekeket láthass!
+          <p>Kérjük adj hozzá több hírcsatornát, hogy láthasd a(z) <%= categoryNameView %> híreit
             <br><a href="/profile/select-channel">Itt tudod beállítani </a>
           </p>
        <% } else{ %>  
@@ -50,7 +50,7 @@
           <i class="f7-icons">person_2_alt</i>
           <span class="tabbar-label">Hírcsatornák</span>
         </a>
-        <a href="/top" class="tab-link">
+        <a href="/top-stiri" class="tab-link">
           <i class="f7-icons">text_badge_star</i>
           <span class="tabbar-label">Top hírek</span>
         </a>

@@ -6,6 +6,6 @@ const sourceController = require("../controllers/source");
 
 // Főoldal
 router.get("/categorii", otherController.getCategoryScreen);
-router.get("/top", otherController.getTopArticles);
+router.get("/top-stiri", otherController.getTopArticles);
 router.get("/comment-email", otherController.getTopArticles);
 module.exports = router;

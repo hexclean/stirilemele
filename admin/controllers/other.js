@@ -17,6 +17,7 @@ exports.getTopArticles = async (req, res, next) => {
     }
     const articles = await Articles.findAll({
       order: [["clicked", "DESC"]],
+      limit: 15,
       include: [
         {
           model: Source,

@@ -53,7 +53,7 @@ exports.postEditChannels = async (req, res, next) => {
         }
       );
     }
-    return res.redirect("/stiri");
+    return res.redirect("/profile");
   } catch (error) {
     console.log(error);
   }
@@ -77,7 +77,7 @@ exports.postEditCategory = async (req, res, next) => {
         }
       );
     }
-    return res.redirect("/stiri");
+    return res.redirect("/profile");
   } catch (error) {
     console.log(error);
   }
@@ -119,13 +119,21 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
 
 exports.getHistoryArticles = async (req, res, next) => {
   try {
+    const TODAY_START = new Date().setHours(0, 0, 0, 0);
+    const NOW = new Date();
     const articles = await ArticleViewed.findAll({
       where: {
         userId: req.user.id,
+        createdAt: {
+          [Op.gt]: TODAY_START,
+          [Op.lt]: NOW,
+        },
       },
+
       include: [
         {
           model: Articles,
+
           include: [
             {
               model: Source,
@@ -191,7 +199,7 @@ exports.postSendEmailDay = async (req, res, next) => {
         }
       );
     }
-    return res.redirect("/stiri");
+    return res.redirect("/profile");
   } catch (error) {
     console.log(error);
   }

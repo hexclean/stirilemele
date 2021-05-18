@@ -58,7 +58,7 @@ exports.postLogin = (req, res, next) => {
             console.log(user);
             return req.session.save((err) => {
               console.log(err);
-              res.redirect("/stiri");
+              res.redirect("/");
             });
           }
           res.redirect("/login");
