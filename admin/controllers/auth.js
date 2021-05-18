@@ -67,11 +67,11 @@ exports.postLogin = (req, res, next) => {
               res.redirect("/stiri");
             });
           }
-          res.redirect("/login");
+          res.redirect("/");
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/login");
+          res.redirect("/");
         });
     })
     .catch((err) => console.log(err));
@@ -123,7 +123,7 @@ exports.postSignup = async (req, res, next) => {
 
       return req.session.save((err) => {
         console.log(err);
-        res.redirect("/selectati-categorii");
+        res.redirect("/profile");
       });
     });
   } catch (err) {

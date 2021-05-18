@@ -119,8 +119,8 @@ app.use(
 
 // Define Routes
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/stiri", stiriRoutes);
-app.use("/auth", authRoutes);
+app.use("/", stiriRoutes);
+app.use("/autentificare", authRoutes);
 app.use("/cronjob", cronjobRoutes);
 app.use("/profile", profileRoutes);
 app.use("/channels", channelRoutes);

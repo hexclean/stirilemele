@@ -53,7 +53,12 @@ exports.getChannelCategories = async (req, res, next) => {
   const source = await Source.findOne({ where: { seoUrl: channelName } });
   let sourceId = source.id;
   let sourceName = source.name;
-  console.log(sourceId);
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
   try {
     const allCategories = await SourceCategories.findAll({
       where: {
@@ -89,6 +94,7 @@ exports.getChannelCategories = async (req, res, next) => {
       articles: articles,
       allCategories: allCategories,
       sourceName: sourceName,
+      logged: logged,
     });
   } catch (error) {
     console.log(error);

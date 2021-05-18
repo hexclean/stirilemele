@@ -17,14 +17,16 @@
     <!-- start Container Wrapper -->
     <div class="main-wrapper">
       <div class="login-area">
-        <div class="sign-up"><a href="/signup">Regisztráció</a></div>
+        <div class="sign-up">
+          <a href="/autentificare/inregistreaza">Regisztráció</a>
+        </div>
         <h1 class="heder">Bejelentkezés!</h1>
         <span class="smlp"
           >Jelentkezz be, hogy szabd testre a hírek megjelenését és még sok más
           dolgot!</span
         >
 
-        <form action="/auth/login" method="POST">
+        <form action="/autentificare/login" method="POST">
           <input type="text" placeholder="E-mail címed" name="email" />
           <input type="text" placeholder="Jelszó" name="password" />
           <a class="fgt">Elfelejtett jelszó</a>

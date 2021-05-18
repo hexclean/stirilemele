@@ -6,33 +6,13 @@
   <%- include('../includes/logo.ejs') %>
 
 
-    <div class="page-content" style="padding-top: 5px !important">
+    <div class="page-content" style="padding-top: 5px !important; padding-bottom: 95px !important;">
       <div class="block search-container">
         <div class="searchbar-hide-on-search">
           <% if(logged == 1){ %>
-          <h2 style="margin-top: 0px;">Kedvelt kategóriáid</h2>
-          <% } else{ %> <h2 style="margin-top: 0px;">Fő kategóriák</h2> <% } %>
-          <ul class="popular-tags">
-            <% if(logged == 1){ %>
-            <% for (let i=0; i < categories.length; i++ ) { %>
-            <li>
-              <a href="/stiri/<%= categories[i].Category.seoUrl %>" class="link"
-                ><span><%= categories[i].Category.CategoryTranslations[0].name %></span><i class="f7-icons">chevron_right</i></a>
-              </li>
-              <% } %><% } else{ %>
-                <% for (let i=0; i < categories.length; i++ ) { %>
-                  <li>
-                    <a href="/stiri/<%= categories[i].seoUrl %>" class="link"
-                      ><span><%= categories[i].CategoryTranslations[0].name %></span><i class="f7-icons">chevron_right</i></a>
-                    </li>
-                    <% } %>
-              <% } %>
-          </ul>
-
-          <h2 style="margin: 25px 0px 15px;">Legfrisebb cikkek</h2>
-
+          <h2 style="margin-top: 0px;">Kedvelt híreid</h2>
+          <% } else{ %> <h2 style="margin-top: 0px;">Legrisebb hírek</h2> <% } %>
         </div>
-
       </div>
       <div class="block">
 
@@ -81,7 +61,7 @@
       
     </div>
     <% if(logged == 0){ %>
-    <a href="/auth/signup">
+    <a href="/autentificare/login">
     <div class="link-block promo-banner">
     
       <div class="link-infos">
@@ -115,7 +95,7 @@
           <span class="tabbar-label">Profil</span>
         </a>
         <% } else{ %>
-          <a href="/login" class="tab-link">
+          <a href="/autentificare/login" class="tab-link">
             <i class="f7-icons">person_crop_circle</i>
             <span class="tabbar-label">Bejelentkezés</span>
           </a>

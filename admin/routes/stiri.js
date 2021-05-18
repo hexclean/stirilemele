@@ -8,17 +8,20 @@ const sourceController = require("../controllers/source");
 router.get("/", homeController.getHome);
 
 // Kategória hírei
-router.get("/:categoryName", dynamicLinkController.getSelectedCategoryArticles);
+router.get(
+  "/stiri/:categoryName",
+  dynamicLinkController.getSelectedCategoryArticles
+);
 
 // Hírportál kategóriái
 router.get(
-  "/:categoryName/:channelName",
+  "/stiri/:categoryName/:channelName",
   dynamicLinkController.getChannelNewsByCategory
 );
 
 // Hírportál cikk adatlapja
 router.get(
-  "/:categoryName/:channelName/:articleTitle",
+  "/stiri/:categoryName/:channelName/:articleTitle",
   dynamicLinkController.getArticleDetail
 );
 

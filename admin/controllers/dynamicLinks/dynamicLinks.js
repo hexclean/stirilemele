@@ -5,8 +5,14 @@ const CategoryTranslation = require("../../../models/CategoryTranslation");
 const Articles = require("../../../models/Article");
 const ArticleComment = require("../../../models/ArticleComment");
 const User = require("../../../models/Users");
-const moment = require("moment");
+
 exports.getSelectedCategoryArticles = async (req, res, next) => {
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
   const categoryName = req.params.categoryName;
   let categoryId;
   let categoryNameView;
@@ -34,6 +40,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
     pageTitle: "Login",
     categoryNameView: categoryNameView,
     articles: articles,
+    logged: logged,
   });
 };
 
@@ -42,6 +49,12 @@ exports.getChannelNewsByCategory = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
   let channelId;
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
   const channel = await Source.findOne({ where: { seoUrl: channelName } });
   channelId = channel.id;
   const category = await Category.findOne({
@@ -63,19 +76,13 @@ exports.getChannelNewsByCategory = async (req, res, next) => {
     ],
   });
 
-  //   categoryName = categories.id;
-  //   for (let i = 0; i < categories.length; i++) {
-  //     for (let j = 0; j < categories[i].Articles.length; j++) {
-  //       console.log(categories[i].Articles[j].title);
-  //     }
-  //   }
-  console.log(categories);
   res.render("dynamicLinks/channel-articles-by-category", {
     path: "/login",
     pageTitle: "Login",
     articles: categories,
     channelName: channelName,
     categoryName: categoryName,
+    logged: logged,
   });
 };
 
@@ -83,7 +90,6 @@ exports.getArticleDetail = async (req, res, next) => {
   const channelName = req.params.channelName;
   const articleTitle = req.params.articleTitle;
   const categoryName = req.params.categoryName;
-  let categoryId;
   let channelId;
   let logged = 0;
   if (req.user != undefined) {
@@ -118,19 +124,12 @@ exports.getArticleDetail = async (req, res, next) => {
       },
     ],
   });
-  var a = moment(article.createdAt); //now
-  var b = moment("2021-05-16T20:03:55");
-
-  console.log(a.diff(b, "minutes")); // 44700
-  console.log(a.diff(b, "hours")); // 745
-  console.log(a.diff(b, "days")); // 31
-  console.log(a.diff(b, "weeks")); // 4
 
   const comments = await ArticleComment.findAll({
     where: { articleId: article.id },
     include: [{ model: User }],
   });
-  console.log(comments);
+
   res.render("dynamicLinks/article-detail", {
     path: "/login",
     pageTitle: "Login",
