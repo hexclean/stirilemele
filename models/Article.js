@@ -20,7 +20,7 @@ const Article = sequelize.define("Article", {
     type: Sequelize.TEXT("long"),
     allowNull: false,
   },
-  timeCreated: Sequelize.DATE,
+
   action: Sequelize.INTEGER,
   seoUrl: Sequelize.STRING,
   clicked: Sequelize.INTEGER,
