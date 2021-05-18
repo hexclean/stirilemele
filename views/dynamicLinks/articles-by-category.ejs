@@ -8,7 +8,7 @@
 
     <div class="page-content" style="padding-top: 5px !important; padding-bottom: 95px !important;">
       <div class="block">
-        <% if(articles.length == 0){ %>
+        <% if(articles.length == 0 && logged==1){ %>
           <p>Kérjük adj hozzá több hírcsatornát, hogy láthasd a(z) <%= categoryNameView %> híreit
             <br><a href="/profile/select-channel">Itt tudod beállítani </a>
           </p>
