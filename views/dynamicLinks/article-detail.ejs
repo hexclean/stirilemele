@@ -2,7 +2,7 @@
 <body class="color-theme-pink">
   <div class="page single single-1 no-navbar" data-name="single">
     <div class="page-content">
-      <img class="cover-image" src=" <%= article.imageUrl %>" alt="" />
+      <img class="cover-image" src="<%= article.imageUrl %>" alt="" />
       <div class="block article">
         <div class="post-infos">
           <div class="post-category"><%= categoryName %></div>
@@ -30,16 +30,10 @@
         </div>
         <div class="social-buttons">
           <a
-            href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themeforest.net"
+            href="https://www.facebook.com/sharer/sharer.php?u=https://stirilemele.ro/stiri/<%= categoryParams %>/<%= channelParams %>/<%= articleParams %>"
             target="_blank"
             class="big-button link facebook external"
             ><i class="f7-icons">logo_facebook</i>Facebook</a
-          >
-          <a
-            href="http://twitter.com/share?text=Welcome%20To%20Yui&url=http://themeforest.net&hashtags=template,mobile"
-            target="_blank"
-            class="big-button link twitter external"
-            ><i class="f7-icons">logo_twitter</i>Twitter</a
           >
         </div>
       </div>

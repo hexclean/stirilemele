@@ -137,5 +137,8 @@ exports.getArticleDetail = async (req, res, next) => {
     categoryName: article.Category.CategoryTranslations[0].name,
     comments: comments,
     logged: logged,
+    categoryParams: categoryName,
+    channelParams: channelName,
+    articleParams: articleTitle,
   });
 };

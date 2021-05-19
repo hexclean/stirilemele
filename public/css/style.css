@@ -462,7 +462,7 @@ img {
   margin: 15px 0;
 }
 .ios .pages-list .item-media {
-  background: #ff2d55;
+  background: #1877f2;
   color: #fff;
   width: 35px;
   height: 35px;
@@ -582,7 +582,7 @@ img {
 .single .post-category {
   font-size: 14px;
   color: white;
-  background: #ff2d55;
+  background: #1877f2;
   display: inline-block;
   font-weight: 600;
   line-height: 18px;
@@ -811,7 +811,7 @@ video {
 .author-block .author-name {
   font-size: 18px;
   font-weight: 600;
-  color: #ff2e54;
+  color: #1877f2;
 }
 .author-block .author-description {
   font-size: 16px;
@@ -883,7 +883,7 @@ video {
   -webkit-line-clamp: unset;
 }
 .ios .comment-list .item-after i {
-  color: #ff2f53;
+  color: #1877f2;
   font-size: 17px;
   margin-right: 4px;
 }
@@ -962,7 +962,7 @@ video {
   color: #96969b;
 }
 .big-button.pink-bg {
-  background: #ff2e54;
+  background: #1877f2;
   color: #fff !important;
 }
 
@@ -983,7 +983,7 @@ video {
   height: 300px;
   position: absolute;
   background: #8705f0;
-  background: linear-gradient(to bottom right, #ff2e54, #c519e4);
+  background: linear-gradient(to bottom right, #1877f2, #c519e4);
 }
 .discover-gradient svg {
   position: absolute;
