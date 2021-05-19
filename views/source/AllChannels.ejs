@@ -7,9 +7,9 @@
     <div class="page-content" style="padding-top: 5px !important;">
       <div class="block">
         <div class="title-with-link category-title">
-          <h2 style="margin-top: 0px;">Authors</h2>
+          <h2 style="margin-top: 0px;">Hírcsatornák</h2>
           <div class="chip">
-            <div class="chip-label">23 Authors</div>
+            <div class="chip-label"><%= channelsLength %> hírcsatorna</div>
           </div>
         </div>
         <ul class="popular-authors">
@@ -18,12 +18,8 @@
 
           <li>
             <a href="/channels/<%= channels[i].Source.seoUrl %>">
-              <div class="author-image">
-                <img src="img/authors/author-3.jpg" alt="" />
-              </div>
               <div class="author-infos">
                 <div class="author-name"><%= channels[i].Source.name %></div>
-                <!-- <div class="author-description">NBA & NFL Journalist</div> -->
               </div>
               <% if(channels[i].active == 1){ %>
               <div class="chip">
@@ -35,15 +31,8 @@
           <% } %> <% } else{ %> <% for (let i=0; i < channels.length; i++ ) { %>
           <li>
             <a href="/channels/<%= channels[i].seoUrl %>">
-              <div class="author-image">
-                <img src="img/authors/author-3.jpg" alt="" />
-              </div>
               <div class="author-infos">
                 <div class="author-name"><%= channels[i].name %></div>
-                <!-- <div class="author-description">
-                  sport, politika, kultur, itthon, tv, kulfold, tech, tanc,
-                  sport, politika
-                </div> -->
               </div>
             </a>
           </li>

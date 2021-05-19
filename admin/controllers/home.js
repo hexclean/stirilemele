@@ -46,6 +46,7 @@ exports.getHome = async (req, res, next) => {
             include: [
               {
                 model: Articles,
+                order: [["createdAt", "ASC"]],
                 where: {
                   categoryId: {
                     [Op.in]: interestedCategoryId,
@@ -88,7 +89,7 @@ exports.getHome = async (req, res, next) => {
 
     res.render("home/index", {
       path: "/login",
-      pageTitle: "Login",
+      pageTitle: "Știrilemele - ultimele știri",
       articles: articles,
       categories: categories,
       logged: logged,

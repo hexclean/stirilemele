@@ -42,6 +42,7 @@ exports.getAllChannel = async (req, res, next) => {
       pageTitle: "Login",
       logged: logged,
       channels: channels,
+      channelsLength: channels.length,
     });
   } catch (error) {
     console.log(error);
