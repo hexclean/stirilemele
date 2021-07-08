@@ -71,6 +71,7 @@ exports.getChannelCategories = async (req, res, next) => {
           model: Category,
           include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
         },
+        { model: Source },
       ],
     });
 
@@ -96,6 +97,53 @@ exports.getChannelCategories = async (req, res, next) => {
       allCategories: allCategories,
       sourceName: sourceName,
       logged: logged,
+      source: source,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getChannelCategory = async (req, res, next) => {
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  try {
+    const categoryName = await Category.findOne({
+      where: { seoUrl: req.params.categoryName },
+    });
+    const sourceName = await Source.findOne({
+      where: { seoUrl: req.params.channelName },
+    });
+    let categoryId = categoryName.id;
+    let sourceId = sourceName.id;
+    const selectedArticles = await Articles.findAll({
+      where: { sourceId: sourceId, categoryId: categoryId },
+      limit: 5,
+    });
+    const allCategories = await SourceCategories.findAll({
+      where: {
+        sourceId: sourceId,
+      },
+
+      include: [
+        {
+          model: Category,
+          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+        },
+        { model: Source },
+      ],
+    });
+    res.render("categories/selectedCatSor", {
+      path: "/login",
+      pageTitle: "Login",
+      logged: logged,
+      source: sourceName.name,
+      selectedArticles: selectedArticles,
+      allCategories: allCategories,
     });
   } catch (error) {
     console.log(error);

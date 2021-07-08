@@ -177,7 +177,7 @@
                  <ul class="navbar-nav mr-auto">
                   <% for (let i=0; i < allCategories.length; i++ ) { %>
                     <li class="nav-item">
-                       <a class="nav-link" href="/channels/<%= allCategories[i].Source.seoUrl %>/<%= allCategories[i].Category.seoUrl %>"><%= allCategories[i].Category.CategoryTranslations[0].name %> <span class="sr-only">(current)</span></a>
+                       <a class="nav-link" href="/channel/<%= allCategories[i].Source.seoUrl %>/<%= allCategories[i].Category.seoUrl %>"><%= allCategories[i].Category.CategoryTranslations[0].name %> <span class="sr-only">(current)</span></a>
                     </li>
                     <% } %>
                    
@@ -197,16 +197,17 @@
                        <h6>Videos</h6>
                     </div>
                  </div>
+                 <% for (let i=0; i < selectedArticles.length; i++ ) { %>
                  <div class="col-xl-3 col-sm-6 mb-3">
                     <div class="video-card">
                        <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v1.png" alt=""></a>
-                          <div class="time">3:50</div>
+                          <a class="play-icon" href="<%= selectedArticles[i].link %>"></a>
+                          <a href="#"><img class="img-fluid" src="<%= selectedArticles[i].imageUrl %>" alt=""></a>
+                       
                        </div>
                        <div class="video-card-body">
                           <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
+                             <a href="<%= selectedArticles[i].link %>"><%= selectedArticles[i].title %></a>
                           </div>
                           <div class="video-page text-success">
                              Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
@@ -217,226 +218,7 @@
                        </div>
                     </div>
                  </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v2.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v3.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-danger">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v4.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v5.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v6.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-danger">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v7.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v8.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v1.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v2.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v3.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-danger">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                          <a href="#"><img class="img-fluid" src="/img/v4.png" alt=""></a>
-                          <div class="time">3:50</div>
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="#">There are many variations of passages of Lorem</a>
-                          </div>
-                          <div class="video-page text-success">
-                             Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
+                 <% } %>
               </div>
               <nav aria-label="Page navigation example">
                  <ul class="pagination justify-content-center pagination-sm mb-0">

@@ -6,12 +6,31 @@ const UserInterestedCategories = require("../../models/UserInterestedCategories"
 const UserInterestedSources = require("../../models/UserInterestedSources");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const ITEMS_PER_PAGE = 40;
+const TODAY_START = new Date().setHours(0, 0, 0, 0);
+const NOW = new Date();
 
 exports.getConfiguredHome = async (req, res, next) => {
   let categories = [];
   let articles = [];
   let interestedCategoryId = [];
-
+  const page = +req.query.page || 1;
+  let totalItems;
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  const sources = await Source.findAll();
+  const bestArticles = await Articles.findAll({
+    createdAt: {
+      [Op.gt]: TODAY_START,
+      [Op.lt]: NOW,
+    },
+    order: [["clicked", "DESC"]],
+    limit: 4,
+  });
   try {
     categories = await UserInterestedCategories.findAll({
       where: { userId: req.user.id, active: 1 },
@@ -61,6 +80,15 @@ exports.getConfiguredHome = async (req, res, next) => {
       pageTitle: "Știrilemele - ultimele știri",
       articles: articles.reverse(),
       categories: categories,
+      logged: logged,
+      hasNextPage: ITEMS_PER_PAGE * page < 10,
+      hasPreviousPage: page > 1,
+      nextPage: page + 1,
+      previousPage: page - 1,
+      lastPage: Math.ceil(10 / ITEMS_PER_PAGE),
+      currentPage: page,
+      sources: sources,
+      bestArticles: bestArticles,
     });
   } catch (error) {
     console.log(error);
