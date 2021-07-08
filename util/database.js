@@ -1,18 +1,11 @@
 const Sequelize = require("sequelize");
 const db = {};
 
-sequelize = new Sequelize("defaultdb", "doadmin", "hhifjal25po3olfs", {
+sequelize = new Sequelize("defaultdb", "doadmin", "ldms569jnww55d68", {
+  host: "db-mysql-fra1-95468-do-user-9247906-0.b.db.ondigitalocean.com",
   dialect: "mysql",
-  host: "stirilemele-do-user-9247906-0.b.db.ondigitalocean.com",
   port: 25060,
 });
-
-// sequelize = new Sequelize("defaultdb", "doadmin", "uzg7vmow9hgs0dlw", {
-//   dialect: "mysql",
-//   host: "staging-db-do-user-8133521-0.b.db.ondigitalocean.com",
-//   port: 25060,
-// });
-
 // sequelize = new Sequelize("stirilemele", "root", "", {
 //   host: "",
 //   dialect: "mysql",

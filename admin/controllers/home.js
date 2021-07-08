@@ -9,7 +9,7 @@ const UserInterestedSources = require("../../models/UserInterestedSources");
 const ArticleAction = require("../../models/ArticleAction");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const { validationResult } = require("express-validator/check");
+var timeAgo = require("node-time-ago");
 const Article = require("../../models/Article");
 const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleComment = require("../../models/ArticleComment");
@@ -19,6 +19,7 @@ exports.getHome = async (req, res, next) => {
   let categories = [];
   let articles = [];
   let interestedCategoryId = [];
+
   try {
     if (req.user != undefined) {
       logged = 1;
@@ -46,7 +47,6 @@ exports.getHome = async (req, res, next) => {
             include: [
               {
                 model: Articles,
-                order: [["createdAt", "ASC"]],
                 where: {
                   categoryId: {
                     [Op.in]: interestedCategoryId,
@@ -72,7 +72,6 @@ exports.getHome = async (req, res, next) => {
         include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
       });
       articles = await Articles.findAll({
-        order: [["createdAt", "ASC"]],
         include: [
           {
             model: Source,
@@ -90,7 +89,7 @@ exports.getHome = async (req, res, next) => {
     res.render("home/index", {
       path: "/login",
       pageTitle: "Știrilemele - ultimele știri",
-      articles: articles,
+      articles: articles.reverse(),
       categories: categories,
       logged: logged,
     });

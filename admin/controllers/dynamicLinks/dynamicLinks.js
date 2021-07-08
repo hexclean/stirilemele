@@ -26,7 +26,6 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
 
   const articles = await Articles.findAll({
     where: { categoryId: categoryId },
-    order: [["createdAt", "DESC"]],
     include: [
       {
         model: Category,
@@ -39,7 +38,8 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     categoryNameView: categoryNameView,
-    articles: articles,
+    // articles: articles.reverse(),
+    articles: articles.reverse(),
     logged: logged,
   });
 };
@@ -90,6 +90,9 @@ exports.getArticleDetail = async (req, res, next) => {
   const channelName = req.params.channelName;
   const articleTitle = req.params.articleTitle;
   const categoryName = req.params.categoryName;
+  console.log("channelName", channelName);
+  console.log("articleTitle", articleTitle);
+  console.log("categoryName", categoryName);
   let channelId;
   let logged = 0;
   if (req.user != undefined) {
