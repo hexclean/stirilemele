@@ -4,95 +4,75 @@ const Articles = require("../../models/Article");
 const Source = require("../../models/Source");
 const Category = require("../../models/Category");
 const CategoryTranslation = require("../../models/CategoryTranslation");
-const UserInterestedCategories = require("../../models/UserInterestedCategories");
-const UserInterestedSources = require("../../models/UserInterestedSources");
-const ArticleAction = require("../../models/ArticleAction");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 var timeAgo = require("node-time-ago");
 const Article = require("../../models/Article");
 const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleComment = require("../../models/ArticleComment");
+const TODAY_START = new Date().setHours(0, 0, 0, 0);
+const NOW = new Date();
+const ITEMS_PER_PAGE = 40;
 
 exports.getHome = async (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
   let logged = 0;
-  let categories = [];
-  let articles = [];
-  let interestedCategoryId = [];
-
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
   try {
-    if (req.user != undefined) {
-      logged = 1;
-      categories = await UserInterestedCategories.findAll({
-        where: { userId: req.user.id, active: 1 },
-        include: [
-          {
-            model: Category,
-            include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-          },
-        ],
-      });
-      for (let i = 0; i < categories.length; i++) {
-        interestedCategoryId.push(categories[i].categoryId);
-      }
-
-      articles = await UserInterestedSources.findAll({
-        where: {
-          userId: req.user.id,
-          active: 1,
+    await Articles.findAll({
+      createdAt: {
+        [Op.gt]: TODAY_START,
+        [Op.lt]: NOW,
+      },
+      include: [
+        {
+          model: Category,
+          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
         },
-        include: [
-          {
-            model: Source,
-            include: [
-              {
-                model: Articles,
-                where: {
-                  categoryId: {
-                    [Op.in]: interestedCategoryId,
-                  },
-                },
-                include: [
-                  {
-                    model: Category,
-                    include: [
-                      { model: CategoryTranslation, where: { languageId: 2 } },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      });
-    } else {
-      logged = 0;
-      categories = await Category.findAll({
-        where: { secondary: 1 },
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-      });
-      articles = await Articles.findAll({
-        include: [
-          {
-            model: Source,
-          },
-          {
-            model: Category,
-            include: [
-              { model: CategoryTranslation, where: [{ languageId: 2 }] },
-            ],
-          },
-        ],
-      });
-    }
+        { model: Source },
+      ],
+    })
+      .then(async (numArticles) => {
+        totalItems = numArticles;
 
-    res.render("home/index", {
-      path: "/login",
-      pageTitle: "Știrilemele - ultimele știri",
-      articles: articles.reverse(),
-      categories: categories,
-      logged: logged,
-    });
+        return await Articles.findAll({
+          createdAt: {
+            [Op.gt]: TODAY_START,
+            [Op.lt]: NOW,
+          },
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
+          include: [
+            {
+              model: Category,
+              include: [
+                { model: CategoryTranslation, where: { languageId: 2 } },
+              ],
+            },
+            { model: Source },
+          ],
+        });
+      })
+      .then((articles) => {
+        console.log(page);
+        res.render("home/index", {
+          path: "/login",
+          pageTitle: "Știrilemele - ultimele știri",
+          articles: articles.reverse(),
+          logged: logged,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
+          currentPage: page,
+        });
+      });
   } catch (error) {
     console.log(error);
   }

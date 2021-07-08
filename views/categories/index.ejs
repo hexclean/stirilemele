@@ -68,17 +68,7 @@
       </div>
     </div>
 
-    <% if(logged == 0){ %>
-      <a href="/autentificare/inregistrare">
-      <div class="link-block promo-banner">
-      
-        <div class="link-infos">
-          <div class="link-title">Regisztrálj hogy testreszabhasd az oldalt</div>
-          <div class="link-url">Egyéni beállítások, Kedvenc kategóriák, E-mail értesítés, Hozzászólás küldés</div>
-        </div>
-      </div>
-    </a>
-    <% } %>
+    <%- include('../includes/bannerForRegister.ejs') %>
     <div class="toolbar tabbar tabbar-labels toolbar-bottom">
       <div class="toolbar-inner">
         <a href="/" class="tab-link">

@@ -7,6 +7,76 @@ const UserInterestedSources = require("../../models/UserInterestedSources");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
+exports.getConfiguredHome = async (req, res, next) => {
+  let categories = [];
+  let articles = [];
+  let interestedCategoryId = [];
+
+  try {
+    categories = await UserInterestedCategories.findAll({
+      where: { userId: req.user.id, active: 1 },
+      include: [
+        {
+          model: Category,
+          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+        },
+      ],
+    });
+    for (let i = 0; i < categories.length; i++) {
+      interestedCategoryId.push(categories[i].categoryId);
+    }
+
+    articles = await UserInterestedSources.findAll({
+      where: {
+        userId: req.user.id,
+        active: 1,
+      },
+      include: [
+        {
+          model: Source,
+          include: [
+            {
+              model: Articles,
+              where: {
+                categoryId: {
+                  [Op.in]: interestedCategoryId,
+                },
+              },
+              include: [
+                {
+                  model: Category,
+                  include: [
+                    { model: CategoryTranslation, where: { languageId: 2 } },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    res.render("home/configuredHome", {
+      path: "/login",
+      pageTitle: "Știrilemele - ultimele știri",
+      articles: articles.reverse(),
+      categories: categories,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getSignup = (req, res, next) => {
+  if (req.admin != undefined) {
+    res.redirect("/admin/orders");
+  }
+  res.render("auth/signup", {
+    path: "/signup",
+    pageTitle: "Signup",
+    isAuthenticated: false,
+  });
+};
 exports.getTopArticles = async (req, res, next) => {
   let logged = 0;
   try {

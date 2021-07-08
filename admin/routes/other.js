@@ -8,4 +8,5 @@ const sourceController = require("../controllers/source");
 router.get("/categorii", otherController.getCategoryScreen);
 router.get("/top-stiri", otherController.getTopArticles);
 router.get("/comment-email", otherController.getTopArticles);
+router.get("/stiri-configurate", otherController.getConfiguredHome);
 module.exports = router;
