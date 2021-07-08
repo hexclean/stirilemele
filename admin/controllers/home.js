@@ -24,6 +24,15 @@ exports.getHome = async (req, res, next) => {
     logged = 0;
   }
   try {
+    const sources = await Source.findAll();
+    const bestArticles = await Articles.findAll({
+      createdAt: {
+        [Op.gt]: TODAY_START,
+        [Op.lt]: NOW,
+      },
+      order: [["clicked", "DESC"]],
+      limit: 4,
+    });
     await Articles.findAll({
       createdAt: {
         [Op.gt]: TODAY_START,
@@ -71,6 +80,8 @@ exports.getHome = async (req, res, next) => {
           previousPage: page - 1,
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
+          sources: sources,
+          bestArticles: bestArticles,
         });
       });
   } catch (error) {
