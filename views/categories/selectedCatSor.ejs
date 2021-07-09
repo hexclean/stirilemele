@@ -177,13 +177,13 @@
                  <ul class="navbar-nav mr-auto">
                   <% for (let i=0; i < allCategories.length; i++ ) { %>
                     <li class="nav-item">
-                       <a class="nav-link" href="/channel/<%= allCategories[i].Source.seoUrl %>/<%= allCategories[i].Category.seoUrl %>"><%= allCategories[i].Category.CategoryTranslations[0].name %> <span class="sr-only">(current)</span></a>
+                       <a class="nav-link" href="/channels/<%= allCategories[i].Source.seoUrl %>/<%= allCategories[i].Category.seoUrl %>"><%= allCategories[i].Category.CategoryTranslations[0].name %> <span class="sr-only">(current)</span></a>
                     </li>
                     <% } %>
                    
                  </ul>
                  <form class="form-inline my-2 my-lg-0">
-                   <button class="btn btn-outline-danger btn-sm" type="button">Subscribe </button>
+                   <button class="btn btn-outline-danger btn-sm" type="button">Hírportál követése </button>
                  </form>
               </div>
            </nav>
