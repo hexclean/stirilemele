@@ -9,4 +9,5 @@ router.get("/categorii", otherController.getCategoryScreen);
 router.get("/top-stiri", otherController.getTopArticles);
 router.get("/comment-email", otherController.getTopArticles);
 router.get("/stiri-configurate", otherController.getConfiguredHome);
+router.get("/important", otherController.getFontos);
 module.exports = router;

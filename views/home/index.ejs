@@ -20,7 +20,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="history-page.html">
+        <a class="nav-link" href="/profile/history">
           <i class="fas fa-fw fa-history"></i>
           <span>Előzmények</span>
         </a>
@@ -51,14 +51,20 @@
           <span>Kategóriák</span>
         </a>
       </li>
-      <!-- <% if(logged == 0){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/important">
+          <i class="fas fa-fw fa-bell"></i>
+          <span>Fontos</span>
+        </a>
+      </li>
+      <% if(logged == 0){ %>
       <li class="nav-item">
         <a class="nav-link" href="/autentificare/login">
           <i class="fas fa-fw fa-user-alt"></i>
           <span>Belépés</span>
         </a>
       </li>
-      <% } %> -->
+      <% } %>
     </ul>
 
     <div id="content-wrapper">
@@ -158,8 +164,8 @@
                     <a href="#"><%= articles[i].title %></a>
                   </div>
                   <div class="video-page text-success">
-                    <%= articles[i].Source.name %> - <%=
-                    articles[i].Category.CategoryTranslations[0].name %>
+                    <%= articles[i].Category.CategoryTranslations[0].name %> -
+                    <%= articles[i].Source.name %>
                     <!-- <a
                       title=""
                       data-placement="top"

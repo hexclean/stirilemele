@@ -205,3 +205,18 @@ exports.getCategoryScreen = async (req, res, next) => {
     console.log(error);
   }
 };
+
+exports.getFontos = (req, res, next) => {
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  res.render("source/fontos", {
+    path: "/signup",
+    pageTitle: "Signup",
+    isAuthenticated: false,
+    logged: logged,
+  });
+};

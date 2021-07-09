@@ -1,64 +1,313 @@
 <%- include('../includes/head.ejs') %>
 
-<body class="color-theme-pink framework7-root">
-  <div class="page">
-   
-          <%- include('../includes/logo.ejs') %>
+<body id="page-top">
+  <%- include('../includes/navbar.ejs') %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-home"></i>
+          <span>Összes hír</span>
+        </a>
+      </li>
+      <% if(logged == 1){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/stiri-configurate">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Híreid</span>
+        </a>
+      </li>
 
-    <div class="page-content" style="padding-top: 5px !important; padding-bottom: 95px !important;">
-      
-      <div class="block">
-        <h2 style="margin: 25px 0px 15px;">Ma olvasott cikkj</h2> 
-       
-      
-        <ul class="list media-list post-list">
+      <li class="nav-item">
+        <a class="nav-link" href="/profile/history">
+          <i class="fas fa-fw fa-history"></i>
+          <span>Előzmények</span>
+        </a>
+      </li>
+      <% } %>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="video-page.html">
+          <i class="fas fa-fw fa-video"></i>
+          <span>Video Page</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="upload-video.html">
+          <i class="fas fa-fw fa-cloud-upload-alt"></i>
+          <span>Upload Video</span>
+        </a>
+      </li> -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="/channels">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Hírportálok</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/categorii">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>Kategóriák</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/important">
+          <i class="fas fa-fw fa-bell"></i>
+          <span>Fontos</span>
+        </a>
+      </li>
+      <% if(logged == 0){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/autentificare/login">
+          <i class="fas fa-fw fa-user-alt"></i>
+          <span>Belépés</span>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <div class="video-block section-padding">
+          <div class="row">
+            <div class="video-block section-padding">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="main-title mb-4">
+                    <div class="btn-group float-right right-action">
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#"
+                          ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
+                        >
+                        <a class="dropdown-item" href="#"
+                          ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
+                        >
+                        <a class="dropdown-item" href="#"
+                          ><i class="fas fa-fw fa-times-circle"></i> &nbsp;
+                          Close</a
+                        >
+                      </div>
+                    </div>
+                    <h6>Legtöbbet olvasott cikkek</h6>
+                  </div>
+                </div>
+                <% for (let i=0; i < bestArticles.length; i++ ) { %>
+                <div class="col-xl-3 col-sm-6 mb-3">
+                  <div class="channels-card">
+                    <div class="channels-card-body">
+                      <div class="channels-title">
+                        <a
+                          href="stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+                          ><%= bestArticles[i].title %></a
+                        >
+                      </div>
+                      <!-- <div class="channels-view">
+                        382,323 subscribers
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="main-title">
+                <div class="btn-group float-right right-action">
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"
+                      ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
+                    >
+                    <a class="dropdown-item" href="#"
+                      ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
+                    >
+                    <a class="dropdown-item" href="#"
+                      ><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a
+                    >
+                  </div>
+                </div>
+                <h6>Megtekintett cikkek</h6>
+              </div>
+            </div>
 
             <% for (let i=0; i < articles.length; i++ ) { %>
-                  <li>
-                    <a href="/stiri/<%= articles[i].Article.Category.seoUrl %>/<%= articles[i].Article.Source.seoUrl %>/<%= articles[i].Article.seoUrl %>"><img src="">
-                      <div class="item-content">
-                        <div class="item-media"><img src="<%= articles[i].Article.imageUrl %>" alt=""></div>
-                        <div class="item-inner">
-                          <div class="item-subtitle"><%= articles[i].Article.Source.name %></div>
-                          <div class="item-title"><%= articles[i].Article.title %></div>
-                          <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
-                        </div>
-                      </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="video-card history-video">
+                <div class="video-card-image">
+                  <a
+                    class="play-icon"
+                    href="/stiri/<%= articles[i].Article.Category.seoUrl %>/<%= articles[i].Article.Source.seoUrl %>/<%= articles[i].Article.seoUrl %>"
+                  ></a>
+                  <a
+                    href="/stiri/<%= articles[i].Article.Category.seoUrl %>/<%= articles[i].Article.Source.seoUrl %>/<%= articles[i].Article.seoUrl %>"
+                    ><img
+                      class="img-fluid"
+                      src="<%= articles[i].Article.imageUrl %>"
+                      alt=""
+                  /></a>
+                  <!-- <div class="time">3:50</div> -->
+                </div>
+                <!-- <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 50%;"
+                    aria-valuenow="50"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    1:40
+                  </div>
+                </div> -->
+                <div class="video-card-body">
+                  <div class="video-title">
+                    <a href="#"><%= articles[i].Article.title %></a>
+                  </div>
+                  <div class="video-page text-success">
+                    <%= articles[i].Article.Category.seoUrl %> - <%=
+                    articles[i].Article.Source.name %>
+                    <!-- <a
+                      title=""
+                      data-placement="top"
+                      data-toggle="tooltip"
+                      href="#"
+                      data-original-title="Verified"
+                      ><i class="fas fa-check-circle text-success"></i
+                    ></a> -->
+                  </div>
+                  <div class="video-view">
+                    <!-- <%= articles[i].clicked %> megtekintés &nbsp;<i
+                      class="fas fa-calendar-alt"
+                    ></i> -->
+                    35 perce
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pagination-sm mb-0">
+              <% if (currentPage !== 1 && previousPage !== 1) { %>
+              <li class="page-item active">
+                <a class="page-link" href="?page=1">1</a>
+              </li>
+              <% } %> <% if (hasPreviousPage) { %>
+              <li class="page-item">
+                <a class="page-link" href="?page=<%= previousPage %>"
+                  ><%= previousPage %></a
+                >
+              </li>
+              <% } %>
+              <li class="page-item active">
+                <a class="page-link" href="?page=<%= currentPage %>"
+                  ><%= currentPage %></a
+                >
+              </li>
+              <% if (hasNextPage) { %>
+              <li class="page-item">
+                <a class="page-link" href="?page=<%= nextPage %>"
+                  ><%= nextPage %></a
+                >
+              </li>
+              <% } %> <% if (lastPage !== currentPage && nextPage !== lastPage)
+              { %>
+              <li class="page-item">
+                <a class="page-link" href="?page=<%= lastPage %>"
+                  ><%= lastPage %></a
+                >
+              </li>
+              <% } %>
+            </ul>
+          </nav>
+          <div class="top-category section-padding mb-0">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="main-title mb-4">
+                  <div class="btn-group float-right right-action">
+                    <a
+                      href="#"
+                      class="right-action-link text-gray"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                     </a>
-                  </li>
-           <% } %>
-
-          
-        
-        </ul>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="#"
+                        ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
+                      >
+                      <a class="dropdown-item" href="#"
+                        ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
+                      >
+                      <a class="dropdown-item" href="#"
+                        ><i class="fas fa-fw fa-times-circle"></i> &nbsp;
+                        Close</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="owl-carousel owl-carousel-category"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <!-- /.container-fluid -->
+      <!-- Sticky Footer -->
+      <%- include('../includes/footer.ejs') %>
     </div>
-    <div class="toolbar tabbar tabbar-labels toolbar-bottom">
-      <div class="toolbar-inner">
-        <a href="/" class="tab-link">
-          <i class="f7-icons">list_bullet</i>
-          <span class="tabbar-label">Hírek</span>
-        </a>
-        <a href="/categorii" class="tab-link">
-          <i class="f7-icons">square_grid_2x2_fill</i>
-          <span class="tabbar-label">Kategóriák</span>
-        </a>
-        <a href="/channels" class="tab-link">
-          <i class="f7-icons">person_2_alt</i>
-          <span class="tabbar-label">Hírcsatornák</span>
-        </a>
-        <a href="/top-stiri" class="tab-link">
-          <i class="f7-icons">text_badge_star</i>
-          <span class="tabbar-label">Top hírek</span>
-        </a>
-        <a href="/profile" class="tab-link tab-link-active">
-          <i class="f7-icons">person_crop_circle</i>
-          <span class="tabbar-label">Profil</span>
-        </a>
-      </div>
-    </div>
-    
+    <!-- /.content-wrapper -->
   </div>
-  
+  <!-- /#wrapper -->
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <!-- Logout Modal-->
+  <div
+    class="modal fade"
+    id="logoutModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel">Ready to Leave?</h6>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Select "Logout" below if you are ready to end your current session.
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">
+            Cancel
+          </button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Owl Carousel -->
+  <script src="/vendor/owl-carousel/owl.carousel.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="/js/custom.js"></script>
 </body>
-<%- include('../includes/end.ejs') %>

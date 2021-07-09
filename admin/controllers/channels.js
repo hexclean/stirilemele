@@ -175,6 +175,9 @@ exports.getChannelCategory = async (req, res, next) => {
           where: { sourceId: sourceId, categoryId: categoryId },
           offset: (page - 1) * ITEMS_PER_PAGE,
           limit: ITEMS_PER_PAGE,
+          include: [
+            { model: Category, include: [{ model: CategoryTranslation }] },
+          ],
         });
       })
       .then((selectedArticles) => {

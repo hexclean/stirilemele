@@ -11,6 +11,7 @@ const Category = require("../../models/Category");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const ITEMS_PER_PAGE = 36;
 exports.postAddComment = async (req, res, next) => {
   const articleId = req.body.articleId;
   const comment = req.body.comment;
@@ -119,9 +120,27 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
 
 exports.getHistoryArticles = async (req, res, next) => {
   try {
+    const page = +req.query.page || 1;
+    let totalItems;
     const TODAY_START = new Date().setHours(0, 0, 0, 0);
     const NOW = new Date();
-    const articles = await ArticleViewed.findAll({
+    let logged = 0;
+    if (req.user != undefined) {
+      logged = 1;
+    } else {
+      logged = 0;
+    }
+    const bestArticles = await Articles.findAll({
+      createdAt: {
+        [Op.gt]: TODAY_START,
+        [Op.lt]: NOW,
+      },
+      order: [["clicked", "DESC"]],
+      limit: 4,
+      include: [{ model: Source }, { model: Category }],
+    });
+
+    await ArticleViewed.findAll({
       where: {
         userId: req.user.id,
         createdAt: {
@@ -140,23 +159,54 @@ exports.getHistoryArticles = async (req, res, next) => {
             },
             {
               model: Category,
+              inlclude: [{ model: CategoryTranslation }],
             },
           ],
         },
       ],
-    });
-    for (let i = 0; i < articles.length; i++) {
-      console.log(articles[i].Article);
-      // for (let j = 0; j < articles[i].Article.length; j++) {
-      //   console.log(articles[i].Article[j]);
-      // }
-    }
+    })
+      .then(async (numArticles) => {
+        totalItems = numArticles;
+        return await ArticleViewed.findAll({
+          where: {
+            userId: req.user.id,
+          },
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
+          include: [
+            {
+              model: Articles,
+              // where: {
 
-    res.render("categories/history", {
-      path: "/login",
-      pageTitle: "Login",
-      articles: articles,
-    });
+              // },
+              include: [
+                {
+                  model: Source,
+                },
+                {
+                  model: Category,
+                  inlclude: [{ model: CategoryTranslation }],
+                },
+              ],
+            },
+          ],
+        });
+      })
+      .then((articles) => {
+        res.render("categories/history", {
+          path: "/login",
+          pageTitle: "Login",
+          articles: articles.reverse(),
+          logged: logged,
+          bestArticles: bestArticles,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
+          currentPage: page,
+        });
+      });
   } catch (error) {
     console.log(error);
   }
