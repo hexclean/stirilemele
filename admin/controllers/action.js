@@ -39,6 +39,7 @@ exports.postAddComment = async (req, res, next) => {
 exports.postEditChannels = async (req, res, next) => {
   const filteredChannel = req.body.statusChannel.filter(Boolean);
   let channelId = req.body.channelId;
+
   try {
     for (let i = 0; i < filteredChannel.length; i++) {
       await UserInterestedSources.update(
@@ -54,14 +55,13 @@ exports.postEditChannels = async (req, res, next) => {
         }
       );
     }
-    return res.redirect("/profile");
+    return res.redirect("/profile/select-channel");
   } catch (error) {
     console.log(error);
   }
 };
 
 exports.postEditCategory = async (req, res, next) => {
-  console.log(req.body);
   const filteredCategory = req.body.statusCategory.filter(Boolean);
   let categoryId = req.body.categoryId;
   try {
@@ -79,7 +79,7 @@ exports.postEditCategory = async (req, res, next) => {
         }
       );
     }
-    // return res.redirect("/profile");
+    return res.redirect("/profile/select-category");
   } catch (error) {
     console.log(error);
   }

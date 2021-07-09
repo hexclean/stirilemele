@@ -175,7 +175,6 @@ exports.getCategoryScreen = async (req, res, next) => {
     } else {
       logged = 0;
       allCategories = await Category.findAll({
-        // where: { secondary: 1 },
         include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
       });
       articles = await Articles.findAll({
@@ -192,7 +191,6 @@ exports.getCategoryScreen = async (req, res, next) => {
         ],
       });
     }
-    console.log(allCategories);
     res.render("categories/index", {
       path: "/login",
       pageTitle: "Login",

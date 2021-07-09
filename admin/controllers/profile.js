@@ -58,6 +58,12 @@ exports.getChannelEditing = async (req, res, next) => {
   const activeSwitch = await UserInterestedSources.findAll({
     where: { userId: req.user.id },
   });
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
 
   const channels = await Source.findAll();
 
@@ -65,6 +71,7 @@ exports.getChannelEditing = async (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     channels: channels,
+    logged: logged,
     activeSwitch: activeSwitch,
   });
 };
