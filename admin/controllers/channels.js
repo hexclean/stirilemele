@@ -133,6 +133,8 @@ exports.getChannelCategories = async (req, res, next) => {
 };
 
 exports.getChannelCategory = async (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
@@ -148,10 +150,7 @@ exports.getChannelCategory = async (req, res, next) => {
     });
     let categoryId = categoryName.id;
     let sourceId = sourceName.id;
-    const selectedArticles = await Articles.findAll({
-      where: { sourceId: sourceId, categoryId: categoryId },
-      limit: 5,
-    });
+
     const allCategories = await SourceCategories.findAll({
       where: {
         sourceId: sourceId,
@@ -165,14 +164,33 @@ exports.getChannelCategory = async (req, res, next) => {
         { model: Source },
       ],
     });
-    res.render("categories/selectedCatSor", {
-      path: "/login",
-      pageTitle: "Login",
-      logged: logged,
-      source: sourceName.name,
-      selectedArticles: selectedArticles,
-      allCategories: allCategories,
-    });
+    await Articles.findAll({
+      where: { sourceId: sourceId, categoryId: categoryId },
+    })
+      .then(async (numArticles) => {
+        totalItems = numArticles;
+        return await Articles.findAll({
+          where: { sourceId: sourceId, categoryId: categoryId },
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
+        });
+      })
+      .then((selectedArticles) => {
+        res.render("categories/selectedCatSor", {
+          path: "/login",
+          pageTitle: "Login",
+          logged: logged,
+          source: sourceName.name,
+          selectedArticles: selectedArticles,
+          allCategories: allCategories,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
+          currentPage: page,
+        });
+      });
   } catch (error) {
     console.log(error);
   }
