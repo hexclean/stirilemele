@@ -19,24 +19,24 @@ exports.getAllChannel = async (req, res, next) => {
   let logged = 0;
   let channels = [];
   try {
-    if (req.user != undefined) {
-      logged = 1;
-      channels = await UserInterestedSources.findAll({
-        where: { userId: req.user.id },
-        include: [
-          {
-            model: Source,
-          },
-        ],
-      });
-      for (let i = 0; i < channels.length; i++) {
-        console.log(channels[i].Source.name);
-      }
-    } else {
-      logged = 0;
-      channels = await Source.findAll();
-    }
-
+    // if (req.user != undefined) {
+    //   logged = 1;
+    //   channels = await UserInterestedSources.findAll({
+    //     where: { userId: req.user.id },
+    //     include: [
+    //       {
+    //         model: Source,
+    //       },
+    //     ],
+    //   });
+    //   for (let i = 0; i < channels.length; i++) {
+    //     console.log(channels[i].Source.name);
+    //   }
+    // } else {
+    //   logged = 0;
+    // channels = await Source.findAll();
+    // }
+    channels = await Source.findAll();
     res.render("source/AllChannels", {
       path: "/login",
       pageTitle: "Login",
@@ -54,6 +54,7 @@ exports.getChannelCategories = async (req, res, next) => {
   let totalItems;
   let channelName = req.params.channelName;
   const source = await Source.findOne({ where: { seoUrl: channelName } });
+
   let sourceId = source.id;
   let sourceName = source.name;
   let logged = 0;
@@ -144,6 +145,7 @@ exports.getChannelCategory = async (req, res, next) => {
   try {
     const categoryName = await Category.findOne({
       where: { seoUrl: req.params.categoryName },
+      include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
     });
     const sourceName = await Source.findOne({
       where: { seoUrl: req.params.channelName },
@@ -189,6 +191,7 @@ exports.getChannelCategory = async (req, res, next) => {
           previousPage: page - 1,
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
+          categoryName: categoryName,
         });
       });
   } catch (error) {

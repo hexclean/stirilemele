@@ -12,7 +12,7 @@ const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleComment = require("../../models/ArticleComment");
 const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
-const ITEMS_PER_PAGE = 40;
+const ITEMS_PER_PAGE = 28;
 
 exports.getHome = async (req, res, next) => {
   const page = +req.query.page || 1;
