@@ -14,7 +14,7 @@ const Article = require("../../models/Article");
 const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleComment = require("../../models/ArticleComment");
 const SourceCategories = require("../../models/SourceCategories");
-
+const ITEMS_PER_PAGE = 40;
 exports.getAllChannel = async (req, res, next) => {
   let logged = 0;
   let channels = [];
@@ -50,6 +50,8 @@ exports.getAllChannel = async (req, res, next) => {
 };
 
 exports.getChannelCategories = async (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
   let channelName = req.params.channelName;
   const source = await Source.findOne({ where: { seoUrl: channelName } });
   let sourceId = source.id;
@@ -75,10 +77,9 @@ exports.getChannelCategories = async (req, res, next) => {
       ],
     });
 
-    const articles = await Articles.findAll({
+    await Articles.findAll({
       order: [["clicked", "DESC"]],
       where: { sourceId: sourceId },
-      limit: 10,
       include: [
         {
           model: Source,
@@ -88,17 +89,44 @@ exports.getChannelCategories = async (req, res, next) => {
           include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
         },
       ],
-    });
-    console.log(articles);
-    res.render("categories/channel-name", {
-      path: "/login",
-      pageTitle: "Login",
-      articles: articles,
-      allCategories: allCategories,
-      sourceName: sourceName,
-      logged: logged,
-      source: source,
-    });
+    })
+      .then(async (numArticles) => {
+        totalItems = numArticles;
+        return await Articles.findAll({
+          order: [["clicked", "DESC"]],
+          where: { sourceId: sourceId },
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
+          include: [
+            {
+              model: Source,
+            },
+            {
+              model: Category,
+              include: [
+                { model: CategoryTranslation, where: { languageId: 2 } },
+              ],
+            },
+          ],
+        });
+      })
+      .then((articles) => {
+        res.render("categories/channel-name", {
+          path: "/login",
+          pageTitle: "Login",
+          articles: articles,
+          allCategories: allCategories,
+          sourceName: sourceName,
+          logged: logged,
+          source: source,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
+          currentPage: page,
+        });
+      });
   } catch (error) {
     console.log(error);
   }

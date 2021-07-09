@@ -5,8 +5,11 @@ const CategoryTranslation = require("../../../models/CategoryTranslation");
 const Articles = require("../../../models/Article");
 const ArticleComment = require("../../../models/ArticleComment");
 const User = require("../../../models/Users");
+const ITEMS_PER_PAGE = 40;
 
 exports.getSelectedCategoryArticles = async (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
@@ -24,7 +27,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
   categoryId = category.id;
   categoryNameView = category.CategoryTranslations[0].name;
 
-  const articles = await Articles.findAll({
+  await Articles.findAll({
     where: { categoryId: categoryId },
     include: [
       {
@@ -33,15 +36,38 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
       },
       { model: Source },
     ],
-  });
-  res.render("dynamicLinks/articles-by-category", {
-    path: "/login",
-    pageTitle: "Login",
-    categoryNameView: categoryNameView,
-    // articles: articles.reverse(),
-    articles: articles.reverse(),
-    logged: logged,
-  });
+  })
+    .then(async (numArticles) => {
+      totalItems = numArticles;
+      return await Articles.findAll({
+        where: { categoryId: categoryId },
+        offset: (page - 1) * ITEMS_PER_PAGE,
+        limit: ITEMS_PER_PAGE,
+        include: [
+          {
+            model: Category,
+            include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+          },
+          { model: Source },
+        ],
+      });
+    })
+    .then((articles) => {
+      res.render("dynamicLinks/articles-by-category", {
+        path: "/login",
+        pageTitle: "Login",
+        categoryNameView: categoryNameView,
+        // articles: articles.reverse(),
+        articles: articles.reverse(),
+        logged: logged,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
+        currentPage: page,
+      });
+    });
 };
 
 exports.getChannelNewsByCategory = async (req, res, next) => {
