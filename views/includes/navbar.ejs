@@ -86,6 +86,7 @@
         >
       </div>
     </li> -->
+    <% if(logged == 1){ %>
     <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
       <a
         class="nav-link dropdown-toggle user-dropdown-link"
@@ -96,8 +97,8 @@
         aria-haspopup="true"
         aria-expanded="false"
       >
-        <img alt="Avatar" src="/img/user.png" />
-        Osahan
+        <img alt="Avatar" src="/img/profile.jpg" />
+        Profil
       </a>
       <div
         class="dropdown-menu dropdown-menu-right"
@@ -109,8 +110,11 @@
         <a class="dropdown-item" href="subscriptions.html"
           ><i class="fas fa-fw fa-video"></i> &nbsp; Subscriptions</a
         > -->
+        <a class="dropdown-item" href="profile/select-category"
+          ><i class="fas fa-fw fa-cog"></i> &nbsp; Kategóriá beállítása</a
+        >
         <a class="dropdown-item" href="settings.html"
-          ><i class="fas fa-fw fa-cog"></i> &nbsp; Settings</a
+          ><i class="fas fa-fw fa-cog"></i> &nbsp; Hírcsatornák beállítása</a
         >
         <div class="dropdown-divider"></div>
         <a
@@ -118,9 +122,10 @@
           href="#"
           data-toggle="modal"
           data-target="#logoutModal"
-          ><i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a
+          ><i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Kijelentkezés</a
         >
       </div>
     </li>
+    <% } %>
   </ul>
 </nav>

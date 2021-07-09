@@ -33,7 +33,12 @@ exports.getCategoryEditing = async (req, res, next) => {
   const categories = await Category.findAll({
     include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
   });
-
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
   const activeSwitch = await UserInterestedCategories.findAll({
     where: { userId: req.user.id },
   });
@@ -45,6 +50,7 @@ exports.getCategoryEditing = async (req, res, next) => {
     categories: categories,
     channels: channels,
     activeSwitch: activeSwitch,
+    logged: logged,
   });
 };
 

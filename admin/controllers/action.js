@@ -61,6 +61,7 @@ exports.postEditChannels = async (req, res, next) => {
 };
 
 exports.postEditCategory = async (req, res, next) => {
+  console.log(req.body);
   const filteredCategory = req.body.statusCategory.filter(Boolean);
   let categoryId = req.body.categoryId;
   try {
@@ -78,7 +79,7 @@ exports.postEditCategory = async (req, res, next) => {
         }
       );
     }
-    return res.redirect("/profile");
+    // return res.redirect("/profile");
   } catch (error) {
     console.log(error);
   }
