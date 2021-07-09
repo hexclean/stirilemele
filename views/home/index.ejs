@@ -8,14 +8,14 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-home"></i>
-          <span>Összes hír</span>
+          <span>Hírek</span>
         </a>
       </li>
       <% if(logged == 1){ %>
       <li class="nav-item">
         <a class="nav-link" href="/stiri-configurate">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Beállított hírek </span>
+          <i class="fas fa-fw fa-cogs"></i>
+          <span>Beállított hírek</span>
         </a>
       </li>
 
@@ -26,18 +26,6 @@
         </a>
       </li>
       <% } %>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="video-page.html">
-          <i class="fas fa-fw fa-video"></i>
-          <span>Video Page</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="upload-video.html">
-          <i class="fas fa-fw fa-cloud-upload-alt"></i>
-          <span>Upload Video</span>
-        </a>
-      </li> -->
 
       <li class="nav-item">
         <a class="nav-link" href="/channels">
@@ -51,13 +39,20 @@
           <span>Kategóriák</span>
         </a>
       </li>
+      <% if(logged == 1){ %>
       <li class="nav-item">
-        <a class="nav-link" href="/important">
-          <i class="fas fa-fw fa-bell"></i>
-          <span>Fontos</span>
+        <a class="nav-link" href="/help">
+          <i class="fas fa-fw fa-info"></i>
+          <span>Oldal testreszabása</span>
         </a>
       </li>
-      <% if(logged == 0){ %>
+      <% } %> <% if(logged == 0){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/important">
+          <i class="fas fa-fw fa-info"></i>
+          <span>Regisztráció előnyei</span>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/autentificare/login">
           <i class="fas fa-fw fa-user-alt"></i>
@@ -307,7 +302,9 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">Ready to Leave?</h6>
+          <h5 class="modal-title" id="exampleModalLabel">
+            Biztos kijelentkezel?
+          </h5>
           <button
             class="close"
             type="button"
@@ -317,14 +314,13 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">
-          Select "Logout" below if you are ready to end your current session.
-        </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">
-            Cancel
+            Mégse
           </button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <form action="/autentificare/logout" method="post">
+            <button class="btn btn-primary" type="submit">Kijelentkezés</button>
+          </form>
         </div>
       </div>
     </div>

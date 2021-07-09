@@ -154,17 +154,17 @@ exports.getArticleDetail = async (req, res, next) => {
     ],
   });
 
-  const comments = await ArticleComment.findAll({
-    where: { articleId: article.id },
-    include: [{ model: User }],
-  });
+  // const comments = await ArticleComment.findAll({
+  //   where: { articleId: article.id },
+  //   include: [{ model: User }],
+  // });
 
   res.render("dynamicLinks/article-detail", {
     path: "/login",
     pageTitle: "Login",
     article: article,
     categoryName: article.Category.CategoryTranslations[0].name,
-    comments: comments,
+    // comments: comments,
     logged: logged,
     categoryParams: categoryName,
     channelParams: channelName,

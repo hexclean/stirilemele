@@ -17,26 +17,13 @@ const SourceCategories = require("../../models/SourceCategories");
 const ITEMS_PER_PAGE = 40;
 exports.getAllChannel = async (req, res, next) => {
   let logged = 0;
-  let channels = [];
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
   try {
-    // if (req.user != undefined) {
-    //   logged = 1;
-    //   channels = await UserInterestedSources.findAll({
-    //     where: { userId: req.user.id },
-    //     include: [
-    //       {
-    //         model: Source,
-    //       },
-    //     ],
-    //   });
-    //   for (let i = 0; i < channels.length; i++) {
-    //     console.log(channels[i].Source.name);
-    //   }
-    // } else {
-    //   logged = 0;
-    // channels = await Source.findAll();
-    // }
-    channels = await Source.findAll();
+    const channels = await Source.findAll();
     res.render("source/AllChannels", {
       path: "/login",
       pageTitle: "Login",

@@ -10,4 +10,5 @@ router.get("/top-stiri", otherController.getTopArticles);
 router.get("/comment-email", otherController.getTopArticles);
 router.get("/stiri-configurate", otherController.getConfiguredHome);
 router.get("/important", otherController.getFontos);
+router.get("/help", otherController.getBetekintes);
 module.exports = router;

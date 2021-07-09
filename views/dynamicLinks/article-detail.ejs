@@ -4,39 +4,27 @@
       <div id="wrapper">
          <!-- Sidebar -->
          <ul class="sidebar navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="fas fa-fw fa-home"></i>
-                <span>Összes hír</span>
+                <span>Hírek</span>
               </a>
             </li>
             <% if(logged == 1){ %>
             <li class="nav-item">
               <a class="nav-link" href="/stiri-configurate">
-                <i class="fas fa-fw fa-users"></i>
-                <span>Híreid</span>
+                <i class="fas fa-fw fa-cogs"></i>
+                <span>Beállított hírek</span>
               </a>
             </li>
       
             <li class="nav-item">
-              <a class="nav-link" href="history-page.html">
+              <a class="nav-link" href="/profile/history">
                 <i class="fas fa-fw fa-history"></i>
                 <span>Előzmények</span>
               </a>
             </li>
             <% } %>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="video-page.html">
-                <i class="fas fa-fw fa-video"></i>
-                <span>Video Page</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="upload-video.html">
-                <i class="fas fa-fw fa-cloud-upload-alt"></i>
-                <span>Upload Video</span>
-              </a>
-            </li> -->
       
             <li class="nav-item">
               <a class="nav-link" href="/channels">
@@ -50,21 +38,33 @@
                 <span>Kategóriák</span>
               </a>
             </li>
-            <!-- <% if(logged == 0){ %>
+            <% if(logged == 1){ %>
+            <li class="nav-item">
+              <a class="nav-link" href="/help">
+                <i class="fas fa-fw fa-info"></i>
+                <span>Oldal testreszabása</span>
+              </a>
+            </li>
+            <% } %> <% if(logged == 0){ %>
             <li class="nav-item">
               <a class="nav-link" href="/autentificare/login">
                 <i class="fas fa-fw fa-user-alt"></i>
                 <span>Belépés</span>
               </a>
             </li>
-            <% } %> -->
+            <% } %>
           </ul>
+          <form
+          action="/action/save-article"
+          method="POST"
+          enctype="multipart/form-data"
+        > 
          <div id="content-wrapper">
             
             <div class="container-fluid pb-0">
                
 
-              <a type="submit" href="<%= article.link %>">
+             
                <div class="video-block-right-list section-padding">
                   <div class="row mb-4">
                    
@@ -77,19 +77,17 @@
                
                   </div>
                </div>
-              </a>
+            
           
                <div class="video-block section-padding">
                   <div class="row">
-                     <form
-                     action="/action/save-article"
-                     method="POST"
-                     enctype="multipart/form-data"
-                   >     
+                   
+                   <a href="<%= article.link %>">
                      <div class="col-md-8">
                         <div class="single-video-left">
-                           <div class="single-video-title box mb-3"> <div class="float-right"><button class="btn btn-danger" type="submit">Subscribe <strong>1.4M</strong></button> </div>
-                              <h2><a href="<%= article.link %>"><%= article.title %></a></h2>
+                           <div class="single-video-title box mb-3"> <div class="float-right"><button class="btn btn-danger" type="submit">Cikk elolvasása
+                           </button> </div>
+                              <h2><a href=""><%= article.title %></a></h2>
                               <p class="mb-0"><i class="fas fa-eye"></i> <%= article.clicked %> megtekintés</p>
                            </div>
                            <input hidden name="articleId" value="<%= article.id %>" />
@@ -103,9 +101,9 @@
                           
                         </div>
                      </div>
+                    </a>
                    
-                   
-                     </form>
+                    
                   </div>
                </div>
             </div>
@@ -113,6 +111,7 @@
             <!-- Sticky Footer -->
             <%- include('../includes/footer.ejs') %>
          </div>
+        </form>
          <!-- /.content-wrapper -->
       </div>
       <!-- /#wrapper -->
@@ -125,15 +124,16 @@
          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Biztos kijelentkezel?</h5>
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                   </button>
                </div>
-               <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                <div class="modal-footer">
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <a class="btn btn-primary" href="login.html">Logout</a>
+                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Mégse</button>
+                  <form action="/autentificare/logout" method="post">
+                  <button class="btn btn-primary" type="submit">Kijelentkezés</button>
+                  </form>
                </div>
             </div>
          </div>

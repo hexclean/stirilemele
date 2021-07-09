@@ -7,14 +7,14 @@
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-home"></i>
-          <span>Összes hír</span>
+          <span>Hírek</span>
         </a>
       </li>
       <% if(logged == 1){ %>
       <li class="nav-item">
         <a class="nav-link" href="/stiri-configurate">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Híreid</span>
+          <i class="fas fa-fw fa-cogs"></i>
+          <span>Beállított hírek</span>
         </a>
       </li>
 
@@ -25,21 +25,9 @@
         </a>
       </li>
       <% } %>
-      <!-- <li class="nav-item">
-          <a class="nav-link" href="video-page.html">
-            <i class="fas fa-fw fa-video"></i>
-            <span>Video Page</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="upload-video.html">
-            <i class="fas fa-fw fa-cloud-upload-alt"></i>
-            <span>Upload Video</span>
-          </a>
-        </li> -->
 
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
+      <li class="nav-item">
+        <a class="nav-link" href="/channels">
           <i class="fas fa-fw fa-users"></i>
           <span>Hírportálok</span>
         </a>
@@ -50,14 +38,21 @@
           <span>Kategóriák</span>
         </a>
       </li>
-      <!-- <% if(logged == 0){ %>
-        <li class="nav-item">
-          <a class="nav-link" href="/autentificare/login">
-            <i class="fas fa-fw fa-user-alt"></i>
-            <span>Belépés</span>
-          </a>
-        </li>
-        <% } %> -->
+      <% if(logged == 1){ %>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-info"></i>
+          <span>Oldal testreszabása</span>
+        </a>
+      </li>
+      <% } %> <% if(logged == 0){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/autentificare/login">
+          <i class="fas fa-fw fa-user-alt"></i>
+          <span>Belépés</span>
+        </a>
+      </li>
+      <% } %>
     </ul>
     <div id="content-wrapper">
       <div class="container-fluid">
@@ -66,7 +61,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="main-title">
-                  <h6>Milyen előnyökkel jár a regisztráció?</h6>
+                  <h6>Hogyan szabd testre a hírportált?</h6>
                 </div>
               </div>
               <div class="col-md-8">

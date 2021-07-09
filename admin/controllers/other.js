@@ -140,6 +140,17 @@ exports.getCategoryScreen = async (req, res, next) => {
   let allCategories = [];
   let articles = [];
   let interestedCategoryId = [];
+  const page = +req.query.page || 1;
+  let totalItems;
+  const bestArticles = await Articles.findAll({
+    createdAt: {
+      [Op.gt]: TODAY_START,
+      [Op.lt]: NOW,
+    },
+    order: [["clicked", "DESC"]],
+    limit: 4,
+    include: [{ model: Source }, { model: Category }],
+  });
   try {
     if (req.user != undefined) {
       logged = 1;
@@ -191,6 +202,7 @@ exports.getCategoryScreen = async (req, res, next) => {
         ],
       });
     }
+    const sources = await Source.findAll();
     res.render("categories/index", {
       path: "/login",
       pageTitle: "Login",
@@ -198,6 +210,8 @@ exports.getCategoryScreen = async (req, res, next) => {
       categories: categories,
       logged: logged,
       allCategories: allCategories,
+      bestArticles: bestArticles,
+      sources: sources,
     });
   } catch (error) {
     console.log(error);
@@ -212,6 +226,21 @@ exports.getFontos = (req, res, next) => {
     logged = 0;
   }
   res.render("source/fontos", {
+    path: "/signup",
+    pageTitle: "Signup",
+    isAuthenticated: false,
+    logged: logged,
+  });
+};
+
+exports.getBetekintes = (req, res, next) => {
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  res.render("source/betekintes", {
     path: "/signup",
     pageTitle: "Signup",
     isAuthenticated: false,
