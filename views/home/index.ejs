@@ -2,6 +2,7 @@
 
 <body id="page-top">
   <%- include('../includes/navbar.ejs') %>
+
   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
@@ -70,49 +71,66 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="main-title mb-4">
-                    <div class="btn-group float-right right-action">
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"
-                          ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
-                        >
-                        <a class="dropdown-item" href="#"
-                          ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
-                        >
-                        <a class="dropdown-item" href="#"
-                          ><i class="fas fa-fw fa-times-circle"></i> &nbsp;
-                          Close</a
-                        >
-                      </div>
-                    </div>
                     <h6>Legtöbbet olvasott cikkek</h6>
                   </div>
                 </div>
                 <% for (let i=0; i < bestArticles.length; i++ ) { %>
 
                 <div class="col-xl-3 col-sm-6 mb-3">
-                  <div class="channels-card">
-                    <div class="channels-card-image new-img">
+                  <div class="video-card history-video">
+                    <div class="video-card-image">
                       <a
-                        href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+                        class="play-icon"
+                        href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
+                      ></a>
+                      <a
+                        href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
                         ><img
                           class="img-fluid"
-                          src="<%= bestArticles[i].imageUrl %>"
+                          src="<%= articles[i].imageUrl %>"
                           alt=""
                       /></a>
+                      <!-- <div class="time">3:50</div> -->
                     </div>
-                    <div class="channels-card-body">
-                      <div class="channels-title">
+                    <!-- <div class="progress">
+                        <div
+                          class="progress-bar"
+                          role="progressbar"
+                          style="width: 50%;"
+                          aria-valuenow="50"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        >
+                          1:40
+                        </div>
+                      </div> -->
+                    <div class="video-card-body">
+                      <div class="video-title">
                         <a
-                          href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
-                          ><%= bestArticles[i].title.substring(0, 80) + "..."
-                          %></a
+                          href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
+                          ><%= articles[i].title.substring(0, 181) + "..." %></a
                         >
                       </div>
-
-                      <div class="channels-view">
-                        <%=
-                        bestArticles[i].Category.CategoryTranslations[0].name %>
-                        - <%= bestArticles[i].Source.seoUrl %>
+                      <div class="video-item-user">
+                        <div class="d-flex align-items-center">
+                          <div class="dropdown-list-image mr-3">
+                            <img
+                              class="rounded-circle"
+                              src="/<%= articles[i].Source.imageUrl %>"
+                              alt=""
+                            />
+                          </div>
+                          <div class="font-weight-bold mr-2">
+                            <div class="text-truncate">
+                              <%= articles[i].Source.name %>
+                            </div>
+                            <div class="small text-gray-500">
+                              <%=
+                              articles[i].Category.CategoryTranslations[0].name
+                              %> - 45 perce
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -274,19 +292,16 @@
                     >
                       <a href="/channels/<%= sources[i].seoUrl %>">
                         <div class="channel-item-image mb-3">
-                          <img class="rounded-circle" src="img/s1.png" alt="" />
+                          <img
+                            class="rounded-circle"
+                            src="/<%= sources[i].imageUrl %>"
+                            alt=""
+                          />
                         </div>
 
                         <div class="channel-item-body">
                           <p class="mb-1">
                             <%= sources[i].name %>
-                            <i
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title=""
-                              class="fa fa-check-circle text-success"
-                              data-original-title="Verified"
-                            ></i>
                           </p>
                         </div>
                       </a>
@@ -298,19 +313,15 @@
             </div>
           </div>
         </div>
-        <div
-          style="background-color: red !important; z-index: 99999 !important;"
-          class="container-fluid"
-        >
-          hello
-        </div>
       </div>
       <!-- /.container-fluid -->
       <!-- Sticky Footer -->
+
       <%- include('../includes/footer.ejs') %>
     </div>
     <!-- /.content-wrapper -->
   </div>
+
   <!-- /#wrapper -->
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
@@ -352,5 +363,13 @@
       </div>
     </div>
   </div>
-  <!-- Bootstrap core JavaScript-->
+  <!-- Bootstrap core JavaScript--><!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Owl Carousel -->
+  <script src="/vendor/owl-carousel/owl.carousel.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="/js/custom.js"></script>
 </body>
