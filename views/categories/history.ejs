@@ -84,16 +84,28 @@
                 <% for (let i=0; i < bestArticles.length; i++ ) { %>
                 <div class="col-xl-3 col-sm-6 mb-3">
                   <div class="channels-card">
+                    <div class="channels-card-image">
+                      <a
+                        href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+                        ><img
+                          class="img-fluid"
+                          src="<%= bestArticles[i].imageUrl %>"
+                          alt=""
+                      /></a>
+                    </div>
                     <div class="channels-card-body">
                       <div class="channels-title">
                         <a
-                          href="stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
-                          ><%= bestArticles[i].title %></a
+                          href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+                          ><%= bestArticles[i].title.substring(0, 80) + "..."
+                          %></a
                         >
                       </div>
-                      <!-- <div class="channels-view">
-                        382,323 subscribers
-                      </div> -->
+                      <div class="channels-view">
+                        <%=
+                        bestArticles[i].Category.CategoryTranslations[0].name %>
+                        - <%= bestArticles[i].Source.seoUrl %>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -134,35 +146,19 @@
                       src="<%= articles[i].Article.imageUrl %>"
                       alt=""
                   /></a>
-                  <!-- <div class="time">3:50</div> -->
                 </div>
-                <!-- <div class="progress">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 50%;"
-                    aria-valuenow="50"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  >
-                    1:40
-                  </div>
-                </div> -->
+
                 <div class="video-card-body">
                   <div class="video-title">
-                    <a href="#"><%= articles[i].Article.title %></a>
+                    <a
+                      href="/stiri/<%= articles[i].Article.Category.seoUrl %>/<%= articles[i].Article.Source.seoUrl %>/<%= articles[i].Article.seoUrl %>"
+                      ><%= articles[i].Article.title.substring(0, 181) + "..."
+                      %></a
+                    >
                   </div>
                   <div class="video-page text-success">
                     <%= articles[i].Article.Category.seoUrl %> - <%=
                     articles[i].Article.Source.name %>
-                    <!-- <a
-                      title=""
-                      data-placement="top"
-                      data-toggle="tooltip"
-                      href="#"
-                      data-original-title="Verified"
-                      ><i class="fas fa-check-circle text-success"></i
-                    ></a> -->
                   </div>
                   <div class="video-view">
                     <!-- <%= articles[i].clicked %> megtekintés &nbsp;<i
@@ -175,6 +171,7 @@
             </div>
             <% } %>
           </div>
+
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center pagination-sm mb-0">
               <% if (currentPage !== 1 && previousPage !== 1) { %>
@@ -209,6 +206,7 @@
               <% } %>
             </ul>
           </nav>
+
           <div class="top-category section-padding mb-0">
             <div class="row">
               <div class="col-md-12">

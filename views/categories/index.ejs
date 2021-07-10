@@ -72,13 +72,13 @@
             </div>
             <% for (let i=0; i < allCategories.length; i++ ) { %>
             <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="category-item mt-0 mb-0">
-                <a href="/stiri/<%= allCategories[i].seoUrl %>">
+              <a href="/stiri/<%= allCategories[i].seoUrl %>">
+                <div class="category-item mt-0 mb-0">
                   <h6>
                     <%= allCategories[i].CategoryTranslations[0].name %>
                   </h6>
-                </a>
-              </div>
+                </div>
+              </a>
             </div>
             <% } %>
           </div>

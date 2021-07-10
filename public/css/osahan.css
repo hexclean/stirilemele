@@ -1126,7 +1126,7 @@ h6 {
   background: #fff none repeat scroll 0 0;
   border-radius: 16px;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-  padding: 32px 12px;
+  padding: 13px 12px;
   position: relative;
   text-align: center;
   transition-duration: 0.4s;
@@ -1147,13 +1147,30 @@ h6 {
 .channels-card-image .btn strong {
   margin: 0 0 0 5px;
 }
+/* .channels-card-image img {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 16px;
+  box-shadow: 0 0 2px #ccc;
+  height: 80px;
+  margin: 1px 0 8px;
+       object-fit: scale-down; 
+  transform: scale(1);
+  width: 247px;
+} */
+
+.new-img {
+  object-fit: none !important;
+  border-radius: 16px !important;
+  width: 247px !important;
+}
+
 .channels-card-image img {
   background: #fff none repeat scroll 0 0;
   border-radius: 50px;
   box-shadow: 0 0 2px #ccc;
   height: 80px;
   margin: 1px 0 8px;
-  /* object-fit: scale-down; */
+  object-fit: scale-down;
   transform: scale(1);
   width: 80px;
 }

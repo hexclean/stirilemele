@@ -81,15 +81,23 @@
                     </div>
                  </div>
                  <% for (let i=0; i < channels.length; i++ ) { %>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="category-item mt-0 mb-0">
-                       <a href="/channels/<%= channels[i].seoUrl %>">
-                         
-                          <h6><%= channels[i].name %><span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"></span></h6>
-                        
-                       </a>
-                    </div>
-                 </div>
+                  <div class="col-xl-3 col-sm-6 mb-3">
+                     <div class="channels-card">
+                        <div class="channels-card-image" >
+                           <a href="/channels/<%= channels[i].seoUrl %>"><img class="img-fluid" src="/<%= channels[i].imageUrl %>" alt=""></a>
+                           <div class="channels-card-image-btn"></div>
+                        </div>
+                        <div class="channels-card-body">
+                           <div class="channels-title">
+                              <a href="#"><%= channels[i].name %></a>
+                           </div>
+                           <!-- <div class="channels-view">
+                              382,323 subscribers
+                           </div> -->
+                        </div>
+                     </div>
+                  </div>
+                 
                  <% } %>
               </div>
           

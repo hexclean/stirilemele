@@ -11,7 +11,7 @@ const Category = require("../../models/Category");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const ITEMS_PER_PAGE = 36;
+const ITEMS_PER_PAGE = 2;
 exports.postAddComment = async (req, res, next) => {
   const articleId = req.body.articleId;
   const comment = req.body.comment;
@@ -138,7 +138,10 @@ exports.getHistoryArticles = async (req, res, next) => {
       },
       order: [["clicked", "DESC"]],
       limit: 4,
-      include: [{ model: Source }, { model: Category }],
+      include: [
+        { model: Source },
+        { model: Category, include: [{ model: CategoryTranslation }] },
+      ],
     });
 
     await ArticleViewed.findAll({
@@ -177,9 +180,7 @@ exports.getHistoryArticles = async (req, res, next) => {
           include: [
             {
               model: Articles,
-              // where: {
 
-              // },
               include: [
                 {
                   model: Source,
@@ -194,6 +195,7 @@ exports.getHistoryArticles = async (req, res, next) => {
         });
       })
       .then((articles) => {
+        console.log(totalItems.length);
         res.render("categories/history", {
           path: "/login",
           pageTitle: "Login",
@@ -206,6 +208,7 @@ exports.getHistoryArticles = async (req, res, next) => {
           previousPage: page - 1,
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
+          totalItems: totalItems,
         });
       });
   } catch (error) {

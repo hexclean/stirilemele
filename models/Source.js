@@ -10,6 +10,7 @@ const Source = sequelize.define("Source", {
     primaryKey: true,
   },
   name: Sequelize.STRING,
+  imageUrl: Sequelize.STRING,
   seoUrl: Sequelize.STRING,
 });
 

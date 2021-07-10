@@ -32,7 +32,10 @@ exports.getHome = async (req, res, next) => {
       },
       order: [["clicked", "DESC"]],
       limit: 4,
-      include: [{ model: Source }, { model: Category }],
+      include: [
+        { model: Source },
+        { model: Category, include: [{ model: CategoryTranslation }] },
+      ],
     });
     await Articles.findAll({
       createdAt: {

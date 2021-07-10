@@ -88,21 +88,36 @@
                   </div>
                 </div>
                 <% for (let i=0; i < bestArticles.length; i++ ) { %>
+
                 <div class="col-xl-3 col-sm-6 mb-3">
                   <div class="channels-card">
+                    <div class="channels-card-image new-img">
+                      <a
+                        href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+                        ><img
+                          class="img-fluid"
+                          src="<%= bestArticles[i].imageUrl %>"
+                          alt=""
+                      /></a>
+                    </div>
                     <div class="channels-card-body">
                       <div class="channels-title">
                         <a
-                          href="stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
-                          ><%= bestArticles[i].title %></a
+                          href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+                          ><%= bestArticles[i].title.substring(0, 80) + "..."
+                          %></a
                         >
                       </div>
-                      <!-- <div class="channels-view">
-                        382,323 subscribers
-                      </div> -->
+
+                      <div class="channels-view">
+                        <%=
+                        bestArticles[i].Category.CategoryTranslations[0].name %>
+                        - <%= bestArticles[i].Source.seoUrl %>
+                      </div>
                     </div>
                   </div>
                 </div>
+
                 <% } %>
               </div>
             </div>
@@ -156,25 +171,30 @@
                 </div> -->
                 <div class="video-card-body">
                   <div class="video-title">
-                    <a href="#"><%= articles[i].title %></a>
+                    <a
+                      href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
+                      ><%= articles[i].title.substring(0, 181) + "..." %></a
+                    >
                   </div>
-                  <div class="video-page text-success">
-                    <%= articles[i].Category.CategoryTranslations[0].name %> -
-                    <%= articles[i].Source.name %>
-                    <!-- <a
-                      title=""
-                      data-placement="top"
-                      data-toggle="tooltip"
-                      href="#"
-                      data-original-title="Verified"
-                      ><i class="fas fa-check-circle text-success"></i
-                    ></a> -->
-                  </div>
-                  <div class="video-view">
-                    <!-- <%= articles[i].clicked %> megtekintés &nbsp;<i
-                      class="fas fa-calendar-alt"
-                    ></i> -->
-                    35 perce
+                  <div class="video-item-user">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-list-image mr-3">
+                        <img
+                          class="rounded-circle"
+                          src="/<%= articles[i].Source.imageUrl %>"
+                          alt=""
+                        />
+                      </div>
+                      <div class="font-weight-bold mr-2">
+                        <div class="text-truncate">
+                          <%= articles[i].Source.name %>
+                        </div>
+                        <div class="small text-gray-500">
+                          <%= articles[i].Category.CategoryTranslations[0].name
+                          %> - 45 perce
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -278,6 +298,12 @@
             </div>
           </div>
         </div>
+        <div
+          style="background-color: red !important; z-index: 99999 !important;"
+          class="container-fluid"
+        >
+          hello
+        </div>
       </div>
       <!-- /.container-fluid -->
       <!-- Sticky Footer -->
@@ -290,6 +316,7 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+
   <!-- Logout Modal-->
   <div
     class="modal fade"
@@ -326,12 +353,4 @@
     </div>
   </div>
   <!-- Bootstrap core JavaScript-->
-  <script src="/vendor/jquery/jquery.min.js"></script>
-  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Owl Carousel -->
-  <script src="/vendor/owl-carousel/owl.carousel.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="/js/custom.js"></script>
 </body>
