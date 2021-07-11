@@ -14,7 +14,7 @@ const Article = require("../../models/Article");
 const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleComment = require("../../models/ArticleComment");
 const SourceCategories = require("../../models/SourceCategories");
-const ITEMS_PER_PAGE = 40;
+const ITEMS_PER_PAGE = 28;
 exports.getAllChannel = async (req, res, next) => {
   let logged = 0;
   if (req.user != undefined) {

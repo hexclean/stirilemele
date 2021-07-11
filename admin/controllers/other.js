@@ -48,8 +48,6 @@ exports.getConfiguredHome = async (req, res, next) => {
     for (let i = 0; i < selectedSources.length; i++) {
       interestedSourceId.push(selectedSources[i].sourceId);
     }
-    console.log("interestedSourceId", interestedSourceId);
-    console.log("interestedCategoryId", interestedCategoryId);
 
     await Articles.findAll({
       where: {
@@ -98,7 +96,6 @@ exports.getConfiguredHome = async (req, res, next) => {
           path: "/login",
           pageTitle: "Știrilemele - ultimele știri",
           articles: articles,
-
           logged: logged,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
           hasPreviousPage: page > 1,
