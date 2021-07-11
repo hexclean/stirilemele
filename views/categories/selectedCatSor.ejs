@@ -64,13 +64,13 @@
         <div class="single-channel-image">
            <img class="img-fluid" alt="" src="/img/channel-banner.png">
            <div class="channel-profile">
-              <img class="channel-profile-img" alt="" src="/img/s2.png">
+              <img class="channel-profile-img" alt="" src="/<%= source.imageUrl %>">
              
            </div>
         </div>
         <div class="single-channel-nav">
            <nav class="navbar navbar-expand-lg navbar-light">
-              <a class="channel-brand" href="#"><%= source %> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></a>
+              <a class="channel-brand" href="#"><%= source.name %> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
@@ -99,26 +99,57 @@
                     </div>
                  </div>
                  <% for (let i=0; i < selectedArticles.length; i++ ) { %>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="<%= selectedArticles[i].link %>"></a>
-                          <a href="#"><img class="img-fluid" src="<%= selectedArticles[i].imageUrl %>" alt=""></a>
-                       
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href="<%= selectedArticles[i].link %>"><%= selectedArticles[i].title %></a>
+                  <div class="col-xl-3 col-sm-6 mb-3">
+                    <div class="video-card history-video">
+                      <div class="video-card-image">
+                        <a
+                          class="play-icon"
+                          href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
+                        ></a>
+                        <a
+                          href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
+                          ><img
+                            class="img-fluid"
+                            src="<%= selectedArticles[i].imageUrl %>"
+                            alt=""
+                        /></a>
+                      </div>
+      
+                      <div class="video-card-body">
+                        <div class="video-title">
+                          <a
+                            href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
+                          >
+                            <% if( selectedArticles[i].title.length > 160){ %> <%=
+                            selectedArticles[i].title.substring(0, 160) + "..." %> <% } else{
+                            %> <%= selectedArticles[i].title %> <% } %></a
+                          >
+                        </div>
+                        <div class="video-item-user">
+                          <div class="d-flex align-items-center">
+                            <div class="dropdown-list-image mr-3">
+                              <img
+                                class="rounded-circle"
+                                src="/<%= selectedArticles[i].Source.imageUrl %>"
+                                alt=""
+                              />
+                            </div>
+                            <div class="font-weight-bold mr-2">
+                              <div class="text-truncate">
+                                <%= selectedArticles[i].Source.name %>
+                              </div>
+                              <div class="small text-gray-500">
+                                <%= selectedArticles[i].Category.CategoryTranslations[0].name
+                                %> - 45 perce
+                              </div>
+                            </div>
                           </div>
-                          <div class="video-page text-success">
-                           <%= selectedArticles[i].Category.CategoryTranslations[0].name %>  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                          </div>
-                          <div class="video-view">
-                             1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
+                        </div>
+                      </div>
                     </div>
-                 </div>
+                  </div>
+
+             
                  <% } %>
               </div>
               <nav aria-label="Page navigation example">

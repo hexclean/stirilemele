@@ -101,26 +101,55 @@
               
                  <% for (let i=0; i < articles.length; i++ ) { %>
                   <%if (articles[i].Source !== null) { %>
-                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
-                       <div class="video-card-image">
-                          <a class="play-icon" href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"></a>
-                          <a href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"><img class="img-fluid" src="<%= articles[i].imageUrl %>" alt=""></a>
-                          
-                       </div>
-                       <div class="video-card-body">
-                          <div class="video-title">
-                             <a href=""><%= articles[i].title %></a>
+                     <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="video-card history-video">
+                          <div class="video-card-image">
+                            <a
+                              class="play-icon"
+                              href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
+                            ></a>
+                            <a
+                              href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
+                              ><img
+                                class="img-fluid"
+                                src="<%= articles[i].imageUrl %>"
+                                alt=""
+                            /></a>
                           </div>
-                          <div class="video-page text-success">
-                          <%= articles[i].Category.CategoryTranslations[0].name %>  <a title="" data-placement="top" data-toggle="tooltip" href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+          
+                          <div class="video-card-body">
+                            <div class="video-title">
+                              <a
+                                href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
+                              >
+                                <% if( articles[i].title.length > 160){ %> <%=
+                                articles[i].title.substring(0, 160) + "..." %> <% } else{
+                                %> <%= articles[i].title %> <% } %></a
+                              >
+                            </div>
+                            <div class="video-item-user">
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown-list-image mr-3">
+                                  <img
+                                    class="rounded-circle"
+                                    src="/<%= articles[i].Source.imageUrl %>"
+                                    alt=""
+                                  />
+                                </div>
+                                <div class="font-weight-bold mr-2">
+                                  <div class="text-truncate">
+                                    <%= articles[i].Source.name %>
+                                  </div>
+                                  <div class="small text-gray-500">
+                                    <%= articles[i].Category.CategoryTranslations[0].name
+                                    %> - 45 perce
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div class="video-view">
-                             <i class="fas fa-calendar-alt"></i> 11 Months ago
-                          </div>
-                       </div>
-                    </div>
-                 </div>
+                        </div>
+                      </div>
                  <% } %>
                  <% } %>
               </div>

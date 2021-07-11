@@ -164,6 +164,7 @@ exports.getChannelCategory = async (req, res, next) => {
           limit: ITEMS_PER_PAGE,
           include: [
             { model: Category, include: [{ model: CategoryTranslation }] },
+            { model: Source },
           ],
         });
       })
@@ -172,7 +173,7 @@ exports.getChannelCategory = async (req, res, next) => {
           path: "/login",
           pageTitle: "Login",
           logged: logged,
-          source: sourceName.name,
+          source: sourceName,
           selectedArticles: selectedArticles,
           allCategories: allCategories,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
