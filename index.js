@@ -1,7 +1,7 @@
 const express = require("express"),
   lingua = require("lingua");
 const Admin = require("./models/Users");
-// const errorController = require("./admin/controllers/error");
+const errorController = require("./admin/controllers/error");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -135,8 +135,8 @@ app.use("/", otherRoutes);
 // app.use("/super-admin", superRoutes);
 // app.use(indexRoutes);
 // app.use(authRoutes);
-// app.get("/500", errorController.get500);
-
+app.get("/500", errorController.get500);
+app.get("/404", errorController.get404);
 // Database configuration
 databaseConfig();
 
@@ -150,7 +150,7 @@ databaseConfig();
 
 // Config PORT
 const PORT = process.env.PORT || 3000;
-// app.use(errorController.get404);
+app.use(errorController.get404);
 //
 sequelize
   // .sync({ force: true })

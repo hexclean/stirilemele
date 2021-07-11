@@ -75,7 +75,7 @@ exports.getHome = async (req, res, next) => {
         console.log(page);
         res.render("home/index", {
           path: "/login",
-          pageTitle: "Știrilemele - ultimele știri",
+          pageTitle: "Știrilemele",
           articles: articles.reverse(),
           logged: logged,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
