@@ -1,9 +1,9 @@
 const Source = require("../../models/Source");
-const Category = require("../../models/Category");
+const User = require("../../models/Users");
 const UserInterestedCategories = require("../../models/UserInterestedCategories");
 const SourceCategories = require("../../models/SourceCategories");
 const CategoryTranslation = require("../../models/CategoryTranslation");
-const Articles = require("../../models/Article");
+const Category = require("../../models/Category");
 const UserInterestedSources = require("../../models/UserInterestedSources");
 const SendEmailCategory = require("../../models/SendEmailCategory");
 const SendEmailSource = require("../../models/SendEmailSource");
@@ -12,6 +12,30 @@ exports.getProfile = async (req, res, next) => {
   res.render("profile/index", {
     path: "/login",
     pageTitle: "Login",
+  });
+};
+
+exports.getPrimaryData = async (req, res, next) => {
+  const user = await User.findByPk(req.user.id);
+
+  console.log(user);
+  res.render("profile/primaryDataChange", {
+    path: "/login",
+    pageTitle: "Login",
+    user: user,
+    logged: 1,
+  });
+};
+
+exports.getNewsletter = async (req, res, next) => {
+  const user = await User.findByPk(req.user.id);
+
+  console.log(user);
+  res.render("profile/newsletter", {
+    path: "/login",
+    pageTitle: "Login",
+    user: user,
+    logged: 1,
   });
 };
 
