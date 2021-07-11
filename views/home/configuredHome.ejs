@@ -75,6 +75,12 @@
             <div class="col-md-12">
               <div class="main-title">
                 <h6>Testreszabott híreid</h6>
+                <% if ( articles.length < 1 ) { %>
+                <p>
+                  Úgy tűnik, hogy módosítanod kell a kategóriákat vagy a
+                  hirportálokat, hogy hírek jelenjenek meg.
+                </p>
+                <% } %>
               </div>
             </div>
 
@@ -130,40 +136,8 @@
             </div>
             <% } %>
           </div>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center pagination-sm mb-0">
-              <% if (currentPage !== 1 && previousPage !== 1) { %>
-              <li class="page-item active">
-                <a class="page-link" href="?page=1">1</a>
-              </li>
-              <% } %> <% if (hasPreviousPage) { %>
-              <li class="page-item">
-                <a class="page-link" href="?page=<%= previousPage %>"
-                  ><%= previousPage %></a
-                >
-              </li>
-              <% } %>
-              <li class="page-item active">
-                <a class="page-link" href="?page=<%= currentPage %>"
-                  ><%= currentPage %></a
-                >
-              </li>
-              <% if (hasNextPage) { %>
-              <li class="page-item">
-                <a class="page-link" href="?page=<%= nextPage %>"
-                  ><%= nextPage %></a
-                >
-              </li>
-              <% } %> <% if (lastPage !== currentPage && nextPage !== lastPage)
-              { %>
-              <li class="page-item">
-                <a class="page-link" href="?page=<%= lastPage %>"
-                  ><%= lastPage %></a
-                >
-              </li>
-              <% } %>
-            </ul>
-          </nav>
+          <% if ( articles.length > 1 ) { %> <%-
+          include('../shared/pagination.ejs') %> <% } %>
           <div class="top-category section-padding mb-0">
             <div class="row">
               <div class="col-md-12">

@@ -11,7 +11,7 @@ const Category = require("../../models/Category");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const ITEMS_PER_PAGE = 28;
+const ITEMS_PER_PAGE = 2;
 exports.postAddComment = async (req, res, next) => {
   const articleId = req.body.articleId;
   const comment = req.body.comment;

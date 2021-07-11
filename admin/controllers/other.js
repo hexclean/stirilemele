@@ -6,7 +6,7 @@ const UserInterestedCategories = require("../../models/UserInterestedCategories"
 const UserInterestedSources = require("../../models/UserInterestedSources");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const ITEMS_PER_PAGE = 28;
+const ITEMS_PER_PAGE = 2;
 const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 
