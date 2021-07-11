@@ -78,21 +78,19 @@
               </div>
             </div>
 
-            <% for (let i=0; i < articles.length; i++ ) { %> <%if
-            (articles[i].Source !== null) { %> <% for (let j=0; j <
-            articles[i].Source.Articles.length; j++ ) { %>
+            <% for (let i=0; i < articles.length; i++ ) { %>
             <div class="col-xl-3 col-sm-6 mb-3">
               <div class="video-card history-video">
                 <div class="video-card-image">
                   <a
                     class="play-icon"
-                    href="/stiri/<%= articles[i].Source.Articles[j].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].Source.Articles[j].seoUrl %>"
+                    href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
                   ></a>
                   <a
-                    href="/stiri/<%= articles[i].Source.Articles[j].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].Source.Articles[j].seoUrl %>"
+                    href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
                     ><img
                       class="img-fluid"
-                      src="<%= articles[i].Source.Articles[j].imageUrl %>"
+                      src="<%= articles[i].imageUrl %>"
                       alt=""
                   /></a>
                 </div>
@@ -100,12 +98,11 @@
                 <div class="video-card-body">
                   <div class="video-title">
                     <a
-                      href="/stiri/<%= articles[i].Source.Articles[j].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].Source.Articles[j].seoUrl %>"
+                      href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
                     >
-                      <% if( articles[i].Source.Articles[j].title.length > 160){
-                      %> <%= articles[i].Source.Articles[j].title.substring(0,
-                      160) + "..." %> <% } else{ %> <%=
-                      articles[i].Source.Articles[j].title %> <% } %></a
+                      <% if( articles[i].title.length > 160){ %> <%=
+                      articles[i].title.substring(0, 160) + "..." %> <% } else{
+                      %> <%= articles[i].title %> <% } %></a
                     >
                   </div>
                   <div class="video-item-user">
@@ -122,8 +119,7 @@
                           <%= articles[i].Source.name %>
                         </div>
                         <div class="small text-gray-500">
-                          <%=
-                          articles[i].Source.Articles[j].Category.CategoryTranslations[0].name
+                          <%= articles[i].Category.CategoryTranslations[0].name
                           %> - 45 perce
                         </div>
                       </div>
@@ -132,8 +128,7 @@
                 </div>
               </div>
             </div>
-
-            <% } %> <% } %> <% } %>
+            <% } %>
           </div>
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center pagination-sm mb-0">

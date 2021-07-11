@@ -11,9 +11,8 @@ const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 
 exports.getConfiguredHome = async (req, res, next) => {
-  let categories = [];
-  let articles = [];
   let interestedCategoryId = [];
+  let interestedSourceId = [];
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
@@ -36,95 +35,68 @@ exports.getConfiguredHome = async (req, res, next) => {
     ],
   });
   try {
-    categories = await UserInterestedCategories.findAll({
+    const selectedCategories = await UserInterestedCategories.findAll({
       where: { userId: req.user.id, active: 1 },
+    });
+    for (let i = 0; i < selectedCategories.length; i++) {
+      interestedCategoryId.push(selectedCategories[i].categoryId);
+    }
+
+    const selectedSources = await UserInterestedSources.findAll({
+      where: { userId: req.user.id, active: 1 },
+    });
+    for (let i = 0; i < selectedSources.length; i++) {
+      interestedSourceId.push(selectedSources[i].sourceId);
+    }
+
+    await Articles.findAll({
+      where: {
+        sourceId: {
+          [Op.in]: interestedSourceId,
+        },
+        categoryId: {
+          [Op.in]: interestedCategoryId,
+        },
+      },
       include: [
         {
           model: Category,
           include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
         },
-      ],
-    });
-    for (let i = 0; i < categories.length; i++) {
-      interestedCategoryId.push(categories[i].categoryId);
-    }
-
-    await UserInterestedSources.findAll({
-      where: {
-        userId: req.user.id,
-        active: 1,
-      },
-
-      include: [
-        {
-          model: Source,
-          include: [
-            {
-              model: Articles,
-              where: {
-                categoryId: {
-                  [Op.in]: interestedCategoryId,
-                },
-              },
-              include: [
-                {
-                  model: Category,
-                  include: [
-                    { model: CategoryTranslation, where: { languageId: 2 } },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
+        { model: Source },
       ],
     })
       .then(async (numArticles) => {
         totalItems = numArticles;
-        return await UserInterestedSources.findAll({
+        return await Articles.findAll({
+          offset: (page - 1) * ITEMS_PER_PAGE,
+          limit: ITEMS_PER_PAGE,
           where: {
-            userId: req.user.id,
-            active: 1,
+            sourceId: {
+              [Op.in]: interestedSourceId,
+            },
+            categoryId: {
+              [Op.in]: interestedCategoryId,
+            },
           },
-
           include: [
             {
-              model: Source,
+              model: Category,
               include: [
-                {
-                  model: Articles,
-
-                  where: {
-                    categoryId: {
-                      [Op.in]: interestedCategoryId,
-                    },
-                    offset: (page - 1) * ITEMS_PER_PAGE,
-                    limit: ITEMS_PER_PAGE,
-                  },
-                  include: [
-                    {
-                      model: Category,
-                      include: [
-                        {
-                          model: CategoryTranslation,
-                          where: { languageId: 2 },
-                        },
-                      ],
-                    },
-                  ],
-                },
+                { model: CategoryTranslation, where: { languageId: 2 } },
               ],
             },
+            { model: Source },
           ],
         });
       })
+
       .then((articles) => {
-        console.log(articles);
         res.render("home/configuredHome", {
           path: "/login",
           pageTitle: "Știrilemele - ultimele știri",
-          articles: articles.reverse(),
-          categories: categories,
+          articles: articles,
+
           logged: logged,
           hasNextPage: ITEMS_PER_PAGE * page < 10,
           hasPreviousPage: page > 1,
