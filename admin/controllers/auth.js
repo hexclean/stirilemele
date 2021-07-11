@@ -81,7 +81,7 @@ exports.postSignup = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   if (email.length < 5 && password.length < 5) {
-    return res.redirect("/autentificare/login");
+    return res.redirect("/autentificare/inregistrare");
   }
   let categories = await Category.findAll();
   let channels = await Channels.findAll();
@@ -123,7 +123,7 @@ exports.postSignup = async (req, res, next) => {
 
       return req.session.save((err) => {
         console.log(err);
-        res.redirect("/profile");
+        res.redirect("/help");
       });
     });
   } catch (err) {
