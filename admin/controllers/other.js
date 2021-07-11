@@ -6,7 +6,7 @@ const UserInterestedCategories = require("../../models/UserInterestedCategories"
 const UserInterestedSources = require("../../models/UserInterestedSources");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 28;
 const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 
@@ -48,6 +48,8 @@ exports.getConfiguredHome = async (req, res, next) => {
     for (let i = 0; i < selectedSources.length; i++) {
       interestedSourceId.push(selectedSources[i].sourceId);
     }
+    console.log("interestedSourceId", interestedSourceId);
+    console.log("interestedCategoryId", interestedCategoryId);
 
     await Articles.findAll({
       where: {
@@ -98,11 +100,11 @@ exports.getConfiguredHome = async (req, res, next) => {
           articles: articles,
 
           logged: logged,
-          hasNextPage: ITEMS_PER_PAGE * page < 10,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
           hasPreviousPage: page > 1,
           nextPage: page + 1,
           previousPage: page - 1,
-          lastPage: Math.ceil(10 / ITEMS_PER_PAGE),
+          lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
           sources: sources,
           bestArticles: bestArticles,
