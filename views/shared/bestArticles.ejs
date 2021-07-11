@@ -1,0 +1,55 @@
+<div class="col-md-12">
+  <div class="main-title">
+    <h6>Legtöbbet olvasott cikkek</h6>
+  </div>
+</div>
+<% for (let i=0; i < bestArticles.length; i++ ) { %>
+
+<div class="col-xl-3 col-sm-6 mb-3">
+  <div class="video-card history-video">
+    <div class="video-card-image">
+      <a
+        class="play-icon"
+        href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+      ></a>
+      <a
+        href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+        ><img class="img-fluid" src="<%= bestArticles[i].imageUrl %>" alt=""
+      /></a>
+    </div>
+
+    <div class="video-card-body">
+      <div class="video-title">
+        <a
+          href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
+        >
+          <% if( bestArticles[i].title.length > 181){ %> <%=
+          bestArticles[i].title.substring(0, 181) + "..." %> <% } else{ %> <%=
+          bestArticles[i].title %> <% } %>
+        </a>
+      </div>
+      <div class="video-item-user">
+        <div class="d-flex align-items-center">
+          <div class="dropdown-list-image mr-3">
+            <img
+              class="rounded-circle"
+              src="/<%= bestArticles[i].Source.imageUrl %>"
+              alt=""
+            />
+          </div>
+          <div class="font-weight-bold mr-2">
+            <div class="text-truncate">
+              <%= bestArticles[i].Source.name %>
+            </div>
+            <div class="small text-gray-500">
+              <%= bestArticles[i].Category.CategoryTranslations[0].name %> - 45
+              perce
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% } %>

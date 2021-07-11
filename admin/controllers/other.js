@@ -6,7 +6,7 @@ const UserInterestedCategories = require("../../models/UserInterestedCategories"
 const UserInterestedSources = require("../../models/UserInterestedSources");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const ITEMS_PER_PAGE = 40;
+const ITEMS_PER_PAGE = 28;
 const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 
@@ -30,6 +30,10 @@ exports.getConfiguredHome = async (req, res, next) => {
     },
     order: [["clicked", "DESC"]],
     limit: 4,
+    include: [
+      { model: Source },
+      { model: Category, include: [{ model: CategoryTranslation }] },
+    ],
   });
   try {
     categories = await UserInterestedCategories.findAll({
@@ -45,11 +49,12 @@ exports.getConfiguredHome = async (req, res, next) => {
       interestedCategoryId.push(categories[i].categoryId);
     }
 
-    articles = await UserInterestedSources.findAll({
+    await UserInterestedSources.findAll({
       where: {
         userId: req.user.id,
         active: 1,
       },
+
       include: [
         {
           model: Source,
@@ -73,23 +78,64 @@ exports.getConfiguredHome = async (req, res, next) => {
           ],
         },
       ],
-    });
+    })
+      .then(async (numArticles) => {
+        totalItems = numArticles;
+        return await UserInterestedSources.findAll({
+          where: {
+            userId: req.user.id,
+            active: 1,
+          },
 
-    res.render("home/configuredHome", {
-      path: "/login",
-      pageTitle: "Știrilemele - ultimele știri",
-      articles: articles.reverse(),
-      categories: categories,
-      logged: logged,
-      hasNextPage: ITEMS_PER_PAGE * page < 10,
-      hasPreviousPage: page > 1,
-      nextPage: page + 1,
-      previousPage: page - 1,
-      lastPage: Math.ceil(10 / ITEMS_PER_PAGE),
-      currentPage: page,
-      sources: sources,
-      bestArticles: bestArticles,
-    });
+          include: [
+            {
+              model: Source,
+              include: [
+                {
+                  model: Articles,
+
+                  where: {
+                    categoryId: {
+                      [Op.in]: interestedCategoryId,
+                    },
+                    offset: (page - 1) * ITEMS_PER_PAGE,
+                    limit: ITEMS_PER_PAGE,
+                  },
+                  include: [
+                    {
+                      model: Category,
+                      include: [
+                        {
+                          model: CategoryTranslation,
+                          where: { languageId: 2 },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+      })
+      .then((articles) => {
+        console.log(articles);
+        res.render("home/configuredHome", {
+          path: "/login",
+          pageTitle: "Știrilemele - ultimele știri",
+          articles: articles.reverse(),
+          categories: categories,
+          logged: logged,
+          hasNextPage: ITEMS_PER_PAGE * page < 10,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(10 / ITEMS_PER_PAGE),
+          currentPage: page,
+          sources: sources,
+          bestArticles: bestArticles,
+        });
+      });
   } catch (error) {
     console.log(error);
   }

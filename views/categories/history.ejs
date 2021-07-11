@@ -60,73 +60,10 @@
       <div class="container-fluid">
         <div class="video-block section-padding">
           <div class="row">
-            <div class="video-block section-padding">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="main-title mb-4">
-                    <div class="btn-group float-right right-action">
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"
-                          ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
-                        >
-                        <a class="dropdown-item" href="#"
-                          ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
-                        >
-                        <a class="dropdown-item" href="#"
-                          ><i class="fas fa-fw fa-times-circle"></i> &nbsp;
-                          Close</a
-                        >
-                      </div>
-                    </div>
-                    <h6>Legtöbbet olvasott cikkek</h6>
-                  </div>
-                </div>
-                <% for (let i=0; i < bestArticles.length; i++ ) { %>
-                <div class="col-xl-3 col-sm-6 mb-3">
-                  <div class="channels-card">
-                    <div class="channels-card-image">
-                      <a
-                        href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
-                        ><img
-                          class="img-fluid"
-                          src="<%= bestArticles[i].imageUrl %>"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="channels-card-body">
-                      <div class="channels-title">
-                        <a
-                          href="/stiri/<%= bestArticles[i].Category.seoUrl %>/<%= bestArticles[i].Source.seoUrl %>/<%= bestArticles[i].seoUrl %>"
-                          ><%= bestArticles[i].title.substring(0, 80) + "..."
-                          %></a
-                        >
-                      </div>
-                      <div class="channels-view">
-                        <%=
-                        bestArticles[i].Category.CategoryTranslations[0].name %>
-                        - <%= bestArticles[i].Source.seoUrl %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <% } %>
-              </div>
-            </div>
+            <%- include('../shared/bestArticles.ejs') %>
+
             <div class="col-md-12">
               <div class="main-title">
-                <div class="btn-group float-right right-action">
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
-                    >
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
-                    >
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a
-                    >
-                  </div>
-                </div>
                 <h6>Megtekintett cikkek</h6>
               </div>
             </div>
@@ -147,24 +84,34 @@
                       alt=""
                   /></a>
                 </div>
-
                 <div class="video-card-body">
                   <div class="video-title">
                     <a
                       href="/stiri/<%= articles[i].Article.Category.seoUrl %>/<%= articles[i].Article.Source.seoUrl %>/<%= articles[i].Article.seoUrl %>"
-                      ><%= articles[i].Article.title.substring(0, 181) + "..."
-                      %></a
+                    >
+                      <% if( articles[i].Article.title.length > 160){ %> <%=
+                      articles[i].Article.title.substring(0, 160) + "..." %> <%
+                      } else{ %> <%= articles[i].Article.title %> <% } %></a
                     >
                   </div>
-                  <div class="video-page text-success">
-                    <%= articles[i].Article.Category.seoUrl %> - <%=
-                    articles[i].Article.Source.name %>
-                  </div>
-                  <div class="video-view">
-                    <!-- <%= articles[i].clicked %> megtekintés &nbsp;<i
-                      class="fas fa-calendar-alt"
-                    ></i> -->
-                    35 perce
+                  <div class="video-item-user">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-list-image mr-3">
+                        <img
+                          class="rounded-circle"
+                          src="/<%= articles[i].Article.Source.imageUrl %>"
+                          alt=""
+                        />
+                      </div>
+                      <div class="font-weight-bold mr-2">
+                        <div class="text-truncate">
+                          <%= articles[i].Article.Source.name %>
+                        </div>
+                        <div class="small text-gray-500">
+                          <%= articles[i].Article.Category.seoUrl %> - 45 perce
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
