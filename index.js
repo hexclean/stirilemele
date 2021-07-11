@@ -26,7 +26,15 @@ app.use((req, res, next) => {
   }
   next();
 });
-
+app.use(
+  lingua(app, {
+    defaultLocale: "ro",
+    path: __dirname + "/i18n",
+    cookieOptions: {
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    },
+  })
+);
 const sessionStore = new SequelizeStore({
   db: db,
   checkExpirationInterval: 15 * 60 * 1000,
