@@ -99,6 +99,10 @@
                       class="img-fluid"
                       src="<%= articles[i].imageUrl %>"
                       alt=""
+                      style="
+                        max-height: 150px !important;
+                        min-height: 150px !important;
+                      "
                   /></a>
                 </div>
 
@@ -139,37 +143,6 @@
           </div>
           <% if ( articles.length > 1 ) { %> <%-
           include('../shared/pagination.ejs') %> <% } %>
-          <div class="top-category section-padding mb-0">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="main-title mb-4">
-                  <div class="btn-group float-right right-action">
-                    <a
-                      href="#"
-                      class="right-action-link text-gray"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#"
-                        ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
-                      >
-                      <a class="dropdown-item" href="#"
-                        ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
-                      >
-                      <a class="dropdown-item" href="#"
-                        ><i class="fas fa-fw fa-times-circle"></i> &nbsp;
-                        Close</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <!-- /.container-fluid -->
