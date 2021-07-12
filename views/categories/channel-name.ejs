@@ -2,6 +2,7 @@
 <body id="page-top">
    <%- include('../includes/navbar.ejs') %>
   <div id="wrapper">
+    
      <!-- Sidebar -->
      <ul class="sidebar navbar-nav">
       <li class="nav-item">
@@ -60,17 +61,22 @@
       </li>
       <% } %>
     </ul>
+    
      <div class="single-channel-page" id="content-wrapper">
+     
         <div class="single-channel-image">
-           <img class="img-fluid" alt="" src="/img/channel-banner.png">
+           <img class="img-fluid" style="max-height: 340px !important" alt="" src="/img/cover.jpeg">
            <div class="channel-profile">
               <img class="channel-profile-img" alt="" src="/<%= source.imageUrl %> ">
              
            </div>
         </div>
+        
         <div class="single-channel-nav">
            <nav class="navbar navbar-expand-lg navbar-light">
-              <a class="channel-brand" href="#"><%= source.name %> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></a>
+              <a class="channel-brand" href="#"><%= source.name %> 
+                <% if (logged==1 && followedSource.active == 1) { %> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></a> <% } %>
+                
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
@@ -83,10 +89,63 @@
                     <% } %>
                    
                  </ul>
-                 <form class="form-inline my-2 my-lg-0">
-                   <button class="btn btn-outline-danger btn-sm" type="button">Hírportál követése</button>
+                 <% if (logged==1 ) { %>
+                 <% if(followedSource.active == 0 ){ %>
+                
+                  <form  action="/channels/follow-source"
+                 enctype="multipart/form-data"
+                 method="POST" class="form-inline my-2 my-lg-0">
+                   <input hidden value="<%= source.id %>" name="sourceId"/>
+                   <input hidden value="<%= channelName %>" name="channelName"/>
+                   <button class="btn btn-outline-danger btn-sm" id="follow" type="submit">Hírportál bekövetése</button>
                  </form>
+                <% } else{ %>  
+                 
+                  <form  action="/channels/unfollow-source"
+                  enctype="multipart/form-data"
+                  method="POST" class="form-inline my-2 my-lg-0">
+                    <input hidden value="<%= source.id %>" name="sourceId"/>
+                    <input hidden value="<%= channelName %>" name="channelName"/>
+                    <button class="btn btn-outline-danger btn-sm" id="unfollow" type="submit">Hírportál kikövetése</button>
+                  </form>
+               <% } %>
+               <% } %>
               </div>
+              <div  style="display: none; right: 0px;margin-top: 14px;margin-left: 10px;" class="alert alert-success" id="bekovet" role="alert">
+                Hírportált sikeresen bekövetted
+             </div>
+             <div style=" display: none; right: 0px;margin-top: 14px;margin-left: 10px;"   class="alert alert-warning" id="kikovet" role="alert">
+              Hírportált sikeresen kikövetted
+           </div>
+           
+              <script>
+         $(document).ready(function () {
+          $("#unfollow").click(function () {
+            $( "#kikovet" ).show("slow");
+             
+            
+           
+            
+
+            
+            });
+           
+          });
+
+           $("#follow").click(function () {
+            $( "#bekovet" ).show("slow");
+              
+             
+         
+            
+
+            
+            });
+           
+       
+
+            </script>
+            
            </nav>
         </div>
         <div class="container-fluid">

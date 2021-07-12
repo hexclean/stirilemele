@@ -45,7 +45,9 @@ exports.getChannelCategories = async (req, res, next) => {
   let totalItems;
   let channelName = req.params.channelName;
   const source = await Source.findOne({ where: { seoUrl: channelName } });
-
+  const followedSource = await UserInterestedSources.findOne({
+    where: { sourceId: source.id },
+  });
   let sourceId = source.id;
   let sourceName = source.name;
   let logged = 0;
@@ -124,6 +126,8 @@ exports.getChannelCategories = async (req, res, next) => {
           previousPage: page - 1,
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
+          channelName: channelName,
+          followedSource: followedSource,
         });
       });
   } catch (error) {
@@ -201,6 +205,40 @@ exports.getChannelCategory = async (req, res, next) => {
           categoryName: categoryName,
         });
       });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.postFollowSource = async (req, res, next) => {
+  const sourceId = req.body.sourceId;
+  const source = await Source.findByPk(sourceId);
+  const currentSourceId = source.id;
+  let sourceName = req.body.channelName;
+
+  try {
+    await UserInterestedSources.update(
+      { active: 1 },
+      { where: { sourceId: currentSourceId } }
+    );
+    res.redirect(`/channels/${sourceName}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.postUnFollowSource = async (req, res, next) => {
+  const sourceId = req.body.sourceId;
+  const source = await Source.findByPk(sourceId);
+  const currentSourceId = source.id;
+  let sourceName = req.body.channelName;
+
+  try {
+    await UserInterestedSources.update(
+      { active: 0 },
+      { where: { sourceId: currentSourceId } }
+    );
+    res.redirect(`/channels/${sourceName}`);
   } catch (error) {
     console.log(error);
   }

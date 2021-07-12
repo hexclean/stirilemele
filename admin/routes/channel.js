@@ -6,5 +6,6 @@ const router = express.Router();
 router.get("/", channelController.getAllChannel);
 router.get("/:channelName", channelController.getChannelCategories);
 router.get("/:channelName/:categoryName", channelController.getChannelCategory);
-
+router.post("/follow-source", channelController.postFollowSource);
+router.post("/unfollow-source", channelController.postUnFollowSource);
 module.exports = router;

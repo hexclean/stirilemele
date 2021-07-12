@@ -86,6 +86,10 @@
         (activeSwitch[i].active == 1) { %>
         <script>
           $(document).ready(function () {
+            $("#save").click(function () {
+              $("#saveMessage").show("slow");
+            });
+
             var activeCheckbox = "<%= activeSwitch[i].categoryId %>";
             $(".statusCategory-checkbox-" + activeCheckbox).prop(
               "checked",
@@ -95,6 +99,7 @@
           });
         </script>
         <% } %> <% } %>
+
         <form
           name="myForm"
           class="ms-content-wrapper"
@@ -139,10 +144,21 @@
               </div>
             </div>
           </div>
-
+          <div
+            style="display: none;"
+            class="alert alert-success"
+            id="saveMessage"
+            role="alert"
+          >
+            Sikeres adat módosítás
+          </div>
           <div class="row">
             <div class="col-sm-12 text-right">
-              <button type="submit" class="btn btn-success border-none">
+              <button
+                id="save"
+                type="submit"
+                class="btn btn-success border-none"
+              >
                 Módosítások mentése
               </button>
             </div>

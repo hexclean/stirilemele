@@ -72,6 +72,9 @@
         </div>
         <script>
           $(document).ready(function () {
+            $("#save").click(function () {
+              $("#saveMessage").show("slow");
+            });
             $(".statusChannel-checkbox").click(function () {
               console.log("dasd");
               var extraId = $(this).attr("data-channelId");
@@ -140,10 +143,17 @@
               </div>
             </div>
           </div>
-
+          <div
+          style="display: none;"
+          class="alert alert-success"
+          id="saveMessage"
+          role="alert"
+        >
+          Sikeres adat módosítás
+        </div>
           <div class="row">
             <div class="col-sm-12 text-right">
-              <button type="submit" class="btn btn-success border-none">
+              <button type="submit" id="save" class="btn btn-success border-none">
                 Módosítások mentése
               </button>
             </div>
