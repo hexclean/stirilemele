@@ -23,7 +23,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
     where: { seoUrl: categoryName },
     include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
   });
-
+  console.log("categorycategory", category);
   categoryId = category.id;
   categoryNameView = category.CategoryTranslations[0].name;
 
@@ -82,7 +82,9 @@ exports.getChannelNewsByCategory = async (req, res, next) => {
     logged = 0;
   }
   const channel = await Source.findOne({ where: { seoUrl: channelName } });
-  channelId = channel.id;
+  console.log("channelName", channelName);
+  console.log("channel", channel);
+  channelId = channel[0].id;
   const category = await Category.findOne({
     where: { seoUrl: categoryName },
   });
