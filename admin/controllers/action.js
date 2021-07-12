@@ -152,6 +152,7 @@ exports.getHistoryArticles = async (req, res, next) => {
           [Op.lt]: NOW,
         },
       },
+      order: [["createdAt", "ASC"]],
 
       include: [
         {
@@ -174,7 +175,12 @@ exports.getHistoryArticles = async (req, res, next) => {
         return await ArticleViewed.findAll({
           where: {
             userId: req.user.id,
+            createdAt: {
+              [Op.gt]: TODAY_START,
+              [Op.lt]: NOW,
+            },
           },
+          order: [["createdAt", "ASC"]],
           offset: (page - 1) * ITEMS_PER_PAGE,
           limit: ITEMS_PER_PAGE,
           include: [

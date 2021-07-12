@@ -13,12 +13,6 @@ router.get(
   dynamicLinkController.getSelectedCategoryArticles
 );
 
-// Hírportál kategóriái
-router.get(
-  "/stiri/:categoryName/:channelName",
-  dynamicLinkController.getChannelNewsByCategory
-);
-
 // Hírportál cikk adatlapja
 router.get(
   "/stiri/:categoryName/:channelName/:articleTitle",

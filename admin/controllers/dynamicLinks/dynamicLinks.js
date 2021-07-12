@@ -19,16 +19,18 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
   const categoryName = req.params.categoryName;
   let categoryId;
   let categoryNameView;
+
   const category = await Category.findOne({
     where: { seoUrl: categoryName },
     include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
   });
-  console.log("categorycategory", category);
+
   categoryId = category.id;
   categoryNameView = category.CategoryTranslations[0].name;
 
   await Articles.findAll({
     where: { categoryId: categoryId },
+    order: [["createdAt", "DESC"]],
     include: [
       {
         model: Category,
@@ -41,6 +43,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
       totalItems = numArticles;
       return await Articles.findAll({
         where: { categoryId: categoryId },
+        order: [["createdAt", "DESC"]],
         offset: (page - 1) * ITEMS_PER_PAGE,
         limit: ITEMS_PER_PAGE,
         include: [
@@ -70,57 +73,10 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
     });
 };
 
-exports.getChannelNewsByCategory = async (req, res, next) => {
-  const channelName = req.params.channelName;
-  const categoryName = req.params.categoryName;
-  let categoryId;
-  let channelId;
-  let logged = 0;
-  if (req.user != undefined) {
-    logged = 1;
-  } else {
-    logged = 0;
-  }
-  const channel = await Source.findOne({ where: { seoUrl: channelName } });
-  console.log("channelName", channelName);
-  console.log("channel", channel);
-  channelId = channel[0].id;
-  const category = await Category.findOne({
-    where: { seoUrl: categoryName },
-  });
-  categoryId = category.id;
-
-  const categories = await Articles.findAll({
-    where: { categoryId: categoryId },
-    include: [
-      {
-        model: Source,
-        where: { id: channelId },
-      },
-      {
-        model: Category,
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-      },
-    ],
-  });
-
-  res.render("dynamicLinks/channel-articles-by-category", {
-    path: "/login",
-    pageTitle: "Login",
-    articles: categories,
-    channelName: channelName,
-    categoryName: categoryName,
-    logged: logged,
-  });
-};
-
 exports.getArticleDetail = async (req, res, next) => {
   const channelName = req.params.channelName;
   const articleTitle = req.params.articleTitle;
   const categoryName = req.params.categoryName;
-  console.log("channelName", channelName);
-  console.log("articleTitle", articleTitle);
-  console.log("categoryName", categoryName);
   let channelId;
   let logged = 0;
   if (req.user != undefined) {
@@ -144,6 +100,7 @@ exports.getArticleDetail = async (req, res, next) => {
 
   const article = await Articles.findOne({
     where: { seoUrl: articleTitle },
+    order: [["createdAt", "DESC"]],
     include: [
       {
         model: Source,
