@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get("/login", authController.getLogin);
 
+router.post("/delete-account", authController.postDeleteAccount);
+
 router.get("/inregistrare", authController.getSignup);
 
 router.post("/login", authController.postLogin);

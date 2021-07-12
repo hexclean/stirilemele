@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../../models/Users");
 const Channels = require("../../models/Source");
 const Category = require("../../models/Category");
+const ArticleViewed = require("../../models/ArticleViewed");
 
 const { validationResult } = require("express-validator/check");
 const UserInterestedCategories = require("../../models/UserInterestedCategories");
@@ -141,4 +142,12 @@ exports.postLogout = (req, res, next) => {
     console.log(err);
     res.redirect("/");
   });
+};
+
+exports.postDeleteAccount = async (req, res, next) => {
+  await User.destroy({ where: { id: req.user.id } });
+  await UserInterestedCategories.destroy({ where: { userId: req.user.id } });
+  await UserInterestedSources.destroy({ where: { userId: req.user.id } });
+  await ArticleViewed.destroy({ where: { userId: req.user.id } });
+  res.redirect("/");
 };
