@@ -9,8 +9,10 @@ const Op = Sequelize.Op;
 const ITEMS_PER_PAGE = 28;
 const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
+const { getLanguageCode } = require("../../shared/language");
 
 exports.getConfiguredHome = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   let interestedCategoryId = [];
   let interestedSourceId = [];
   const page = +req.query.page || 1;
@@ -61,7 +63,9 @@ exports.getConfiguredHome = async (req, res, next) => {
       include: [
         {
           model: Category,
-          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
         },
         { model: Source },
       ],
@@ -83,7 +87,10 @@ exports.getConfiguredHome = async (req, res, next) => {
             {
               model: Category,
               include: [
-                { model: CategoryTranslation, where: { languageId: 2 } },
+                {
+                  model: CategoryTranslation,
+                  where: { languageId: languageCode },
+                },
               ],
             },
             { model: Source },
@@ -95,7 +102,7 @@ exports.getConfiguredHome = async (req, res, next) => {
         res.render("home/configuredHome", {
           path: "/login",
           pageTitle: "Știrilemele - ultimele știri",
-          articles: articles,
+          articles: articles.reverse(),
           logged: logged,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
           hasPreviousPage: page > 1,
@@ -112,123 +119,29 @@ exports.getConfiguredHome = async (req, res, next) => {
   }
 };
 
-exports.getSignup = (req, res, next) => {
-  if (req.admin != undefined) {
-    res.redirect("/admin/orders");
-  }
-  res.render("auth/signup", {
-    path: "/signup",
-    pageTitle: "Signup",
-    isAuthenticated: false,
-  });
-};
-exports.getTopArticles = async (req, res, next) => {
+exports.getCategoryScreen = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
+  let categories = [];
   let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+
   try {
-    if (req.user != undefined) {
-      logged = 1;
-    } else {
-      top = 0;
-    }
-    const articles = await Articles.findAll({
-      order: [["clicked", "DESC"]],
-      limit: 15,
+    const allCategories = await Category.findAll({
       include: [
-        {
-          model: Source,
-        },
-        { model: Category },
+        { model: CategoryTranslation, where: { languageId: languageCode } },
       ],
     });
 
-    res.render("categories/top", {
-      path: "/login",
-      pageTitle: "Login",
-      articles: articles,
-      logged: logged,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-exports.getCategoryScreen = async (req, res, next) => {
-  let logged = 0;
-  let categories = [];
-  let allCategories = [];
-  let articles = [];
-  let interestedCategoryId = [];
-  const page = +req.query.page || 1;
-  let totalItems;
-  const bestArticles = await Articles.findAll({
-    createdAt: {
-      [Op.gt]: TODAY_START,
-      [Op.lt]: NOW,
-    },
-    order: [["clicked", "DESC"]],
-    limit: 4,
-    include: [{ model: Source }, { model: Category }],
-  });
-  try {
-    if (req.user != undefined) {
-      logged = 1;
-      categories = await UserInterestedCategories.findAll({
-        where: { userId: req.user.id, active: 1 },
-        include: [
-          {
-            model: Category,
-            include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-          },
-        ],
-      });
-      for (let i = 0; i < categories.length; i++) {
-        interestedCategoryId.push(categories[i].categoryId);
-      }
-      allCategories = await Category.findAll({
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-      });
-
-      articles = await Articles.findAll({
-        order: [["clicked", "DESC"]],
-        limit: 20,
-        include: [
-          {
-            model: Source,
-          },
-          {
-            model: Category,
-            include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-          },
-        ],
-      });
-    } else {
-      logged = 0;
-      allCategories = await Category.findAll({
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-      });
-      articles = await Articles.findAll({
-        order: [["clicked", "DESC"]],
-        limit: 20,
-        include: [
-          {
-            model: Source,
-          },
-          {
-            model: Category,
-            include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
-          },
-        ],
-      });
-    }
-    const sources = await Source.findAll();
     res.render("categories/index", {
       path: "/login",
       pageTitle: "Login",
-      articles: articles,
       categories: categories,
       logged: logged,
       allCategories: allCategories,
-      bestArticles: bestArticles,
-      sources: sources,
     });
   } catch (error) {
     console.log(error);

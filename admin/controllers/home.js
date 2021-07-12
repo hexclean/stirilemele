@@ -13,8 +13,10 @@ const ArticleComment = require("../../models/ArticleComment");
 const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 const ITEMS_PER_PAGE = 28;
+const { getLanguageCode } = require("../../shared/language");
 
 exports.getHome = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
@@ -34,7 +36,12 @@ exports.getHome = async (req, res, next) => {
       limit: 4,
       include: [
         { model: Source },
-        { model: Category, include: [{ model: CategoryTranslation }] },
+        {
+          model: Category,
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
+        },
       ],
     });
     await Articles.findAll({
@@ -45,7 +52,9 @@ exports.getHome = async (req, res, next) => {
       include: [
         {
           model: Category,
-          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
         },
         { model: Source },
       ],
@@ -64,7 +73,10 @@ exports.getHome = async (req, res, next) => {
             {
               model: Category,
               include: [
-                { model: CategoryTranslation, where: { languageId: 2 } },
+                {
+                  model: CategoryTranslation,
+                  where: { languageId: languageCode },
+                },
               ],
             },
             { model: Source },
@@ -136,7 +148,9 @@ exports.postLogin = (req, res, next) => {
 exports.getOption = async (req, res, next) => {
   const sources = await Source.findAll();
   const categories = await Category.findAll({
-    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+    include: [
+      { model: CategoryTranslation, where: { languageId: languageCode } },
+    ],
   });
   console.log(req.body);
 
@@ -170,7 +184,7 @@ exports.postOption = async (req, res, next) => {
   return res.redirect("/option");
   // const sources = await Source.findAll();
   // const categories = await Category.findAll({
-  //   include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+  //   include: [{ model: CategoryTranslation, where: { languageId: languageCode} }],
   // });
   // console.log(req.body);
   // res.render("home/option", {

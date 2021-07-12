@@ -7,8 +7,6 @@ const isAuth = require("../../middleware/is-auth");
 
 // Főoldal
 router.get("/categorii", otherController.getCategoryScreen);
-router.get("/top-stiri", otherController.getTopArticles);
-router.get("/comment-email", otherController.getTopArticles);
 router.get("/stiri-configurate", isAuth, otherController.getConfiguredHome);
 router.get("/important", otherController.getFontos);
 router.get("/help", otherController.getBetekintes);

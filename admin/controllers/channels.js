@@ -15,7 +15,10 @@ const ArticleViewed = require("../../models/ArticleViewed");
 const ArticleComment = require("../../models/ArticleComment");
 const SourceCategories = require("../../models/SourceCategories");
 const ITEMS_PER_PAGE = 28;
+const { getLanguageCode } = require("../../shared/language");
+
 exports.getAllChannel = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
@@ -37,6 +40,7 @@ exports.getAllChannel = async (req, res, next) => {
 };
 
 exports.getChannelCategories = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   const page = +req.query.page || 1;
   let totalItems;
   let channelName = req.params.channelName;
@@ -59,7 +63,9 @@ exports.getChannelCategories = async (req, res, next) => {
       include: [
         {
           model: Category,
-          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
         },
         { model: Source },
       ],
@@ -74,7 +80,9 @@ exports.getChannelCategories = async (req, res, next) => {
         },
         {
           model: Category,
-          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
         },
       ],
     })
@@ -92,7 +100,10 @@ exports.getChannelCategories = async (req, res, next) => {
             {
               model: Category,
               include: [
-                { model: CategoryTranslation, where: { languageId: 2 } },
+                {
+                  model: CategoryTranslation,
+                  where: { languageId: languageCode },
+                },
               ],
             },
           ],
@@ -102,7 +113,7 @@ exports.getChannelCategories = async (req, res, next) => {
         res.render("categories/channel-name", {
           path: "/login",
           pageTitle: "Login",
-          articles: articles,
+          articles: articles.reverse(),
           allCategories: allCategories,
           sourceName: sourceName,
           logged: logged,
@@ -121,6 +132,7 @@ exports.getChannelCategories = async (req, res, next) => {
 };
 
 exports.getChannelCategory = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
@@ -132,7 +144,9 @@ exports.getChannelCategory = async (req, res, next) => {
   try {
     const categoryName = await Category.findOne({
       where: { seoUrl: req.params.categoryName },
-      include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+      include: [
+        { model: CategoryTranslation, where: { languageId: languageCode } },
+      ],
     });
     const sourceName = await Source.findOne({
       where: { seoUrl: req.params.channelName },
@@ -148,7 +162,9 @@ exports.getChannelCategory = async (req, res, next) => {
       include: [
         {
           model: Category,
-          include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
         },
         { model: Source },
       ],
@@ -174,7 +190,7 @@ exports.getChannelCategory = async (req, res, next) => {
           pageTitle: "Login",
           logged: logged,
           source: sourceName,
-          selectedArticles: selectedArticles,
+          selectedArticles: selectedArticles.reverse(),
           allCategories: allCategories,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
           hasPreviousPage: page > 1,
