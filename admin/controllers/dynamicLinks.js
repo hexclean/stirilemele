@@ -1,10 +1,10 @@
-const Source = require("../../../models/Source");
-const Category = require("../../../models/Category");
-const SourceCategories = require("../../../models/SourceCategories");
-const CategoryTranslation = require("../../../models/CategoryTranslation");
-const Articles = require("../../../models/Article");
-const ArticleComment = require("../../../models/ArticleComment");
-const User = require("../../../models/Users");
+const Source = require("../../models/Source");
+const Category = require("../../models/Category");
+const SourceCategories = require("../../models/SourceCategories");
+const CategoryTranslation = require("../../models/CategoryTranslation");
+const Articles = require("../../models/Article");
+const ArticleComment = require("../../models/ArticleComment");
+const User = require("../../models/Users");
 const ITEMS_PER_PAGE = 40;
 
 exports.getSelectedCategoryArticles = async (req, res, next) => {

@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const dynamicLinkController = require("../controllers/dynamicLinks/dynamicLinks");
+const dynamicLinkController = require("../controllers/dynamicLinks");
 const homeController = require("../controllers/home");
-const sourceController = require("../controllers/source");
 
 // Főoldal
 router.get("/", homeController.getHome);
