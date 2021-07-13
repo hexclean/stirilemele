@@ -7,7 +7,7 @@
   "kategoriak": "Categorii",
   "oldal_testreszabasa": "Personalizare",
   "regisztracio_elonyei": "Avantajele înregistrării",
-  "belepes": "Authentificare",
+  "belepes": "Autentificare",
   "legtobbet_olvasott_cikkek": "Cele mai frecvente articole",
   "modositsd_a_kategoriakat_vagy_a_hirportalokat": "Schimbă categoria sau portal de știri",
   "megtekintett_cikkek": "Istoric",
@@ -24,5 +24,6 @@
   "torles": "Șterge",
   "megse": "Nu",
   "fiok_torlese": "Șterge profulul",
-  "jelszo": "Parola"
+  "jelszo": "Parola",
+  "tobb": "Mai multe"
 }

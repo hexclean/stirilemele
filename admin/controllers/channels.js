@@ -57,9 +57,26 @@ exports.getChannelCategories = async (req, res, next) => {
     logged = 0;
   }
   try {
-    const allCategories = await SourceCategories.findAll({
+    const primaryCategories = await SourceCategories.findAll({
       where: {
         sourceId: sourceId,
+        prim: 1,
+      },
+
+      include: [
+        {
+          model: Category,
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
+        },
+        { model: Source },
+      ],
+    });
+    const secondaryategories = await SourceCategories.findAll({
+      where: {
+        sourceId: sourceId,
+        prim: 0,
       },
 
       include: [
@@ -116,7 +133,7 @@ exports.getChannelCategories = async (req, res, next) => {
           path: "/login",
           pageTitle: "Portal de știri",
           articles: articles.reverse(),
-          allCategories: allCategories,
+          primaryCategories: primaryCategories,
           sourceName: sourceName,
           logged: logged,
           source: source,
@@ -128,6 +145,7 @@ exports.getChannelCategories = async (req, res, next) => {
           currentPage: page,
           channelName: channelName,
           followedSource: followedSource,
+          secondaryategories: secondaryategories,
         });
       });
   } catch (error) {
@@ -158,9 +176,26 @@ exports.getChannelCategory = async (req, res, next) => {
     let categoryId = categoryName.id;
     let sourceId = sourceName.id;
 
-    const allCategories = await SourceCategories.findAll({
+    const primaryCategories = await SourceCategories.findAll({
       where: {
         sourceId: sourceId,
+        prim: 1,
+      },
+
+      include: [
+        {
+          model: Category,
+          include: [
+            { model: CategoryTranslation, where: { languageId: languageCode } },
+          ],
+        },
+        { model: Source },
+      ],
+    });
+    const secondaryategories = await SourceCategories.findAll({
+      where: {
+        sourceId: sourceId,
+        prim: 0,
       },
 
       include: [
@@ -195,7 +230,7 @@ exports.getChannelCategory = async (req, res, next) => {
           logged: logged,
           source: sourceName,
           selectedArticles: selectedArticles.reverse(),
-          allCategories: allCategories,
+          secondaryategories: secondaryategories,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
           hasPreviousPage: page > 1,
           nextPage: page + 1,
@@ -203,6 +238,7 @@ exports.getChannelCategory = async (req, res, next) => {
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
           categoryName: categoryName,
+          primaryCategories: primaryCategories,
         });
       });
   } catch (error) {

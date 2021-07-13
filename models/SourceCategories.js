@@ -9,6 +9,7 @@ const SourceCategories = sequelize.define("SourceCategories", {
     allowNull: false,
     primaryKey: true,
   },
+  prim: Sequelize.INTEGER,
 });
 
 module.exports = SourceCategories;

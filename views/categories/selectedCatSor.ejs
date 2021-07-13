@@ -19,12 +19,26 @@
               <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                 <ul class="navbar-nav mr-auto">
-                  <% for (let i=0; i < allCategories.length; i++ ) { %>
+                <ul class="navbar-nav mr-auto">
+                  <% for (let i=0; i < primaryCategories.length; i++ ) { %>
                     <li class="nav-item">
-                       <a class="nav-link" href="/channels/<%= allCategories[i].Source.seoUrl %>/<%= allCategories[i].Category.seoUrl %>"><%= allCategories[i].Category.CategoryTranslations[0].name %> <span class="sr-only">(current)</span></a>
+                       <a class="nav-link" href="/channels/<%= primaryCategories[i].Source.seoUrl %>/<%= primaryCategories[i].Category.seoUrl %>"><%= primaryCategories[i].Category.CategoryTranslations[0].name %></a>
                     </li>
                     <% } %>
+                
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <%= lingua.tobb %>
+                      </a>
+                     
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <% for (let i=0; i < secondaryategories.length; i++ ) { %>
+                         <a class="dropdown-item" href="/channels/<%= secondaryategories[i].Source.seoUrl %>/<%= secondaryategories[i].Category.seoUrl %>"><%= secondaryategories[i].Category.CategoryTranslations[0].name %></a>
+                         <% } %>
+                        
+                      </div>
+                   </li>
+                   
                    
                  </ul>
                  <!-- <form class="form-inline my-2 my-lg-0">
