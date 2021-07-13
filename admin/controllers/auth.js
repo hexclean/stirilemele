@@ -122,11 +122,11 @@ exports.postLogin = async (req, res, next) => {
     });
 };
 exports.postSignup = async (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
-
   let categories = await Category.findAll();
   let channels = await Channels.findAll();
+
+  const email = req.body.email;
+  const password = req.body.password;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -323,15 +323,15 @@ exports.postNewPassword = async (req, res, next) => {
       await User.update(
         {
           password: hashedPassword,
-          resetToken: undefined,
-          resetTokenExpiration: undefined,
+          resetToken: null,
+          resetTokenExpiration: null,
         },
         { where: { id: userId } }
       );
 
       return req.session.save((err) => {
         console.log(err);
-        res.redirect("/help");
+        res.redirect("/");
       });
     })
 
