@@ -17,6 +17,10 @@ const User = sequelize.define("User", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  resetToken: {
+    type: Sequelize.STRING,
+  },
+  resetTokenExpiration: Sequelize.DATE,
   commentEmail: Sequelize.INTEGER,
   endOfDayEmail: Sequelize.INTEGER,
   name: Sequelize.STRING,

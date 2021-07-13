@@ -3,63 +3,7 @@
   <%- include('../includes/navbar.ejs') %>
   <div id="wrapper">
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-home"></i>
-          <span>Hírek</span>
-        </a>
-      </li>
-      <% if(logged == 1){ %>
-      <li class="nav-item">
-        <a class="nav-link" href="/stiri-configurate">
-          <i class="fas fa-fw fa-cogs"></i>
-          <span>Beállított hírek</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/profile/history">
-          <i class="fas fa-fw fa-history"></i>
-          <span>Előzmények</span>
-        </a>
-      </li>
-      <% } %>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/channels">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Hírportálok</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/categorii">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span>Kategóriák</span>
-        </a>
-      </li>
-      <% if(logged == 1){ %>
-      <li class="nav-item">
-        <a class="nav-link" href="/help">
-          <i class="fas fa-fw fa-info"></i>
-          <span>Oldal testreszabása</span>
-        </a>
-      </li>
-      <% } %> <% if(logged == 0){ %>
-      <li class="nav-item">
-        <a class="nav-link" href="/important">
-          <i class="fas fa-fw fa-info"></i>
-          <span>Regisztráció előnyei</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/autentificare/login">
-          <i class="fas fa-fw fa-user-alt"></i>
-          <span>Belépés</span>
-        </a>
-      </li>
-      <% } %>
-    </ul>
+    <%- include('../shared/menu.ejs') %>
     <div id="content-wrapper">
       <div class="container-fluid">
         <div class="row">
