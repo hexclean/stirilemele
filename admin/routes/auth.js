@@ -31,7 +31,8 @@ router.post(
       .isEmail()
       .withMessage("Adresa de email invalidă!")
       .custom((value, { req }) => {
-        return User.findOne({ email: value }).then((userDoc) => {
+        return User.findOne({ where: { email: value } }).then((userDoc) => {
+          console.log(userDoc);
           if (userDoc) {
             return Promise.reject(
               "Aceasta adresa de email este asociată unui cont existent!"
