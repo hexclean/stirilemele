@@ -1,13 +1,12 @@
 const Source = require("../../models/Source");
 const Category = require("../../models/Category");
-const SourceCategories = require("../../models/SourceCategories");
 const CategoryTranslation = require("../../models/CategoryTranslation");
 const Articles = require("../../models/Article");
-const ArticleComment = require("../../models/ArticleComment");
-const User = require("../../models/Users");
 const ITEMS_PER_PAGE = 40;
+const { getLanguageCode } = require("../../shared/language");
 
 exports.getSelectedCategoryArticles = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
@@ -22,7 +21,9 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
 
   const category = await Category.findOne({
     where: { seoUrl: categoryName },
-    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+    include: [
+      { model: CategoryTranslation, where: { languageId: languageCode } },
+    ],
   });
 
   categoryId = category.id;
@@ -34,7 +35,9 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
     include: [
       {
         model: Category,
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+        include: [
+          { model: CategoryTranslation, where: { languageId: languageCode } },
+        ],
       },
       { model: Source },
     ],
@@ -49,7 +52,12 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
         include: [
           {
             model: Category,
-            include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+            include: [
+              {
+                model: CategoryTranslation,
+                where: { languageId: languageCode },
+              },
+            ],
           },
           { model: Source },
         ],
@@ -74,6 +82,7 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
 };
 
 exports.getArticleDetail = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   const channelName = req.params.channelName;
   const articleTitle = req.params.articleTitle;
   const categoryName = req.params.categoryName;
@@ -92,7 +101,7 @@ exports.getArticleDetail = async (req, res, next) => {
     inlcude: [
       {
         model: CategoryTranslation,
-        where: { languageId: 2, name: categoryName },
+        where: { languageId: languageCode, name: categoryName },
       },
     ],
   });
@@ -108,7 +117,9 @@ exports.getArticleDetail = async (req, res, next) => {
       },
       {
         model: Category,
-        include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+        include: [
+          { model: CategoryTranslation, where: { languageId: languageCode } },
+        ],
       },
     ],
   });

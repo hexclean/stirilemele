@@ -7,6 +7,7 @@ const Category = require("../../models/Category");
 const UserInterestedSources = require("../../models/UserInterestedSources");
 const SendEmailCategory = require("../../models/SendEmailCategory");
 const SendEmailSource = require("../../models/SendEmailSource");
+const { getLanguageCode } = require("../../shared/language");
 
 exports.getProfile = async (req, res, next) => {
   res.render("profile/index", {
@@ -30,7 +31,6 @@ exports.getPrimaryData = async (req, res, next) => {
 exports.getNewsletter = async (req, res, next) => {
   const user = await User.findByPk(req.user.id);
 
-  console.log(user);
   res.render("profile/newsletter", {
     path: "/login",
     pageTitle: "Login",
@@ -54,8 +54,11 @@ exports.getContact = async (req, res, next) => {
 };
 
 exports.getCategoryEditing = async (req, res, next) => {
+  const languageCode = getLanguageCode(req.cookies.language);
   const categories = await Category.findAll({
-    include: [{ model: CategoryTranslation, where: { languageId: 2 } }],
+    include: [
+      { model: CategoryTranslation, where: { languageId: languageCode } },
+    ],
   });
   let logged = 0;
   if (req.user != undefined) {

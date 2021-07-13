@@ -12,6 +12,8 @@ const CategoryTranslation = require("../../models/CategoryTranslation");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const ITEMS_PER_PAGE = 28;
+const { getLanguageCode } = require("../../shared/language");
+
 exports.postAddComment = async (req, res, next) => {
   const articleId = req.body.articleId;
   const comment = req.body.comment;
@@ -121,6 +123,7 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
 
 exports.getHistoryArticles = async (req, res, next) => {
   try {
+    const languageCode = getLanguageCode(req.cookies.language);
     const page = +req.query.page || 1;
     let totalItems;
     const TODAY_START = new Date().setHours(0, 0, 0, 0);
