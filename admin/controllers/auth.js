@@ -59,7 +59,6 @@ exports.getSignup = async (req, res, next) => {
 exports.postLogin = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/login", {
@@ -74,7 +73,7 @@ exports.postLogin = async (req, res, next) => {
     });
   }
 
-  await User.findOne({ email: email })
+  await User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
         return res.status(422).render("auth/login", {

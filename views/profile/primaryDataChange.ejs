@@ -31,10 +31,9 @@
         <div class="row">
           <div class="col-sm-12 text-right">
             <button
-              href="#"
               data-toggle="modal"
-              data-target="#logoutModal"
-              type="button"
+              data-target="#deleteAccModal"
+              type="submit"
               class="btn btn-danger border-none"
             >
               <%= lingua.fiok_torlese %>
@@ -44,27 +43,7 @@
       </div>
       <!-- /.container-fluid -->
       <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container">
-          <div class="row no-gutters">
-            <div class="col-lg-6 col-sm-6">
-              <p class="mt-1 mb-0">
-                &copy; Copyright 2020 <strong class="text-dark">Vidoe</strong>.
-                All Rights Reserved<br />
-                <small class="mt-0 mb-0"
-                  >Made with <i class="fas fa-heart text-danger"></i> by
-                  <a
-                    class="text-primary"
-                    target="_blank"
-                    href="https://askbootstrap.com/"
-                    >Ask Bootstrap</a
-                  >
-                </small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <%- include('../includes/footer.ejs') %>
     </div>
     <!-- /.content-wrapper -->
   </div>
@@ -74,7 +53,46 @@
     <i class="fas fa-angle-up"></i>
   </a>
   <!-- Logout Modal-->
-  <%- include('../includes/logout.ejs') %>
+  <div
+    class="modal fade"
+    id="deleteAccModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="deleteAccountModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteAccountModal">
+            <%= lingua.biztos_torlod_a_fiokodat %>
+          </h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= lingua.ez_a_muvelet_nem_visszafordithato %>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">
+            <%= lingua.megse %>
+          </button>
+          <form action="/autentificare/delete-account" method="post">
+            <button class="btn btn-primary" type="submit">
+              <%= lingua.fiok_torlese %>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap core JavaScript-->
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

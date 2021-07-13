@@ -10,7 +10,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          Biztos kijelentkezel?
+          <%= lingua.kijelentekzes %>
         </h5>
         <button
           class="close"
@@ -23,10 +23,12 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">
-          Mégse
+          <%= lingua.megse %>
         </button>
         <form action="/autentificare/logout" method="post">
-          <button class="btn btn-primary" type="submit">Kijelentkezés</button>
+          <button class="btn btn-primary" type="submit">
+            <%= lingua.kijelentekzes %>
+          </button>
         </form>
       </div>
     </div>
