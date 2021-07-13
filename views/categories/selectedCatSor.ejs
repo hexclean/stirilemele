@@ -3,63 +3,7 @@
    <%- include('../includes/navbar.ejs') %>
   <div id="wrapper">
      <!-- Sidebar -->
-     <ul class="sidebar navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-home"></i>
-          <span><%= lingua.hirek %></span>
-        </a>
-      </li>
-      <% if(logged == 1){ %>
-      <li class="nav-item">
-        <a class="nav-link" href="/stiri-configurate">
-          <i class="fas fa-fw fa-cogs"></i>
-          <span><%= lingua.kedvelt_hirek %></span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/profile/history">
-          <i class="fas fa-fw fa-history"></i>
-          <span><%= lingua.elozmenyek %></span>
-        </a>
-      </li>
-      <% } %>
-
-      <li class="nav-item active">
-        <a class="nav-link" href="/channels">
-          <i class="fas fa-fw fa-users"></i>
-          <span><%= lingua.hirportalok %></span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/categorii">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span><%= lingua.kategoriak %></span>
-        </a>
-      </li>
-      <% if(logged == 1){ %>
-      <li class="nav-item">
-        <a class="nav-link" href="/help">
-          <i class="fas fa-fw fa-info"></i>
-          <span><%= lingua.oldal_testreszabasa %></span>
-        </a>
-      </li>
-      <% } %> <% if(logged == 0){ %>
-      <li class="nav-item">
-        <a class="nav-link" href="/important">
-          <i class="fas fa-fw fa-info"></i>
-          <span><%= lingua.regisztracio_elonyei %></span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/autentificare/login">
-          <i class="fas fa-fw fa-user-alt"></i>
-          <span><%= lingua.belepes %></span>
-        </a>
-      </li>
-      <% } %>
-    </ul>
+     <%- include('../shared/menu.ejs') %>
      <div class="single-channel-page" id="content-wrapper">
         <div class="single-channel-image">
            <img class="img-fluid" alt="" style="max-height: 340px !important" src="/img/cover.jpeg">

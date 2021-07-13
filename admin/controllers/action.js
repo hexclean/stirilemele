@@ -206,7 +206,7 @@ exports.getHistoryArticles = async (req, res, next) => {
       .then((articles) => {
         console.log(totalItems.length);
         res.render("categories/history", {
-          path: "/login",
+          path: "/profile/history",
           pageTitle: "Login",
           articles: articles.reverse(),
           logged: logged,

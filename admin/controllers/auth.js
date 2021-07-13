@@ -22,7 +22,7 @@ exports.getLogin = async (req, res, next) => {
   }
 
   res.render("auth/login", {
-    path: "/login",
+    path: "/autentificare/login",
     pageTitle: "Login",
     // errorMessage: message,
     // oldInput: {

@@ -100,7 +100,7 @@ exports.getConfiguredHome = async (req, res, next) => {
 
       .then((articles) => {
         res.render("home/configuredHome", {
-          path: "/login",
+          path: "/stiri-configurate",
           pageTitle: "Știrilemele - ultimele știri",
           articles: articles.reverse(),
           logged: logged,
@@ -137,8 +137,8 @@ exports.getCategoryScreen = async (req, res, next) => {
     });
 
     res.render("categories/index", {
-      path: "/login",
-      pageTitle: "Login",
+      path: "/categorii",
+      pageTitle: "Categorii",
       categories: categories,
       logged: logged,
       allCategories: allCategories,
@@ -156,7 +156,7 @@ exports.getFontos = (req, res, next) => {
     logged = 0;
   }
   res.render("source/fontos", {
-    path: "/signup",
+    path: "/important",
     pageTitle: "Signup",
     isAuthenticated: false,
     logged: logged,
@@ -171,7 +171,7 @@ exports.getBetekintes = (req, res, next) => {
     logged = 0;
   }
   res.render("source/betekintes", {
-    path: "/signup",
+    path: "/help",
     pageTitle: "Signup",
     isAuthenticated: false,
     logged: logged,

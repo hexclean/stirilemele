@@ -28,8 +28,8 @@ exports.getAllChannel = async (req, res, next) => {
   try {
     const channels = await Source.findAll();
     res.render("source/AllChannels", {
-      path: "/login",
-      pageTitle: "Login",
+      path: "/channels",
+      pageTitle: "Portal de știri",
       logged: logged,
       channels: channels,
       channelsLength: channels.length,
@@ -114,7 +114,7 @@ exports.getChannelCategories = async (req, res, next) => {
       .then((articles) => {
         res.render("categories/channel-name", {
           path: "/login",
-          pageTitle: "Login",
+          pageTitle: "Portal de știri",
           articles: articles.reverse(),
           allCategories: allCategories,
           sourceName: sourceName,

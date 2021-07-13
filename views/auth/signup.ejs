@@ -15,29 +15,20 @@
             </div>
             <form action="/autentificare/signup" method="POST">
               <div class="form-group">
-                <label>Nev</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Promocode"
-                  name="name"
-                />
-              </div>
-              <div class="form-group">
-                <label>email</label>
+                <label>E-mail</label>
                 <input
                   type="email"
                   class="form-control"
-                  placeholder="Email"
+                  placeholder="E-mail"
                   name="email"
                 />
               </div>
               <div class="form-group">
-                <label>jelszo</label>
+                <label><%= lingua.jelszo %></label>
                 <input
                   type="password"
                   class="form-control"
-                  placeholder="jelszo"
+                  placeholder="<%= lingua.jelszo %>"
                   name="password"
                 />
               </div>
