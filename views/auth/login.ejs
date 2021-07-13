@@ -9,16 +9,22 @@
                      <div class="text-center mb-5 login-main-left-header pt-4">
                         <img src="/img/favicon.png" class="img-fluid" alt="LOGO">
                         <h5 class="mt-3 mb-3">Bejelentkezés</h5>
-                        <p>It is a long established fact that a reader <br> will be distracted by the readable.</p>
+                        
                      </div>
+                     <% if (errorMessage) { %>
+                        <div class="alert alert-danger" role="alert">
+                           <%= errorMessage %>
+                        </div>
+                        
+                     <% } %>
                      <form action="/autentificare/login" method="POST">
                         <div class="form-group">
-                           <label>E-mail cím</label>
-                           <input type="text" class="form-control" placeholder="E-mail cím" name="email">
+                           <label>E-mail</label>
+                           <input type="text" class="form-control" placeholder="E-mail" name="email">
                         </div>
                         <div class="form-group">
-                           <label>Jelszó</label>
-                           <input type="password" class="form-control" placeholder="Jelszó" name="password">
+                           <label><%= lingua.jelszo %></label>
+                           <input type="password" class="form-control" placeholder="<%= lingua.jelszo %>" name="password">
                         </div>
                         <div class="mt-4">
                            <div class="row">
@@ -41,21 +47,21 @@
                      <div class="owl-carousel owl-carousel-login">
                         <div class="item">
                            <div class="carousel-login-card text-center">
-                              <img src="img/login.png" class="img-fluid" alt="LOGO">
+                              <img src="/img/login.png" class="img-fluid" alt="LOGO">
                               <h5 class="mt-5 mb-3">​Watch videos offline</h5>
                               <p class="mb-4">when an unknown printer took a galley of type and scrambled<br> it to make a type specimen book. It has survived not <br>only five centuries</p>
                            </div>
                         </div>
                         <div class="item">
                            <div class="carousel-login-card text-center">
-                              <img src="img/login.png" class="img-fluid" alt="LOGO">
+                              <img src="/img/login.png" class="img-fluid" alt="LOGO">
                               <h5 class="mt-5 mb-3">Download videos effortlessly</h5>
                               <p class="mb-4">when an unknown printer took a galley of type and scrambled<br> it to make a type specimen book. It has survived not <br>only five centuries</p>
                            </div>
                         </div>
                         <div class="item">
                            <div class="carousel-login-card text-center">
-                              <img src="img/login.png" class="img-fluid" alt="LOGO">
+                              <img src="/img/login.png" class="img-fluid" alt="LOGO">
                               <h5 class="mt-5 mb-3">Create GIFs</h5>
                               <p class="mb-4">when an unknown printer took a galley of type and scrambled<br> it to make a type specimen book. It has survived not <br>only five centuries</p>
                            </div>

@@ -13,15 +13,16 @@
                 will be distracted by the readable.
               </p>
             </div>
+            <% if (errorMessage) { %>
+            <div class="alert alert-danger" role="alert">
+              <%= errorMessage %>
+            </div>
+
+            <% } %>
             <form action="/autentificare/signup" method="POST">
               <div class="form-group">
                 <label>E-mail</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="E-mail"
-                  name="email"
-                />
+                <input class="form-control" placeholder="E-mail" name="email" />
               </div>
               <div class="form-group">
                 <label><%= lingua.jelszo %></label>
@@ -30,6 +31,15 @@
                   class="form-control"
                   placeholder="<%= lingua.jelszo %>"
                   name="password"
+                />
+              </div>
+              <div class="form-group">
+                <label><%= lingua.jelszo %></label>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="<%= lingua.jelszo %>"
+                  name="confirmPassword"
                 />
               </div>
 
