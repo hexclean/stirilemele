@@ -1,3 +1,17 @@
 {
-  "nyelv_megvaltoztatasa": "Nyelvválasztás"
+  "nyelv_megvaltoztatasa": "Nyelv",
+  "hirek": "Legfrisebb hírek",
+  "kedvelt_hirek": "Kedvelt hírek",
+  "elozmenyek": "Előzmények",
+  "hirportalok": "Hírportálok",
+  "kategoriak": "Kategóriák",
+  "oldal_testreszabasa": "Oldal testreszabása",
+  "regisztracio_elonyei": "Regisztráció előnyei",
+  "belepes": "Belépés",
+  "legtobbet_olvasott_cikkek": "Legtöbbet olvasott cikkek",
+  "modositsd_a_kategoriakat_vagy_a_hirportalokat": "Módosítsd a kategóriákat vagy a hírportálokat",
+  "megtekintett_cikkek": "Megtekintett cikkek",
+  "kategoria_bellitasa": "Kategória beállítása",
+  "hircsatornak_bellitasa": "Hírcsatornák beállítása",
+  "kilepes": "Kilépés"
 }

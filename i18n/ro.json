@@ -1,1 +1,18 @@
-{ "nyelv_megvaltoztatasa": "Alegerea limbii" }
+{
+  "nyelv_megvaltoztatasa": "Limba",
+  "hirek": "Ultimele știri",
+  "kedvelt_hirek": "Știrile preferate",
+  "elozmenyek": "Istoric",
+  "hirportalok": "Portal de știri",
+  "kategoriak": "Categorii",
+  "oldal_testreszabasa": "Personalizare",
+  "regisztracio_elonyei": "Avantajele înregistrării",
+  "belepes": "Authentificare",
+  "legtobbet_olvasott_cikkek": "Cele mai frecvente articole",
+  "modositsd_a_kategoriakat_vagy_a_hirportalokat": "Schimbă categoria sau portal de știri",
+  "megtekintett_cikkek": "Istoric",
+  "kategoria_bellitasa": "Categorii",
+  "hircsatornak_bellitasa": "Portal de știri",
+  "profil ": "Portal de știri",
+  "kilepes": "Ieșire"
+}

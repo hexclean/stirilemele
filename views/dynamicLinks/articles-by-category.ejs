@@ -8,21 +8,21 @@
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-home"></i>
-          <span>Hírek</span>
+          <span><%= lingua.hirek %></span>
         </a>
       </li>
       <% if(logged == 1){ %>
       <li class="nav-item">
         <a class="nav-link" href="/stiri-configurate">
           <i class="fas fa-fw fa-cogs"></i>
-          <span>Beállított hírek</span>
+          <span><%= lingua.kedvelt_hirek %></span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" href="/profile/history">
           <i class="fas fa-fw fa-history"></i>
-          <span>Előzmények</span>
+          <span><%= lingua.elozmenyek %></span>
         </a>
       </li>
       <% } %>
@@ -30,33 +30,33 @@
       <li class="nav-item">
         <a class="nav-link" href="/channels">
           <i class="fas fa-fw fa-users"></i>
-          <span>Hírportálok</span>
+          <span><%= lingua.hirportalok %></span>
         </a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/categorii">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>Kategóriák</span>
+          <span><%= lingua.kategoriak %></span>
         </a>
       </li>
       <% if(logged == 1){ %>
       <li class="nav-item">
         <a class="nav-link" href="/help">
           <i class="fas fa-fw fa-info"></i>
-          <span>Oldal testreszabása</span>
+          <span><%= lingua.oldal_testreszabasa %></span>
         </a>
       </li>
       <% } %> <% if(logged == 0){ %>
       <li class="nav-item">
         <a class="nav-link" href="/important">
           <i class="fas fa-fw fa-info"></i>
-          <span>Regisztráció előnyei</span>
+          <span><%= lingua.regisztracio_elonyei %></span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/autentificare/login">
           <i class="fas fa-fw fa-user-alt"></i>
-          <span>Belépés</span>
+          <span><%= lingua.belepes %></span>
         </a>
       </li>
       <% } %>
@@ -68,20 +68,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="main-title">
-                <div class="btn-group float-right right-action">
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a
-                    >
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a
-                    >
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a
-                    >
-                  </div>
-                </div>
-                <h6><%= categoryNameView %> hírek</h6>
+                <h6><%= lingua.hirek %> - <%= categoryNameView %></h6>
               </div>
             </div>
 
