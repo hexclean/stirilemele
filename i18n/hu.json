@@ -17,5 +17,10 @@
   "mentes": "Mentés",
   "sikeresen_mentve": "Sikeresen mentve",
   "kategoria_bejeloles": "Jelöld be azokat a kategóriákat, amelyek érdekelnek",
-  "hirportal_bejeloles": "Jelöld be azokat a hírcsatornákat, amelyek érdekelnek"
+  "hirportal_bejeloles": "Jelöld be azokat a hírcsatornákat, amelyek érdekelnek",
+  "biztos_torlod_a_fiokodat": "Biztos, hogy törlöd a fiókodat?",
+  "ez_a_muvelet_nem_visszafordithato": "Ez a müvelet nem visszafordítható!",
+  "torles": "Törlés",
+  "megse": "Mégse",
+  "fiok_torlese": "Fiók törlése"
 }
