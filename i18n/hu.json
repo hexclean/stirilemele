@@ -13,5 +13,9 @@
   "megtekintett_cikkek": "Megtekintett cikkek",
   "kategoria_bellitasa": "Kategória beállítása",
   "hircsatornak_bellitasa": "Hírcsatornák beállítása",
-  "kilepes": "Kilépés"
+  "kilepes": "Kilépés",
+  "mentes": "Mentés",
+  "sikeresen_mentve": "Sikeresen mentve",
+  "kategoria_bejeloles": "Jelöld be azokat a kategóriákat, amelyek érdekelnek",
+  "hirportal_bejeloles": "Jelöld be azokat a hírcsatornákat, amelyek érdekelnek"
 }
