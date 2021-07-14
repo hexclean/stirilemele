@@ -24,18 +24,7 @@ exports.getConfiguredHome = async (req, res, next) => {
     logged = 0;
   }
   const sources = await Source.findAll();
-  const bestArticles = await Articles.findAll({
-    createdAt: {
-      [Op.gt]: TODAY_START,
-      [Op.lt]: NOW,
-    },
-    order: [["clicked", "DESC"]],
-    limit: 4,
-    include: [
-      { model: Source },
-      { model: Category, include: [{ model: CategoryTranslation }] },
-    ],
-  });
+
   try {
     const selectedCategories = await UserInterestedCategories.findAll({
       where: { userId: req.user.id, active: 1 },
@@ -111,7 +100,6 @@ exports.getConfiguredHome = async (req, res, next) => {
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
           sources: sources,
-          bestArticles: bestArticles,
         });
       });
   } catch (error) {

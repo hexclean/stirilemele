@@ -45,15 +45,15 @@ exports.getChannelCategories = async (req, res, next) => {
   let totalItems;
   let channelName = req.params.channelName;
   const source = await Source.findOne({ where: { seoUrl: channelName } });
-  const followedSource = await UserInterestedSources.findOne({
-    where: { sourceId: source.id, userId: req.user.id },
-  });
-  console.log(followedSource);
+  let followedSource;
   let sourceId = source.id;
   let sourceName = source.name;
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
+    followedSource = await UserInterestedSources.findOne({
+      where: { sourceId: source.id, userId: req.user.id },
+    });
   } else {
     logged = 0;
   }
