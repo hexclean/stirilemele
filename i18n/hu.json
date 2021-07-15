@@ -24,6 +24,13 @@
   "megse": "Mégse",
   "fiok_torlese": "Fiók törlése",
   "jelszo": "Jelszó",
+  "jelszo_ujra": "Jelszó újra",
   "tobb": "Több",
-  "kijelentekzes": "Kijelentkezés"
+  "kijelentekzes": "Kijelentkezés",
+  "bejelentkezes": "Bejelentkezés",
+  "elfelejtetted_a_jelszavad": "Elfelejtetted a jelszavad?",
+  "uj_jelszo": "Új jelszó",
+  "regisztracio": "Regisztráció",
+  "nincs_meg_fiokod": "Nincs még fiókod?",
+  "van_mar_fiokod": "Van már fiókod?"
 }

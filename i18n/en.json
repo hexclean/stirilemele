@@ -25,6 +25,13 @@
   "megse": "Nu",
   "fiok_torlese": "Șterge profilul",
   "jelszo": "Parola",
+  "jelszo_ujra": "Parola din nou",
   "tobb": "Mai multe",
-  "kijelentekzes": "Ieșire"
+  "kijelentekzes": "Ieșire",
+  "bejelentkezes": "Autentificare",
+  "elfelejtetted_a_jelszavad": "Ai uitat parola?",
+  "uj_jelszo": "Parola nouă",
+  "regisztracio": "Înregistrare",
+  "nincs_meg_fiokod": "Nu ai cont deja?",
+  "van_mar_fiokod": "Ai cont deja?"
 }
