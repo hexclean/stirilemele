@@ -8,9 +8,12 @@ const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 const ITEMS_PER_PAGE = 28;
 const { getLanguageCode } = require("../../shared/language");
+const Cookies = require("js-cookie");
 
 exports.getHome = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
+
+  let cookie = req.cookies.cookie;
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
@@ -86,6 +89,7 @@ exports.getHome = async (req, res, next) => {
           currentPage: page,
           sources: sources,
           bestArticles: bestArticles,
+          cookie: cookie,
         });
       });
   } catch (error) {
