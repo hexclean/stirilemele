@@ -1,4 +1,5 @@
 exports.get404 = (req, res, next) => {
+  let cookie = req.cookies.cookie;
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
@@ -10,13 +11,16 @@ exports.get404 = (req, res, next) => {
     path: "/404",
     isAuthenticated: req.session.isLoggedIn,
     logged: logged,
+    cookie: cookie,
   });
 };
 
 exports.get500 = (req, res, next) => {
-  res.status(500).render("includes/500", {
+  let cookie = req.cookies.cookie;
+  res.status(500).render("includes/404", {
     pageTitle: "Error!",
     path: "/500",
     isAuthenticated: req.session.isLoggedIn,
+    cookie: cookie,
   });
 };

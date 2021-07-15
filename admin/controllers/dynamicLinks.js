@@ -7,6 +7,7 @@ const { getLanguageCode } = require("../../shared/language");
 
 exports.getSelectedCategoryArticles = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
+  let cookie = req.cookies.cookie;
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
@@ -77,11 +78,13 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
         previousPage: page - 1,
         lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
         currentPage: page,
+        cookie: cookie,
       });
     });
 };
 
 exports.getArticleDetail = async (req, res, next) => {
+  let cookie = req.cookies.cookie;
   const languageCode = getLanguageCode(req.cookies.language);
   const channelName = req.params.channelName;
   const articleTitle = req.params.articleTitle;
@@ -124,20 +127,16 @@ exports.getArticleDetail = async (req, res, next) => {
     ],
   });
 
-  // const comments = await ArticleComment.findAll({
-  //   where: { articleId: article.id },
-  //   include: [{ model: User }],
-  // });
-
   res.render("dynamicLinks/article-detail", {
     path: "/login",
     pageTitle: "Login",
     article: article,
     categoryName: article.Category.CategoryTranslations[0].name,
-    // comments: comments,
+
     logged: logged,
     categoryParams: categoryName,
     channelParams: channelName,
     articleParams: articleTitle,
+    cookie: cookie,
   });
 };

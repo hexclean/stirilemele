@@ -86,46 +86,14 @@
                   <h6><%= lingua.hirportalok %></h6>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="owl-carousel owl-carousel-category">
-                  <% for (let i=0; i < sources.length; i++ ) { %>
-                  <div class="item">
-                    <div
-                      class="text-center bg-white shadow-sm p-4 rounded channel-item"
-                    >
-                      <a href="#">
-                        <div class="channel-item-image mb-3">
-                          <img
-                            class="rounded-circle"
-                            src="/<%= sources[i].imageUrl %>"
-                            alt=""
-                          />
-                        </div>
-
-                        <div class="channel-item-body">
-                          <p class="mb-1">
-                            <%= sources[i].name %>
-                            <i
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title=""
-                              class="fa fa-check-circle text-success"
-                              data-original-title="Verified"
-                            ></i>
-                          </p>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <% } %>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
       <!-- /.container-fluid -->
       <!-- Sticky Footer -->
+      <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
+      <% } %> <%- include('../includes/footer.ejs') %>
     </div>
     <!-- /.content-wrapper -->
   </div>

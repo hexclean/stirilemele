@@ -13,6 +13,7 @@ const { getLanguageCode } = require("../../shared/language");
 
 exports.getConfiguredHome = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
+  let cookie = req.cookies.cookie;
   let interestedCategoryId = [];
   let interestedSourceId = [];
   const page = +req.query.page || 1;
@@ -23,7 +24,6 @@ exports.getConfiguredHome = async (req, res, next) => {
   } else {
     logged = 0;
   }
-  const sources = await Source.findAll();
 
   try {
     const selectedCategories = await UserInterestedCategories.findAll({
@@ -99,7 +99,7 @@ exports.getConfiguredHome = async (req, res, next) => {
           previousPage: page - 1,
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
-          sources: sources,
+          cookie: cookie,
         });
       });
   } catch (error) {
@@ -109,6 +109,7 @@ exports.getConfiguredHome = async (req, res, next) => {
 
 exports.getCategoryScreen = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
+  let cookie = req.cookies.cookie;
   let categories = [];
   let logged = 0;
   if (req.user != undefined) {
@@ -130,6 +131,7 @@ exports.getCategoryScreen = async (req, res, next) => {
       categories: categories,
       logged: logged,
       allCategories: allCategories,
+      cookie: cookie,
     });
   } catch (error) {
     console.log(error);
@@ -137,6 +139,7 @@ exports.getCategoryScreen = async (req, res, next) => {
 };
 
 exports.getFontos = (req, res, next) => {
+  let cookie = req.cookies.cookie;
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
@@ -148,20 +151,6 @@ exports.getFontos = (req, res, next) => {
     pageTitle: "Signup",
     isAuthenticated: false,
     logged: logged,
-  });
-};
-
-exports.getBetekintes = (req, res, next) => {
-  let logged = 0;
-  if (req.user != undefined) {
-    logged = 1;
-  } else {
-    logged = 0;
-  }
-  res.render("source/betekintes", {
-    path: "/help",
-    pageTitle: "Signup",
-    isAuthenticated: false,
-    logged: logged,
+    cookie: cookie,
   });
 };

@@ -18,13 +18,13 @@ exports.getProfile = async (req, res, next) => {
 
 exports.getPrimaryData = async (req, res, next) => {
   const user = await User.findByPk(req.user.id);
-
-  console.log(user);
+  let cookie = req.cookies.cookie;
   res.render("profile/primaryDataChange", {
     path: "/login",
     pageTitle: "Login",
     user: user,
     logged: 1,
+    cookie: cookie,
   });
 };
 
@@ -55,6 +55,7 @@ exports.getContact = async (req, res, next) => {
 
 exports.getCategoryEditing = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
+  let cookie = req.cookies.cookie;
   const categories = await Category.findAll({
     include: [
       { model: CategoryTranslation, where: { languageId: languageCode } },
@@ -78,6 +79,7 @@ exports.getCategoryEditing = async (req, res, next) => {
     channels: channels,
     activeSwitch: activeSwitch,
     logged: logged,
+    cookie: cookie,
   });
 };
 
@@ -91,7 +93,7 @@ exports.getChannelEditing = async (req, res, next) => {
   } else {
     logged = 0;
   }
-
+  let cookie = req.cookies.cookie;
   const channels = await Source.findAll();
 
   res.render("profile/channel-edit", {
@@ -100,6 +102,7 @@ exports.getChannelEditing = async (req, res, next) => {
     channels: channels,
     logged: logged,
     activeSwitch: activeSwitch,
+    cookie: cookie,
   });
 };
 

@@ -14,6 +14,7 @@ exports.getLogin = async (req, res, next) => {
   if (req.user != undefined) {
     await res.redirect("/");
   }
+  let cookie = req.cookies.cookie;
   let message = req.flash("error");
   if (message.length > 0) {
     message = message[0];
@@ -30,6 +31,7 @@ exports.getLogin = async (req, res, next) => {
       password: "",
     },
     validationErrors: [],
+    cookie: cookie,
   });
 };
 
@@ -37,6 +39,7 @@ exports.getSignup = async (req, res, next) => {
   if (req.user != undefined) {
     await res.redirect("/");
   }
+  let cookie = req.cookies.cookie;
   let message = req.flash("error");
   if (message.length > 0) {
     message = message[0];
@@ -53,6 +56,7 @@ exports.getSignup = async (req, res, next) => {
       confirmPassword: "",
     },
     validationErrors: [],
+    cookie: cookie,
   });
 };
 

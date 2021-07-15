@@ -118,8 +118,8 @@
       </div>
       <!-- /.container-fluid -->
       <!-- Sticky Footer -->
-      <% if (cookie == false ) { %> <%- include('../shared/cookie.ejs') %> <% }
-      %> <%- include('../includes/footer.ejs') %>
+      <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
+      <% } %> <%- include('../includes/footer.ejs') %>
     </div>
     <!-- /.content-wrapper -->
   </div>

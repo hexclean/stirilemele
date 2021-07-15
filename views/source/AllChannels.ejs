@@ -49,8 +49,8 @@
         </div>
         <!-- /.container-fluid -->
         <!-- Sticky Footer -->
-        <%- include('../shared/cookie.ejs') %>
-        <%- include('../includes/footer.ejs') %>
+        <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
+      <% } %> <%- include('../includes/footer.ejs') %>
      </div>
      <!-- /.content-wrapper -->
   </div>

@@ -124,6 +124,7 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
 exports.getHistoryArticles = async (req, res, next) => {
   try {
     const languageCode = getLanguageCode(req.cookies.language);
+    let cookie = req.cookies.cookie;
     const page = +req.query.page || 1;
     let totalItems;
     const TODAY_START = new Date().setHours(0, 0, 0, 0);
@@ -218,6 +219,7 @@ exports.getHistoryArticles = async (req, res, next) => {
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
           totalItems: totalItems,
+          cookie: cookie,
         });
       });
   } catch (error) {

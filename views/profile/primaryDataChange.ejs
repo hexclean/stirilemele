@@ -43,7 +43,8 @@
       </div>
       <!-- /.container-fluid -->
       <!-- Sticky Footer -->
-      <%- include('../includes/footer.ejs') %>
+      <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
+      <% } %>
     </div>
     <!-- /.content-wrapper -->
   </div>

@@ -18,7 +18,7 @@ const ITEMS_PER_PAGE = 28;
 const { getLanguageCode } = require("../../shared/language");
 
 exports.getAllChannel = async (req, res, next) => {
-  const languageCode = getLanguageCode(req.cookies.language);
+  let cookie = req.cookies.cookie;
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
@@ -33,6 +33,7 @@ exports.getAllChannel = async (req, res, next) => {
       logged: logged,
       channels: channels,
       channelsLength: channels.length,
+      cookie: cookie,
     });
   } catch (error) {
     console.log(error);
@@ -41,6 +42,7 @@ exports.getAllChannel = async (req, res, next) => {
 
 exports.getChannelCategories = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
+  let cookie = req.cookies.cookie;
   const page = +req.query.page || 1;
   let totalItems;
   let channelName = req.params.channelName;
@@ -147,6 +149,7 @@ exports.getChannelCategories = async (req, res, next) => {
           channelName: channelName,
           followedSource: followedSource,
           secondaryategories: secondaryategories,
+          cookie: cookie,
         });
       });
   } catch (error) {
@@ -156,6 +159,7 @@ exports.getChannelCategories = async (req, res, next) => {
 
 exports.getChannelCategory = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
+  let cookie = req.cookies.cookie;
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
@@ -240,6 +244,7 @@ exports.getChannelCategory = async (req, res, next) => {
           currentPage: page,
           categoryName: categoryName,
           primaryCategories: primaryCategories,
+          cookie: cookie,
         });
       });
   } catch (error) {
