@@ -183,7 +183,7 @@ exports.postSignup = async (req, res, next) => {
 
       return req.session.save((err) => {
         console.log(err);
-        res.redirect("/help");
+        res.redirect("/");
       });
     });
   } catch (err) {
