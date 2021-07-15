@@ -135,18 +135,6 @@ exports.getHistoryArticles = async (req, res, next) => {
     } else {
       logged = 0;
     }
-    const bestArticles = await Articles.findAll({
-      createdAt: {
-        [Op.gt]: TODAY_START,
-        [Op.lt]: NOW,
-      },
-      order: [["clicked", "DESC"]],
-      limit: 4,
-      include: [
-        { model: Source },
-        { model: Category, include: [{ model: CategoryTranslation }] },
-      ],
-    });
 
     await ArticleViewed.findAll({
       where: {
@@ -164,11 +152,16 @@ exports.getHistoryArticles = async (req, res, next) => {
 
           include: [
             {
-              model: Source,
+              model: Category,
+              inlclude: [
+                {
+                  model: CategoryTranslation,
+                  where: { languageId: languageCode },
+                },
+              ],
             },
             {
-              model: Category,
-              inlclude: [{ model: CategoryTranslation }],
+              model: Source,
             },
           ],
         },
@@ -197,7 +190,12 @@ exports.getHistoryArticles = async (req, res, next) => {
                 },
                 {
                   model: Category,
-                  inlclude: [{ model: CategoryTranslation }],
+                  inlclude: [
+                    {
+                      model: CategoryTranslation,
+                      where: { languageId: languageCode },
+                    },
+                  ],
                 },
               ],
             },
@@ -205,13 +203,12 @@ exports.getHistoryArticles = async (req, res, next) => {
         });
       })
       .then((articles) => {
-        console.log(totalItems.length);
+        console.log(articles[0].Article.Category);
         res.render("categories/history", {
           path: "/profile/history",
           pageTitle: "Login",
           articles: articles.reverse(),
           logged: logged,
-          bestArticles: bestArticles,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
           hasPreviousPage: page > 1,
           nextPage: page + 1,

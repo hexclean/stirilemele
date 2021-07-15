@@ -154,3 +154,20 @@ exports.getFontos = (req, res, next) => {
     cookie: cookie,
   });
 };
+
+exports.getContact = (req, res, next) => {
+  let cookie = req.cookies.cookie;
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  res.render("source/contact", {
+    path: "/contact",
+    pageTitle: "Signup",
+    isAuthenticated: false,
+    logged: logged,
+    cookie: cookie,
+  });
+};

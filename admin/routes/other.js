@@ -9,4 +9,5 @@ const isAuth = require("../../middleware/is-auth");
 router.get("/categorii", otherController.getCategoryScreen);
 router.get("/stiri-configurate", isAuth, otherController.getConfiguredHome);
 router.get("/important", otherController.getFontos);
+router.get("/contact", otherController.getContact);
 module.exports = router;
