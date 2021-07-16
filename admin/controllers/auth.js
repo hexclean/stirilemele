@@ -259,7 +259,7 @@ exports.postReset = async (req, res, next) => {
       return res.redirect("/reset");
     }
     const token = buffer.toString("hex");
-    await User.findOne({ email: req.body.email })
+    await User.findOne({ where: { email: req.body.email } })
       .then(async (user) => {
         resetToken = token;
         resetTokenExpiration = Date.now() + 19000000;
