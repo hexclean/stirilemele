@@ -12,4 +12,6 @@ router.get("/important", otherController.getFontos);
 router.get("/contact", otherController.getContact);
 router.get("/cookie", otherController.getCookie);
 router.get("/cookie-table", otherController.getCookieTable);
+router.get("/success", otherController.getSuccess);
+
 module.exports = router;

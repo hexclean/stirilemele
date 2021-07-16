@@ -205,3 +205,20 @@ exports.getCookieTable = (req, res, next) => {
     cookie: cookie,
   });
 };
+
+exports.getSuccess = (req, res, next) => {
+  let cookie = req.cookies.cookie;
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  res.render("auth/reset-success", {
+    path: "/success",
+    pageTitle: "Signup",
+    isAuthenticated: false,
+    logged: logged,
+    cookie: cookie,
+  });
+};

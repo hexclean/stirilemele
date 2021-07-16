@@ -273,7 +273,7 @@ exports.postReset = async (req, res, next) => {
         );
       })
       .then(async (result) => {
-        res.redirect("/");
+        res.redirect("/success");
         var mailOptions = {
           from: "stirilemele.ro@gmail.com",
           to: req.body.email,

@@ -8,11 +8,11 @@
           <div class="login-main-left">
             <div class="text-center mb-5 login-main-left-header pt-4">
               <img src="/img/favicon.png" class="img-fluid" alt="LOGO" />
-              <h5 class="mt-3 mb-3">Reset Password</h5>
-              <p>
+              <h5 class="mt-3 mb-3"><%= lingua.uj_jelszo %></h5>
+              <!-- <p>
                 It is a long established fact that a reader <br />
                 will be distracted by the readable.
-              </p>
+              </p> -->
             </div>
             <% if (errorMessage) { %>
             <div class="alert alert-danger" role="alert">
@@ -39,14 +39,16 @@
                   type="submit"
                   class="btn btn-outline-primary btn-block btn-lg"
                 >
-                  Reset Password
+                  <%= lingua.kuldes %>
                 </button>
               </div>
             </form>
             <div class="text-center mt-5">
               <p class="light-gray">
-                Nincs fiókod?
-                <a href="/autentificare/inregistrare">Regisztráció</a>
+                <%= lingua.nincs_meg_fiokod %>
+                <a href="/autentificare/inregistrare"
+                  ><%= lingua.regisztracio %></a
+                >
               </p>
             </div>
           </div>

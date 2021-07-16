@@ -48,5 +48,9 @@
   "prmo2": "Mert ezáltal személyre szabhatod, hogy milyen hírek jelenjenek meg a főoldaladon, kategóriák illetve hírportálok szerint.",
   "prmo3": "Mert oldalunkon zavaró hirdetések nélkül böngészhetsz, ha regisztrálsz.",
   "prmo4": "Mivel így bármikor megtekintheted előzményeidet és el is küldheted bármelyik cikket barátaidnak, ismerőseidnek csupán egy kattintással.",
-  "prmo5": "Mivel regisztrált felhasználóként te értesülhetsz a leghamarabb a legújabb frissítéseinkről."
+  "prmo5": "Mivel regisztrált felhasználóként te értesülhetsz a leghamarabb a legújabb frissítéseinkről.",
+  "kuldes": "Küldés",
+  "vissza_a_fooldalra": "Vissza a főoldalra",
+  "emailt_kuldtunk": "E-mailt fogsz kapni a jelszó-visszaállító linkkel",
+  "ellenorizd_a_spamt": "Ha nem kaptál e-mail-t akkor nézd meg a spam vagy a promóciók között is."
 }
