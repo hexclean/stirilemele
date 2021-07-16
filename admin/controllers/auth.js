@@ -9,7 +9,16 @@ const UserInterestedCategories = require("../../models/UserInterestedCategories"
 const UserInterestedSources = require("../../models/UserInterestedSources");
 const SendEmailCategory = require("../../models/SendEmailCategory");
 const SendEmailSource = require("../../models/SendEmailSource");
-
+const mailgun = require("mailgun-js");
+const DOMAIN = "sandboxcdf23f89a20c4711bac887eafdbf33e1.mailgun.org";
+const api_key = "0c39802c9645c1f45f320a2ec5bc23a4-c4d287b4-cdd4d2dc";
+//
+const mg = mailgun({
+  apiKey: api_key,
+  domain: DOMAIN,
+  host: "api.eu.mailgun.net",
+});
+//
 exports.getLogin = async (req, res, next) => {
   if (req.user != undefined) {
     await res.redirect("/");
@@ -263,18 +272,25 @@ exports.postReset = async (req, res, next) => {
           { where: { email: req.body.email } }
         );
       })
-      .then((result) => {
+      .then(async (result) => {
         res.redirect("/");
-        // transporter.sendMail({
-        //   to: req.body.email,
-        //   from: "shop@node-complete.com",
-        //   subject: "Password reset",
-        //   html: `
-        //     <p>You requested a password reset</p>
-        //     <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
-        //   `,
-        // });
+        async function sendEmail() {
+          const data = {
+            from: "stirilemele.ro@gmail.com",
+            to: "stirilemele.ro@gmail.com",
+            subject: "Egy rendelés törlésre került!",
+            html: `<p>test.</p>`,
+          };
+
+          await mg.messages().send(data, function (error, body) {
+            if (error) {
+              console.log(error);
+            }
+          });
+        }
+        await sendEmail();
       })
+
       .catch((err) => {
         const error = new Error(err);
         error.httpStatusCode = 500;
