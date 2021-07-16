@@ -87,12 +87,12 @@ exports.postLogin = async (req, res, next) => {
   }
 
   await User.findOne({ where: { email: email } })
-    .then((user) => {
+    .then(async (user) => {
       if (!user) {
         return res.status(422).render("auth/login", {
           path: "/login",
           pageTitle: "Login",
-          errorMessage: "Email sau parola invalidă!",
+          errorMessage: "Invalid email or password.",
           oldInput: {
             email: email,
             password: password,
@@ -100,7 +100,7 @@ exports.postLogin = async (req, res, next) => {
           validationErrors: [],
         });
       }
-      bcrypt
+      await bcrypt
         .compare(password, user.password)
         .then((doMatch) => {
           if (doMatch) {
@@ -114,7 +114,7 @@ exports.postLogin = async (req, res, next) => {
           return res.status(422).render("auth/login", {
             path: "/login",
             pageTitle: "Login",
-            errorMessage: "Email sau parola invalidă!",
+            errorMessage: "Invalid email or password.",
             oldInput: {
               email: email,
               password: password,
@@ -122,9 +122,9 @@ exports.postLogin = async (req, res, next) => {
             validationErrors: [],
           });
         })
+
         .catch((err) => {
           console.log(err);
-          res.redirect("/login");
         });
     })
     .catch((err) => {
@@ -802,6 +802,7 @@ exports.postNewPassword = async (req, res, next) => {
   const newPassword = req.body.password;
   const userId = req.body.userId;
   const passwordToken = req.body.passwordToken;
+  let resetUser;
 
   await User.findOne({ where: { resetToken: passwordToken, id: userId } })
     .then((user) => {
@@ -809,6 +810,8 @@ exports.postNewPassword = async (req, res, next) => {
       req.session.isLoggedIn = true;
       req.session.user = user;
       return bcrypt.hash(newPassword, 12);
+
+      // return bcrypt.hash(newPassword, 12);
     })
     .then(async (hashedPassword) => {
       await User.update(
@@ -817,7 +820,7 @@ exports.postNewPassword = async (req, res, next) => {
           resetToken: null,
           resetTokenExpiration: null,
         },
-        { where: { id: userId } }
+        { where: { id: userId, resetToken: passwordToken } }
       );
 
       return req.session.save((err) => {
