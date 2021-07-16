@@ -171,3 +171,37 @@ exports.getContact = (req, res, next) => {
     cookie: cookie,
   });
 };
+
+exports.getCookie = (req, res, next) => {
+  let cookie = req.cookies.cookie;
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  res.render("source/cookie", {
+    path: "/contact",
+    pageTitle: "Signup",
+    isAuthenticated: false,
+    logged: logged,
+    cookie: cookie,
+  });
+};
+
+exports.getCookieTable = (req, res, next) => {
+  let cookie = req.cookies.cookie;
+  let logged = 0;
+  if (req.user != undefined) {
+    logged = 1;
+  } else {
+    logged = 0;
+  }
+  res.render("source/cookie-table", {
+    path: "/contact",
+    pageTitle: "Signup",
+    isAuthenticated: false,
+    logged: logged,
+    cookie: cookie,
+  });
+};

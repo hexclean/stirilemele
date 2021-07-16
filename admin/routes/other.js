@@ -10,4 +10,6 @@ router.get("/categorii", otherController.getCategoryScreen);
 router.get("/stiri-configurate", isAuth, otherController.getConfiguredHome);
 router.get("/important", otherController.getFontos);
 router.get("/contact", otherController.getContact);
+router.get("/cookie", otherController.getCookie);
+router.get("/cookie-table", otherController.getCookieTable);
 module.exports = router;
