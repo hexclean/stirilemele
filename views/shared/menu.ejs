@@ -33,14 +33,7 @@
       <span><%= lingua.kategoriak %></span>
     </a>
   </li>
-  <% if(logged == 1){ %>
-  <li class="nav-item <%= path === '/important' ? 'active' : '' %>">
-    <a class="nav-link" href="/important">
-      <i class="fas fa-fw fa-info"></i>
-      <span><%= lingua.regisztracio_elonyei %></span>
-    </a>
-  </li>
-  <% } %> <% if(logged == 0){ %>
+  <% if(logged == 0){ %>
   <li class="nav-item <%= path === '/important' ? 'active' : '' %>">
     <a class="nav-link" href="/important">
       <i class="fas fa-fw fa-info"></i>
