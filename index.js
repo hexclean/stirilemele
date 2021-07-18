@@ -108,15 +108,7 @@ const authRoutes = require("./admin/routes/auth");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use(
-  lingua(app, {
-    defaultLocale: "en",
-    path: __dirname + "/i18n",
-    cookieOptions: {
-      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    },
-  })
-);
+
 app.use(express.json({ extended: false }));
 
 app.use(flash());

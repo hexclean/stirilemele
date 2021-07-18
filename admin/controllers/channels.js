@@ -94,7 +94,6 @@ exports.getChannelCategories = async (req, res, next) => {
     });
 
     await Articles.findAll({
-      order: [["clicked", "DESC"]],
       where: { sourceId: sourceId },
       include: [
         {
@@ -111,7 +110,6 @@ exports.getChannelCategories = async (req, res, next) => {
       .then(async (numArticles) => {
         totalItems = numArticles;
         return await Articles.findAll({
-          order: [["clicked", "DESC"]],
           where: { sourceId: sourceId },
           offset: (page - 1) * ITEMS_PER_PAGE,
           limit: ITEMS_PER_PAGE,

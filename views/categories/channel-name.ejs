@@ -31,7 +31,7 @@
                        <a class="nav-link" href="/channels/<%= primaryCategories[i].Source.seoUrl %>/<%= primaryCategories[i].Category.seoUrl %>"><%= primaryCategories[i].Category.CategoryTranslations[0].name %></a>
                     </li>
                     <% } %>
-                
+                    <% if (secondaryategories.length > 1 ) { %>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <%= lingua.tobb %>
@@ -44,7 +44,7 @@
                         
                       </div>
                    </li>
-                   
+                   <% } %>
                    
                  </ul>
                  <% if (logged==1 ) { %>
@@ -212,19 +212,7 @@
         </div>
         <!-- /.container-fluid -->
         <!-- Sticky Footer -->
-        <footer class="sticky-footer ml-0">
-           <div class="container">
-              <div class="row no-gutters">
-                 <div class="col-lg-6 col-sm-6">
-                    <p class="mt-1 mb-0">&copy; Copyright 2020 <strong class="text-dark">Vidoe</strong>. All Rights Reserved<br>
-                       <small class="mt-0 mb-0">Made with <i class="fas fa-heart text-danger"></i> by <a class="text-primary" target="_blank" href="https://askbootstrap.com/">Ask Bootstrap</a>
-                       </small>
-                    </p>
-                 </div>
-                
-              </div>
-           </div>
-        </footer>
+       
      </div>
      <!-- /.content-wrapper -->
   </div>
@@ -234,6 +222,7 @@
   <i class="fas fa-angle-up"></i>
   </a>
   <!-- Logout Modal-->
+  <%- include('../shared/logout.ejs') %>
   <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
   <% } %> <%- include('../includes/footer.ejs') %>
   <!-- Bootstrap core JavaScript-->
