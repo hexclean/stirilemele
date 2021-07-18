@@ -69,9 +69,10 @@ exports.getSignup = async (req, res, next) => {
   });
 };
 
-exports.postLogin = async (req, res, next) => {
+exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/login", {
@@ -86,8 +87,8 @@ exports.postLogin = async (req, res, next) => {
     });
   }
 
-  await User.findOne({ where: { email: email } })
-    .then(async (user) => {
+  User.findOne({ where: { email: email } })
+    .then((user) => {
       if (!user) {
         return res.status(422).render("auth/login", {
           path: "/login",
@@ -100,7 +101,7 @@ exports.postLogin = async (req, res, next) => {
           validationErrors: [],
         });
       }
-      await bcrypt
+      bcrypt
         .compare(password, user.password)
         .then((doMatch) => {
           if (doMatch) {
@@ -122,9 +123,9 @@ exports.postLogin = async (req, res, next) => {
             validationErrors: [],
           });
         })
-
         .catch((err) => {
           console.log(err);
+          res.redirect("/login");
         });
     })
     .catch((err) => {
@@ -798,37 +799,30 @@ exports.getNewPassword = async (req, res, next) => {
     });
 };
 
-exports.postNewPassword = async (req, res, next) => {
+exports.postNewPassword = (req, res, next) => {
   const newPassword = req.body.password;
   const userId = req.body.userId;
   const passwordToken = req.body.passwordToken;
   let resetUser;
 
-  await User.findOne({ where: { resetToken: passwordToken, id: userId } })
+  User.findOne({ where: { resetToken: passwordToken, id: userId } })
     .then((user) => {
       resetUser = user;
       req.session.isLoggedIn = true;
       req.session.user = user;
       return bcrypt.hash(newPassword, 12);
-
-      // return bcrypt.hash(newPassword, 12);
     })
-    .then(async (hashedPassword) => {
-      await User.update(
-        {
-          password: hashedPassword,
-          resetToken: null,
-          resetTokenExpiration: null,
-        },
-        { where: { id: userId, resetToken: passwordToken } }
-      );
-
+    .then((hashedPassword) => {
+      resetUser.password = hashedPassword;
+      resetUser.resetToken = null;
+      resetUser.resetTokenExpiration = null;
+      return resetUser.save();
+    })
+    .then((result) => {
       return req.session.save((err) => {
-        console.log(err);
         res.redirect("/");
       });
     })
-
     .catch((err) => {
       const error = new Error(err);
       error.httpStatusCode = 500;
