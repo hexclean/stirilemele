@@ -239,7 +239,7 @@ exports.getReset = (req, res, next) => {
 exports.postReset = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
+  let userEmail;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/reset", {
@@ -262,6 +262,7 @@ exports.postReset = async (req, res, next) => {
     const token = buffer.toString("hex");
     await User.findOne({ where: { email: req.body.email } })
       .then(async (user) => {
+        userEmail = user;
         resetToken = token;
         resetTokenExpiration = Date.now() + 19000000;
 
@@ -758,11 +759,13 @@ exports.postReset = async (req, res, next) => {
             </body>
           </html>`,
         };
-        await transporter.sendMail(mailOptions, function (err, info) {
-          if (err) {
-            console.log(err);
-          }
-        });
+        if (userEmail) {
+          await transporter.sendMail(mailOptions, function (err, info) {
+            if (err) {
+              console.log(err);
+            }
+          });
+        }
       })
       .catch((err) => {
         const error = new Error(err);

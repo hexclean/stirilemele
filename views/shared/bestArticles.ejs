@@ -46,8 +46,9 @@
               <%= bestArticles[i].Source.name %>
             </div>
             <div class="small text-gray-500">
-              <%= bestArticles[i].Category.CategoryTranslations[0].name %> - 45
-              perce
+              <%= bestArticles[i].Category.CategoryTranslations[0].name %> - <%=
+              bestArticles[i].createdAt.toLocaleString("en-GB", { timeZone:
+              "Europe/Helsinki" }); %>
             </div>
           </div>
         </div>
