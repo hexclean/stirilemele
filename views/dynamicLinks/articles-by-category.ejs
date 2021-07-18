@@ -72,13 +72,12 @@
             </div>
             <% } %>
           </div>
-          <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs')
-          %> <% } %> <%- include('../includes/footer.ejs') %>
         </div>
       </div>
       <!-- /.container-fluid -->
       <!-- Sticky Footer -->
-      <%- include('../includes/footer.ejs') %>
+      <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
+      <% } %> <%- include('../includes/footer.ejs') %>
     </div>
     <!-- /.content-wrapper -->
   </div>
