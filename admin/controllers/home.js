@@ -8,11 +8,13 @@ const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 const ITEMS_PER_PAGE = 28;
 const { getLanguageCode } = require("../../shared/language");
+var moment = require("moment");
 
 exports.getHome = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
   let cookie = req.cookies.cookie;
   const page = +req.query.page || 1;
+  // let articles = []
   let totalItems;
   let logged = 0;
   if (req.user != undefined) {
@@ -73,11 +75,23 @@ exports.getHome = async (req, res, next) => {
         });
       })
       .then((articles) => {
+        // let finalArticles = [];
+        // for (let i = 0; i < articles.length; i++) {
+        //   var today = articles[i].createdAt;
+        //   var Christmas = new Date();
+        //   var diffMs = Christmas - today; // milliseconds between now & Christmas
+        //   var diffDays = Math.floor(diffMs / 86400000); // days
+        //   var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+        //   var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+        //   articles.push({ time: diffMins, articles });
+        // }
+        // console.log(articles);
         res.render("home/index", {
           path: "/",
           pageTitle: "Știrilemele - ultimele știri",
-          articles: articles,
+          // finalArticles: finalArticles,
           logged: logged,
+          articles: articles,
           hasNextPage: ITEMS_PER_PAGE * page < totalItems.length,
           hasPreviousPage: page > 1,
           nextPage: page + 1,

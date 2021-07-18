@@ -203,7 +203,6 @@ exports.getHistoryArticles = async (req, res, next) => {
         });
       })
       .then((articles) => {
-        console.log(articles[0].Article.Category);
         res.render("categories/history", {
           path: "/profile/history",
           pageTitle: "Login",

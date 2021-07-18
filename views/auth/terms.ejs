@@ -1,0 +1,368 @@
+<style>
+      *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  body {
+  	padding: 0;
+  	margin: 0;
+  	background-color: white;
+  	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  	font-size: 16px;
+  	overflow: hidden;
+  }
+
+  button {
+  	background: none;
+  	border: none;
+  }
+
+  /* Messages about browser width. */
+  .warning-message,
+  .success-message {
+  	display: none;
+  	position: fixed;
+  	bottom: 16px;
+  	left: 16px;
+  	z-index: 100;
+  	font-size: 16px;
+  	color: white;
+  }
+
+  .success-message {
+  	display: block;
+  	opacity: 0;
+  	font-size: 36px;
+  }
+
+  .success-message.is-in {
+  	opacity: 0;
+  	animation-name: fade-out;
+  	animation-duration: 3s;
+  }
+
+  @keyframes fade-out {
+  	0% { opacity: 1; }
+  	80% { opacity: 1; }
+  	100% { display: none; opacity: 0;  }
+  }
+
+  @media (min-width: 1000px) {
+  	.warning-message {
+  		display: block;
+  	}
+  	.ios .warning-message {
+  		display: none;
+  	}
+  }
+
+
+  /* Stories */
+
+  .stories-wrapper {
+    width: 100vw;
+    height: 100vh;
+    perspective: 400px;
+    overflow: hidden;
+  }
+
+  .stories {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: translateZ(-50vw);
+  }
+
+  .stories.is-closed {
+  	transition: transform 0.25s ease-out, opacity 0.05s ease-out 0.20s;
+  	opacity: 0;
+  }
+
+  /* Story (single) */
+
+  .story {
+  	position: absolute;
+  	width: 100%;
+  	height: 100%;
+  	overflow: hidden;
+  	backface-visibility: hidden;
+  }
+
+  .story__cover {
+  	z-index: 20;
+  	position: absolute;
+  	top: 0;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+  	background-color: rgba(0, 0, 0, 1);
+  }
+
+  .story__top {
+  	z-index: 10;
+  	position: absolute;
+  	top: 0;
+  	width: 100%;
+  	height: 100px;
+  	background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0));
+  }
+
+  .story__details {
+  	display: flex;
+  	align-items: center;
+  	margin: 16px 0 0 16px;
+  }
+
+  .story__avatar {
+  	width: 40px;
+  	height: 40px;
+  	margin-right: 8px;
+  	border-radius: 50%;
+  	background-size: cover;
+  }
+
+  .story__user {
+  	margin-right: 8px;
+  	color: white;
+  	font-weight: 500;
+  	letter-spacing: 0.02em;
+  }
+
+  .story__time {
+  	color: white;
+  	opacity: 0.5;
+  	letter-spacing: 0.02em;
+  }
+
+  .story__bottom {
+  	z-index: 10;
+  	position: absolute;
+  	bottom: 0;
+  	width: 100%;
+  }
+
+  /* Feature not implemented. */
+  .story__send-button {
+  	display: none;
+  	padding: 16px;
+  	color: white;
+  	font-size: 16px;
+  }
+
+  .story__video {
+  	/* Make video to at least 100% wide and tall */
+  	min-width: 100%;
+  	min-height: 100%;
+
+  	/* Setting width & height to auto prevents the browser from stretching or squishing the video */
+  	width: auto;
+  	height: auto;
+
+  	/* Center the video */
+  	position: absolute;
+  	left: 50%;
+  	transform: translateX(-50%);
+  }
+
+  /* For iOS, which does not allow inline video playing, we show a static image. */
+  .story__image {
+  	width: 100%;
+  	height: 100%;
+  	background-size: cover;
+  	background-position: center;
+  }
+
+  /* Feed */
+
+  .feed {
+  	position: absolute;
+  	z-index: -1;
+  	top: 0;
+  	left: 0;
+  	width: 100%;
+  	height: 100%;
+  	display: flex;
+  	flex-direction: column;
+  }
+
+  .feed__cover {
+  	z-index: 20;
+  	position: absolute;
+  	top: 0;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+  	background-color: rgba(255, 255, 255, 1);
+  }
+
+  .feed__cover.is-hidden {
+  	opacity: 0;
+  	transition: opacity 0.2s;
+  }
+
+  .feed__content {
+  	display: flex;
+  	flex-direction: column;
+  	justify-content: center;
+  	align-items: center;
+  	height: 100%;
+  	margin-bottom: 60px;
+  	font-size: 12px;
+      color: #9b9b9b;
+      text-align: center;
+  }
+
+  .reload-icon {
+  	display: block;
+  	width: 30px;
+  	margin-top: 10px;
+  	stroke: red;
+  }
+
+  .reload-icon path{
+  	stroke: #bbb;
+  }
+
+  .reload-icon polygon {
+  	fill: #bbb;
+  	stroke: #bbb;
+  }
+
+  .header {
+  	height: 48px;
+  	border-bottom: 1px solid #ddd;
+  	background-color: #f9f9f9;
+  }
+
+  /* Feed - Story Bar (row of circle avatars) */
+
+  .story-bar {
+  	display: flex;
+  	height: 122px;
+  	padding: 12px 16px;
+  	border-bottom: 1px solid #eee;
+  	background-color: #f9f9f9;
+  }
+
+  .story-bar__user {
+  	display: inline-block;
+  }
+
+  .story-bar__user.bounce {
+  	animation-duration: .1s;
+      animation-fill-mode: forwards;
+      animation-delay: 0.18s;
+  	animation-name: scale-down-bounce;
+  	animation-timing-function: ease-in-out;
+  }
+
+  @keyframes scale-down-bounce {
+  	0% { transform: scale(1) }
+  	50% { transform: scale(0.8) }
+  	100% { transform: scale(1)) }
+  }
+
+  .story-bar__user-avatar {
+  	width: 56px;
+  	height: 56px;
+  	margin: 0 8px 4px 8px;
+  	border-radius: 50%;
+  	border: 4px solid white;
+  	background-size: cover;
+  	box-shadow: 0 0 1px 0 #999;
+  }
+
+  .story-bar__user-name {
+  	width: 64px;
+  	margin: 0 4px;
+  	white-space: nowrap;
+  	overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      font-size: 12px;
+      color: #9b9b9b;
+  }
+
+  .tab-bar {
+  	position: absolute;
+  	bottom: 0;
+  	height: 48px;
+  	width: 100%;
+  	border-top: 1px solid #eee;
+  	background-color: #f9f9f9;
+  }
+</style>
+<script src="/js/test.js"></script>
+<div class="stories-wrapper">
+  <div class="warning-message">
+    This demo looks best at widths below 1000px. Try 400px.
+  </div>
+  <div class="success-message">👍</div>
+  <section class="stories"></section>
+</div>
+
+<div class="feed">
+  <div class="feed__cover"></div>
+  <div class="header"></div>
+  <div class="story-bar"></div>
+  <div class="feed__content">
+    <div>To view again.<br />Reload the page.</div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 50 61.25"
+      version="1.1"
+      x="0px"
+      y="0px"
+      class="reload-icon"
+    >
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-2335.000000, -172.000000)">
+          <g transform="translate(2337.000000, 175.000000)">
+            <path
+              class="reload-icon-shape"
+              d="M42.4025258,14.0548956 C39.3738552,5.85011558 31.4833658,0 22.2265086,0 C10.3523865,0 0.726508638,9.62587788 0.726508638,21.5 C0.726508638,33.3741221 10.3523865,43 22.2265086,43 L22.2265086,43 C31.7524181,43 39.8313782,36.8048728 42.6542051,28.223802"
+              stroke="#000000"
+              stroke-width="4"
+            />
+            <polygon
+              fill="#000000"
+              transform="translate(42.654205, 15.000000) scale(1, -1) rotate(-63.000000) translate(-42.654205, -15.000000) "
+              points="37.6557116 23.2109081 37.6557116 6.79136002 48.3960608 15.0011341"
+            />
+          </g>
+        </g>
+      </g>
+      <!-- Created by Kevin from the Noun Project -->
+    </svg>
+  </div>
+  <div class="tab-bar"></div>
+</div>
+
+<script type="text/template" id="story-template">
+  <article class="story" id="story-1" data-story-id="1">
+  	<div class="story__cover"></div>
+  	<div class="story__top">
+  		<div class="story__details">
+  			<div class="story__avatar" style="background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/9332/joco.jpg)"></div>
+  			<div class="story__user">joco</div>
+  			<div class="story__time">12</div>
+  		</div>
+  	</div>
+  	<div class="story__bottom">
+  		<button class="story__send-button">Send Message</button>
+  	</div>
+
+  		<video class="story__video" autoplay loop muted poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9332/.jpg">
+  			<source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9332/.mp4" type="video/mp4">
+  		</video>
+
+  </article>
+</script>
+
+<script type="text/template" id="story-bar-avatar-template">
+  <div class="story-bar__user" data-story-id="1">
+  	<div class="story-bar__user-avatar" style="background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/9332/joco.jpg)"></div>
+  	<div class="story-bar__user-name">joco</div>
+  </div>
+</script>

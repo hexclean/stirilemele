@@ -13,5 +13,6 @@ router.get("/contact", otherController.getContact);
 router.get("/cookie", otherController.getCookie);
 router.get("/cookie-table", otherController.getCookieTable);
 router.get("/success", otherController.getSuccess);
+router.get("/terms", otherController.getTerms);
 
 module.exports = router;
