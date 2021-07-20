@@ -55,7 +55,7 @@
                  method="POST" class="form-inline my-2 my-lg-0">
                    <input hidden value="<%= source.id %>" name="sourceId"/>
                    <input hidden value="<%= channelName %>" name="channelName"/>
-                   <button class="btn btn-outline-danger btn-sm" id="follow" type="submit">Hírportál bekövetése</button>
+                   <button class="btn btn-outline-danger btn-sm" id="follow" type="submit"><%= lingua.kovetem %></button>
                  </form>
                 <% } else{ %>  
                  
@@ -64,16 +64,16 @@
                   method="POST" class="form-inline my-2 my-lg-0">
                     <input hidden value="<%= source.id %>" name="sourceId"/>
                     <input hidden value="<%= channelName %>" name="channelName"/>
-                    <button class="btn btn-outline-danger btn-sm" id="unfollow" type="submit">Hírportál kikövetése</button>
+                    <button class="btn btn-outline-danger btn-sm" id="unfollow" type="submit"><%= lingua.nem_kovetem %></button>
                   </form>
                <% } %>
                <% } %>
               </div>
               <div  style="display: none; right: 0px;margin-top: 14px;margin-left: 10px;" class="alert alert-success" id="bekovet" role="alert">
-                Hírportált sikeresen bekövetted
+                <%= lingua.sikeres_kovetes %>
              </div>
              <div style=" display: none; right: 0px;margin-top: 14px;margin-left: 10px;"   class="alert alert-warning" id="kikovet" role="alert">
-              Hírportált sikeresen kikövetted
+             <%= lingua.kovetes_leallitasa %>
            </div>
            
               <script>
@@ -163,7 +163,8 @@
                                   </div>
                                   <div class="small text-gray-500">
                                     <%= articles[i].Category.CategoryTranslations[0].name
-                                    %> - 45 perce
+                                    %> -  <%= articles[i].createdAt.toLocaleString("en-GB",
+                                    { timeZone: "Europe/Helsinki" }); %>
                                   </div>
                                 </div>
                               </div>

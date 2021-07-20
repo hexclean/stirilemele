@@ -148,11 +148,18 @@ exports.getChannelCategories = async (req, res, next) => {
 exports.getChannelCategory = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
   let cookie = req.cookies.cookie;
+  let channelName = req.params.channelName;
+  const source = await Source.findOne({ where: { seoUrl: channelName } });
+  let followedSource;
+  let sourceId = source.id;
   const page = +req.query.page || 1;
   let totalItems;
   let logged = 0;
   if (req.user != undefined) {
     logged = 1;
+    followedSource = await UserInterestedSources.findOne({
+      where: { sourceId: source.id, userId: req.user.id },
+    });
   } else {
     logged = 0;
   }
@@ -233,6 +240,8 @@ exports.getChannelCategory = async (req, res, next) => {
           categoryName: categoryName,
           primaryCategories: primaryCategories,
           cookie: cookie,
+          followedSource: followedSource,
+          channelName: channelName,
         });
       });
   } catch (error) {

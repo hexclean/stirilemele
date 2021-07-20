@@ -52,5 +52,9 @@
   "kuldes": "Küldés",
   "vissza_a_fooldalra": "Vissza a főoldalra",
   "emailt_kuldtunk": "E-mailt fogsz kapni a jelszó-visszaállító linkkel",
-  "ellenorizd_a_spamt": "Ha nem kaptál e-mail-t akkor nézd meg a spam vagy a promóciók között is."
+  "ellenorizd_a_spamt": "Ha nem kaptál e-mail-t akkor nézd meg a spam vagy a promóciók között is.",
+  "kovetem": "Követem",
+  "sikeres_kovetes": "Mostantól követed ezt az oldalt",
+  "nem_kovetem": "Követés leállítása",
+  "kovetes_leallitasa": "Az oldal híreit többé nem látod"
 }

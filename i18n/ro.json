@@ -53,5 +53,9 @@
   "kuldes": "Trimite",
   "vissza_a_fooldalra": "Pagina principală",
   "emailt_kuldtunk": "Vei primi un email cu linkul de resetare al parolei",
-  "ellenorizd_a_spamt": "Dacă nu ați primit un e-mail, verificați-l spam sau promoții."
+  "ellenorizd_a_spamt": "Dacă nu ați primit un e-mail, verificați-l spam sau promoții.",
+  "kovetem": "Urmărește",
+  "sikeres_kovetes": "Acum urmărești această pagină",
+  "nem_kovetem": "Nu mai urmări",
+  "kovetes_leallitasa": "Nu vei mai vedea știri de la această pagină"
 }

@@ -2,24 +2,30 @@
 <body id="page-top">
    <%- include('../includes/navbar.ejs') %>
   <div id="wrapper">
+    
      <!-- Sidebar -->
      <%- include('../shared/menu.ejs') %>
+    
      <div class="single-channel-page" id="content-wrapper">
+     
         <div class="single-channel-image">
-           <img class="img-fluid" alt="" style="max-height: 340px !important" src="/img/cover.jpeg">
+           <img class="img-fluid" style="max-height: 340px !important" alt="" src="/img/cover.jpeg">
            <div class="channel-profile">
-              <img class="channel-profile-img" alt="" src="/<%= source.imageUrl %>">
+              <img class="channel-profile-img" alt="" src="/<%= source.imageUrl %> ">
              
            </div>
         </div>
+        
         <div class="single-channel-nav">
            <nav class="navbar navbar-expand-lg navbar-light">
-              <a class="channel-brand" href="#"><%= source.name %> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></a>
+              <a class="channel-brand" href="#"><%= source.name %> 
+                <% if (logged==1 && followedSource.active == 1) { %> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></a> <% } %>
+                
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                 <ul class="navbar-nav mr-auto">
                   <% for (let i=0; i < primaryCategories.length; i++ ) { %>
                     <li class="nav-item">
                        <a class="nav-link" href="/channels/<%= primaryCategories[i].Source.seoUrl %>/<%= primaryCategories[i].Category.seoUrl %>"><%= primaryCategories[i].Category.CategoryTranslations[0].name %></a>
@@ -28,7 +34,7 @@
                     <% if (secondaryategories.length > 1 ) { %>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <%= lingua.tobb %>
+                        <%= lingua.tobb %>
                       </a>
                      
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,10 +47,63 @@
                    <% } %>
                    
                  </ul>
-                 <!-- <form class="form-inline my-2 my-lg-0">
-                   <button class="btn btn-outline-danger btn-sm" type="button">Hírportál követése </button>
-                 </form> -->
+                 <% if (logged==1 ) { %>
+                 <% if(followedSource.active == 0 ){ %>
+                
+                  <form  action="/channels/follow-source"
+                 enctype="multipart/form-data"
+                 method="POST" class="form-inline my-2 my-lg-0">
+                   <input hidden value="<%= source.id %>" name="sourceId"/>
+                   <input hidden value="<%= channelName %>" name="channelName"/>
+                   <button class="btn btn-outline-danger btn-sm" id="follow" type="submit"><%= lingua.kovetem %></button>
+                 </form>
+                <% } else{ %>  
+                 
+                  <form  action="/channels/unfollow-source"
+                  enctype="multipart/form-data"
+                  method="POST" class="form-inline my-2 my-lg-0">
+                    <input hidden value="<%= source.id %>" name="sourceId"/>
+                    <input hidden value="<%= channelName %>" name="channelName"/>
+                    <button class="btn btn-outline-danger btn-sm" id="unfollow" type="submit"><%= lingua.nem_kovetem %></button>
+                  </form>
+               <% } %>
+               <% } %>
               </div>
+              <div  style="display: none; right: 0px;margin-top: 14px;margin-left: 10px;" class="alert alert-success" id="bekovet" role="alert">
+                <%= lingua.sikeres_kovetes %>
+             </div>
+             <div style=" display: none; right: 0px;margin-top: 14px;margin-left: 10px;"   class="alert alert-warning" id="kikovet" role="alert">
+             <%= lingua.kovetes_leallitasa %>
+           </div>
+           
+              <script>
+         $(document).ready(function () {
+          $("#unfollow").click(function () {
+            $( "#kikovet" ).show("slow");
+             
+            
+           
+            
+
+            
+            });
+           
+          });
+
+           $("#follow").click(function () {
+            $( "#bekovet" ).show("slow");
+              
+             
+         
+            
+
+            
+            });
+           
+       
+
+            </script>
+            
            </nav>
         </div>
         <div class="container-fluid">
@@ -53,68 +112,103 @@
                  <div class="col-md-12">
                     <div class="main-title">
                       
-                       <h6><%= categoryName.CategoryTranslations[0].name %></h6>
+                       <h6><%= lingua.hirek %></h6>
                     </div>
                  </div>
+              
                  <% for (let i=0; i < selectedArticles.length; i++ ) { %>
-                  <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card history-video">
-                      <div class="video-card-image">
-                        <a
-                          class="play-icon"
-                          href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
-                        ></a>
-                        <a
-                          href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
-                          ><img
-                            class="img-fluid"
-                            src="<%= selectedArticles[i].imageUrl %>"
-                            alt="" style="
-                            max-height: 150px !important;
-                            min-height: 150px !important;
-                          "
-                        /></a>
-                      </div>
-      
-                      <div class="video-card-body">
-                        <div class="video-title">
-                          <a
-                            href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
-                          >
-                            <% if( selectedArticles[i].title.length > 160){ %> <%=
-                            selectedArticles[i].title.substring(0, 160) + "..." %> <% } else{
-                            %> <%= selectedArticles[i].title %> <% } %></a
-                          >
-                        </div>
-                        <div class="video-item-user">
-                          <div class="d-flex align-items-center">
-                            <div class="dropdown-list-image mr-3">
-                              <img
-                                class="rounded-circle"
-                                src="/<%= selectedArticles[i].Source.imageUrl %>"
-                                alt=""
-                              />
+                  <%if (selectedArticles[i].Source !== null) { %>
+                     <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="video-card history-video">
+                          <div class="video-card-image">
+                            <a
+                              class="play-icon"
+                              href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
+                            ></a>
+                            <a
+                              href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
+                              ><img
+                                class="img-fluid"
+                                src="<%= selectedArticles[i].imageUrl %>"
+                                alt="" style="
+                                max-height: 150px !important;
+                                min-height: 150px !important;
+                              "
+                            /></a>
+                          </div>
+          
+                          <div class="video-card-body">
+                            <div class="video-title">
+                              <a
+                                href="/stiri/<%= selectedArticles[i].Category.seoUrl %>/<%= selectedArticles[i].Source.seoUrl %>/<%= selectedArticles[i].seoUrl %>"
+                              >
+                                <% if( selectedArticles[i].title.length > 160){ %> <%=
+                                selectedArticles[i].title.substring(0, 160) + "..." %> <% } else{
+                                %> <%= selectedArticles[i].title %> <% } %></a
+                              >
                             </div>
-                            <div class="font-weight-bold mr-2">
-                              <div class="text-truncate">
-                                <%= selectedArticles[i].Source.name %>
-                              </div>
-                              <div class="small text-gray-500">
-                                <%= selectedArticles[i].Category.CategoryTranslations[0].name
-                                %> - 45 perce
+                            <div class="video-item-user">
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown-list-image mr-3">
+                                  <img
+                                    class="rounded-circle"
+                                    src="/<%= selectedArticles[i].Source.imageUrl %>"
+                                    alt=""
+                                    
+                                  />
+                                </div>
+                                <div class="font-weight-bold mr-2">
+                                  <div class="text-truncate">
+                                    <%= selectedArticles[i].Source.name %>
+                                  </div>
+                                  <div class="small text-gray-500">
+                                    <%= selectedArticles[i].Category.CategoryTranslations[0].name
+                                    %> -  <%= selectedArticles[i].createdAt.toLocaleString("en-GB",
+                                    { timeZone: "Europe/Helsinki" }); %>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-
-             
+                 <% } %>
                  <% } %>
               </div>
-              <% if ( selectedArticles.length > 1 ) { %> <%-
-                include('../shared/pagination.ejs') %> <% } %>
+              <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pagination-sm mb-0">
+              <% if (currentPage !== 1 && previousPage !== 1) { %>
+              <li class="page-item active">
+                <a class="page-link" href="?page=1">1</a>
+              </li>
+              <% } %> <% if (hasPreviousPage) { %>
+              <li class="page-item">
+                <a class="page-link" href="?page=<%= previousPage %>"
+                  ><%= previousPage %></a
+                >
+              </li>
+              <% } %>
+              <li class="page-item active">
+                <a class="page-link" href="?page=<%= currentPage %>"
+                  ><%= currentPage %></a
+                >
+              </li>
+              <% if (hasNextPage) { %>
+              <li class="page-item">
+                <a class="page-link" href="?page=<%= nextPage %>"
+                  ><%= nextPage %></a
+                >
+              </li>
+              <% } %> <% if (lastPage !== currentPage && nextPage !== lastPage)
+              { %>
+              <li class="page-item">
+                <a class="page-link" href="?page=<%= lastPage %>"
+                  ><%= lastPage %></a
+                >
+              </li>
+              <% } %>
+            </ul>
+          </nav>
            </div>
         </div>
         <!-- /.container-fluid -->
@@ -128,9 +222,10 @@
   <a class="scroll-to-top rounded" href="#page-top">
   <i class="fas fa-angle-up"></i>
   </a>
-  <!-- Logout Modal--> <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
-  <% } %> <%- include('../includes/footer.ejs') %>
+  <!-- Logout Modal-->
   <%- include('../shared/logout.ejs') %>
+  <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
+  <% } %> <%- include('../includes/footer.ejs') %>
   <!-- Bootstrap core JavaScript-->
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
