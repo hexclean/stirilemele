@@ -67,7 +67,8 @@
                         </div>
                         <div class="small text-gray-500">
                           <%= articles[i].Category.CategoryTranslations[0].name
-                          %> - 45 perce
+                          %> - <%= articles[i].createdAt.toLocaleString("en-GB",
+                          { timeZone: "Europe/Helsinki" }); %>
                         </div>
                       </div>
                     </div>

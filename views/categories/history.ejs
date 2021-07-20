@@ -60,7 +60,9 @@
                           <%= articles[i].Article.Source.name %>
                         </div>
                         <div class="small text-gray-500">
-                          <%= articles[i].Article.Category.seoUrl %> - 45 perce
+                          <%= articles[i].Article.Category.seoUrl %> - <%=
+                          articles[i].createdAt.toLocaleString("en-GB", {
+                          timeZone: "Europe/Helsinki" }); %>
                         </div>
                       </div>
                     </div>
