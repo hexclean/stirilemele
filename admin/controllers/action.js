@@ -115,6 +115,7 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
       },
       { where: { id: articleId } }
     );
+    console.log(req.body);
     res.redirect(article.link);
   } catch (error) {
     console.log(error);
