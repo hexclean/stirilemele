@@ -129,7 +129,7 @@ exports.getArticleDetail = async (req, res, next) => {
       },
     ],
   });
-  console.log(article.imageUrl);
+
   res.render("dynamicLinks/article-detail", {
     path: "/login",
     pageTitle: "Login",
