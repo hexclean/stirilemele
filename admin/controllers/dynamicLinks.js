@@ -115,7 +115,6 @@ exports.getArticleDetail = async (req, res, next) => {
 
   const article = await Articles.findOne({
     where: { seoUrl: articleTitle },
-    order: [["createdAt", "DESC"]],
     include: [
       {
         model: Source,
@@ -137,6 +136,7 @@ exports.getArticleDetail = async (req, res, next) => {
     categoryName: article.Category.CategoryTranslations[0].name,
     imageUrl: article.imageUrl,
     description: article.title,
+    title: article.title,
     url: article.link,
     logged: logged,
     categoryParams: categoryName,
