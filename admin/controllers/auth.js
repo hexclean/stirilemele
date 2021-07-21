@@ -41,6 +41,9 @@ exports.getLogin = async (req, res, next) => {
       password: "",
     },
     validationErrors: [],
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -66,6 +69,9 @@ exports.getSignup = async (req, res, next) => {
     },
     validationErrors: [],
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -233,6 +239,9 @@ exports.getReset = (req, res, next) => {
     path: "/reset",
     pageTitle: "Reset Password",
     errorMessage: message,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -793,6 +802,9 @@ exports.getNewPassword = async (req, res, next) => {
         errorMessage: message,
         userId: user.id,
         passwordToken: token,
+        imageUrl: "",
+        description: "Știrielmele",
+        url: "",
       });
     })
     .catch((err) => {

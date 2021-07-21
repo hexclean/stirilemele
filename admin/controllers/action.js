@@ -216,6 +216,9 @@ exports.getHistoryArticles = async (req, res, next) => {
           currentPage: page,
           totalItems: totalItems,
           cookie: cookie,
+          imageUrl: "",
+          description: "Știrielmele",
+          url: "",
         });
       });
   } catch (error) {

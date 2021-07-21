@@ -27,7 +27,9 @@ exports.getViewArticle = async (req, res, next) => {
       path: "/admin/edit-product",
       editing: editMode,
       article: article,
-      comments: comments
+      comments: comments, imageUrl: "",
+      description: "Știrielmele",
+      url: "",
     });
   } catch (err) {
     console.log(err);

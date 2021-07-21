@@ -12,6 +12,9 @@ exports.get404 = (req, res, next) => {
     isAuthenticated: req.session.isLoggedIn,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -22,5 +25,8 @@ exports.get500 = (req, res, next) => {
     path: "/500",
     isAuthenticated: req.session.isLoggedIn,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };

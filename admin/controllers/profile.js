@@ -13,6 +13,9 @@ exports.getProfile = async (req, res, next) => {
   res.render("profile/index", {
     path: "/login",
     pageTitle: "Login",
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -25,6 +28,9 @@ exports.getPrimaryData = async (req, res, next) => {
     user: user,
     logged: 1,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -36,6 +42,9 @@ exports.getNewsletter = async (req, res, next) => {
     pageTitle: "Login",
     user: user,
     logged: 1,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -50,6 +59,9 @@ exports.getContact = async (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     logged: logged,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -80,6 +92,9 @@ exports.getCategoryEditing = async (req, res, next) => {
     activeSwitch: activeSwitch,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -103,6 +118,9 @@ exports.getChannelEditing = async (req, res, next) => {
     logged: logged,
     activeSwitch: activeSwitch,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -128,6 +146,9 @@ exports.getSendEmailEndOfTheDay = async (req, res, next) => {
     channels: channels,
     activeSwitchSource: activeSwitchSource,
     activeSwitchCategory: activeSwitchCategory,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -153,6 +174,9 @@ exports.getEmailSender = async (req, res, next) => {
       channels: channels,
       activeSwitch: activeSwitch,
       activeSwitchChannel: activeSwitchChannel,
+      imageUrl: "",
+      description: "Știrielmele",
+      url: "",
     });
   } catch (error) {
     console.log(error);

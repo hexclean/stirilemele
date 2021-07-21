@@ -101,6 +101,9 @@ exports.getHome = async (req, res, next) => {
           sources: sources,
           bestArticles: bestArticles,
           cookie: cookie,
+          imageUrl: "",
+          description: "Știrielmele",
+          url: "",
         });
       });
   } catch (error) {

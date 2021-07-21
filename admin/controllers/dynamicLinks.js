@@ -79,6 +79,9 @@ exports.getSelectedCategoryArticles = async (req, res, next) => {
         lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
         currentPage: page,
         cookie: cookie,
+        imageUrl: "",
+        description: "Știrielmele",
+        url: "",
       });
     });
 };
@@ -126,13 +129,15 @@ exports.getArticleDetail = async (req, res, next) => {
       },
     ],
   });
-
+  console.log(article.imageUrl);
   res.render("dynamicLinks/article-detail", {
     path: "/login",
     pageTitle: "Login",
     article: article,
     categoryName: article.Category.CategoryTranslations[0].name,
-
+    imageUrl: article.imageUrl,
+    description: article.title,
+    url: article.link,
     logged: logged,
     categoryParams: categoryName,
     channelParams: channelName,

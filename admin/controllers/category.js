@@ -10,5 +10,8 @@ exports.getAllCategoryScreen = async (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     categories: categories,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };

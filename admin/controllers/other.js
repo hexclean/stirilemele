@@ -100,6 +100,9 @@ exports.getConfiguredHome = async (req, res, next) => {
           lastPage: Math.ceil(totalItems.length / ITEMS_PER_PAGE),
           currentPage: page,
           cookie: cookie,
+          imageUrl: "",
+          description: "Știrielmele",
+          url: "",
         });
       });
   } catch (error) {
@@ -132,6 +135,9 @@ exports.getCategoryScreen = async (req, res, next) => {
       logged: logged,
       allCategories: allCategories,
       cookie: cookie,
+      imageUrl: "",
+      description: "Știrielmele",
+      url: "",
     });
   } catch (error) {
     console.log(error);
@@ -152,6 +158,9 @@ exports.getFontos = (req, res, next) => {
     isAuthenticated: false,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -169,6 +178,9 @@ exports.getContact = (req, res, next) => {
     isAuthenticated: false,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -186,6 +198,9 @@ exports.getCookie = (req, res, next) => {
     isAuthenticated: false,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -203,6 +218,9 @@ exports.getCookieTable = (req, res, next) => {
     isAuthenticated: false,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -220,6 +238,9 @@ exports.getSuccess = (req, res, next) => {
     isAuthenticated: false,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -237,5 +258,8 @@ exports.getTerms = (req, res, next) => {
     isAuthenticated: false,
     logged: logged,
     cookie: cookie,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };

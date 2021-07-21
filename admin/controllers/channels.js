@@ -24,6 +24,9 @@ exports.getAllChannel = async (req, res, next) => {
       channels: channels,
       channelsLength: channels.length,
       cookie: cookie,
+      imageUrl: "",
+      description: "Știrielmele",
+      url: "",
     });
   } catch (error) {
     console.log(error);
@@ -138,6 +141,9 @@ exports.getChannelCategories = async (req, res, next) => {
           followedSource: followedSource,
           secondaryategories: secondaryategories,
           cookie: cookie,
+          imageUrl: "",
+          description: "Știrielmele",
+          url: "",
         });
       });
   } catch (error) {
@@ -242,6 +248,9 @@ exports.getChannelCategory = async (req, res, next) => {
           cookie: cookie,
           followedSource: followedSource,
           channelName: channelName,
+          imageUrl: "",
+          description: "Știrielmele",
+          url: "",
         });
       });
   } catch (error) {

@@ -28,6 +28,9 @@ exports.getViewSource = async (req, res, next) => {
     pageTitle: "Login",
     source: source,
     categories: categories,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
 
@@ -47,6 +50,9 @@ exports.getViewChannels = async (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     source: source,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
     // categories: categories,
   });
 };
@@ -57,6 +63,9 @@ exports.getTest1 = async (req, res, next) => {
   res.render("test/walkthrough", {
     path: "/login",
     pageTitle: "Login",
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
     // source: source,
   });
 };
@@ -92,5 +101,8 @@ exports.getViewSourceCategory = async (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     categories: categories,
+    imageUrl: "",
+    description: "Știrielmele",
+    url: "",
   });
 };
