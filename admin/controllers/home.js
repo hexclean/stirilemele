@@ -8,7 +8,6 @@ const TODAY_START = new Date().setHours(0, 0, 0, 0);
 const NOW = new Date();
 const ITEMS_PER_PAGE = 28;
 const { getLanguageCode } = require("../../shared/language");
-var moment = require("moment");
 
 exports.getHome = async (req, res, next) => {
   const languageCode = getLanguageCode(req.cookies.language);
