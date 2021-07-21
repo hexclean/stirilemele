@@ -4,12 +4,12 @@
       <div id="wrapper">
          <!-- Sidebar -->
          <%- include('../shared/menu.ejs') %>
-          <form
+          <!-- <form
           target="_blank"
           action="/action/save-article"
           method="POST"
           enctype="multipart/form-data"
-        > 
+        >  -->
          <div id="content-wrapper">
             <input hidden name="articleId" value="<%= article.id %>" />
             <div class="container-fluid pb-0">
@@ -36,8 +36,8 @@
                   
                      <div class="col-md-8">
                         <div class="single-video-left">
-                           <div class="single-video-title box mb-3"> <div class="float-right"><button class="btn btn-danger" type="submit"><%= lingua.cikk_elolvasasa %>
-                           </button> </div>
+                           <div class="single-video-title box mb-3"> <div class="float-right"><a href="<%=article.link %>" target="_blank" class="btn btn-danger" type="submit"><%= lingua.cikk_elolvasasa %>
+                           </a> </div>
                               <h2 name="articleId" value="<%= article.title %>"><%= article.title %></h2>
                               <!-- <p class="mb-0"><i class="fas fa-eye"></i> <%= article.clicked %> megtekintés</p> -->
                            </div>
@@ -63,7 +63,7 @@
             <% if (cookie == undefined ) { %> <%- include('../shared/cookie.ejs') %>
       <% } %> <%- include('../includes/footer.ejs') %>
          </div>
-        </form>
+        <!-- </form> -->
          <!-- /.content-wrapper -->
       </div>
       <!-- /#wrapper -->
