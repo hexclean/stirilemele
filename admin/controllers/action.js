@@ -89,6 +89,7 @@ exports.postEditCategory = async (req, res, next) => {
 
 exports.postSendpostSaveToHistory = async (req, res, next) => {
   const articleId = req.body.articleId;
+
   let clicked = 0;
   let logged = 0;
   if (req.user != undefined) {
@@ -115,7 +116,7 @@ exports.postSendpostSaveToHistory = async (req, res, next) => {
       },
       { where: { id: articleId } }
     );
-    console.log(req.body);
+
     res.redirect(article.link);
   } catch (error) {
     console.log(error);
