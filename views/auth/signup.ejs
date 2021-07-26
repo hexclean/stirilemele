@@ -24,7 +24,75 @@
             </div>
 
             <% } %>
-            <form action="/autentificare/signup" method="POST">
+            <script>
+              $(function () {
+                $("#password_error_message").hide();
+
+                $("#confirmPassword_error_message").hide();
+
+                var error_password = false;
+
+                var error_confirmPassword = false;
+
+                $("#password").focusout(function () {
+                  check_password();
+                });
+
+                $("#confirmPassword").focusout(function () {
+                  check_confirmPassword();
+                });
+                function check_password() {
+                  var password = $("#password").val().length;
+
+                  if (password < 6) {
+                    // $(".price").addClass("is-invalid");
+                    $("#password_error_message").html(
+                      "Vă rugăm să introduceți o parolă cel puțin 6 caractere!"
+                    );
+                    $("#password_error_message").show();
+
+                    error_password = true;
+                  } else {
+                    $("#password_error_message").hide();
+                  }
+                }
+
+                function check_confirmPassword() {
+                  var confirmPassword = $("#confirmPassword").val().length;
+
+                  if (confirmPassword < 6) {
+                    $("#confirmPassword_error_message").html(
+                      "Vă rugăm să introduceți o parolă cel puțin 6 caractere!"
+                    );
+                    $("#confirmPassword_error_message").show();
+                    error_confirmPassword = true;
+                  } else {
+                    $("#confirmPassword_error_message").hide();
+                  }
+                }
+
+                $("#register").submit(function () {
+                  error_confirmPassword = false;
+
+                  error_password = false;
+
+                  check_password();
+                  check_confirmPassword();
+
+                  if (
+                    error_confirmPassword == false &&
+                    error_password == false
+                  ) {
+                    $("#sendReq").prop("disabled", true);
+
+                    return true;
+                  } else {
+                    return false;
+                  }
+                });
+              });
+            </script>
+            <form action="/autentificare/signup" method="POST" id="register">
               <div class="form-group">
                 <label>E-mail</label>
                 <input class="form-control" placeholder="E-mail" name="email" />
@@ -32,25 +100,36 @@
               <div class="form-group">
                 <label><%= lingua.jelszo %></label>
                 <input
+                  id="password"
                   type="password"
                   class="form-control"
                   placeholder="<%= lingua.jelszo %>"
                   name="password"
                 />
+                <span
+                  class="invalid-feedback"
+                  id="password_error_message"
+                ></span>
               </div>
               <div class="form-group">
                 <label><%= lingua.jelszo_ujra %></label>
                 <input
+                  id="confirmPassword"
                   type="password"
                   class="form-control"
                   placeholder="<%= lingua.jelszo_ujra %>"
                   name="confirmPassword"
                 />
+                <span
+                  class="invalid-feedback"
+                  id="confirmPassword_error_message"
+                ></span>
               </div>
 
               <div class="mt-4">
                 <button
                   type="submit"
+                  id="sendReq"
                   class="btn btn-outline-primary btn-block btn-lg"
                 >
                   <%= lingua.regisztracio %>
