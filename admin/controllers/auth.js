@@ -77,10 +77,10 @@ exports.getSignup = async (req, res, next) => {
   });
 };
 
-exports.postLogin = (req, res, next) => {
+exports.postLogin = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
+  let cookie = req.cookies.cookie;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/login", {
@@ -91,6 +91,7 @@ exports.postLogin = (req, res, next) => {
         email: email,
         password: password,
       },
+      cookie: cookie,
       imageUrl: "",
       description: "Știrielmele",
       url: "",
@@ -104,11 +105,12 @@ exports.postLogin = (req, res, next) => {
         return res.status(422).render("auth/login", {
           path: "/login",
           pageTitle: "Login",
-          errorMessage: "Invalid email or password.",
+          errorMessage: "Email sau parola invalidă!",
           oldInput: {
             email: email,
             password: password,
           },
+          cookie: cookie,
           imageUrl: "",
           description: "Știrielmele",
           url: "",
@@ -129,15 +131,16 @@ exports.postLogin = (req, res, next) => {
           return res.status(422).render("auth/login", {
             path: "/login",
             pageTitle: "Login",
-            errorMessage: "Invalid email or password.",
+            errorMessage: "Email sau parola invalidă!",
             oldInput: {
               email: email,
               password: password,
             },
-            validationErrors: [],
+            cookie: cookie,
             imageUrl: "",
             description: "Știrielmele",
             url: "",
+            validationErrors: [],
           });
         })
         .catch((err) => {
@@ -151,6 +154,7 @@ exports.postLogin = (req, res, next) => {
       return next(error);
     });
 };
+
 exports.postSignup = async (req, res, next) => {
   let categories = await Category.findAll();
   let channels = await Channels.findAll();
