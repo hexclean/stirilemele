@@ -16,10 +16,7 @@ router.post(
       .isEmail()
       .withMessage("Adresa de email invalidă!")
       .normalizeEmail(),
-    body("password", "Email sau parola invalidă!")
-      .isLength({ min: 5 })
-      .isAlphanumeric()
-      .trim(),
+    body("password", "Email sau parola invalidă!").isLength({ min: 5 }).trim(),
   ],
   authController.postLogin
 );
