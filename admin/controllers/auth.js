@@ -99,21 +99,17 @@ exports.postLogin = async (req, res, next) => {
     });
   }
 
-  User.findOne({ where: { email: email } })
+  User.findOne({ email: email })
     .then((user) => {
       if (!user) {
         return res.status(422).render("auth/login", {
           path: "/login",
           pageTitle: "Login",
-          errorMessage: "Email sau parola invalidă!",
+          errorMessage: "Invalid email or password.",
           oldInput: {
             email: email,
             password: password,
           },
-          cookie: cookie,
-          imageUrl: "",
-          description: "Știrielmele",
-          url: "",
           validationErrors: [],
         });
       }
@@ -131,15 +127,11 @@ exports.postLogin = async (req, res, next) => {
           return res.status(422).render("auth/login", {
             path: "/login",
             pageTitle: "Login",
-            errorMessage: "Email sau parola invalidă!",
+            errorMessage: "Invalid email or password.",
             oldInput: {
               email: email,
               password: password,
             },
-            cookie: cookie,
-            imageUrl: "",
-            description: "Știrielmele",
-            url: "",
             validationErrors: [],
           });
         })
