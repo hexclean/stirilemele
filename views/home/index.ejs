@@ -20,16 +20,21 @@
             </div>
 
             <% for (let i=0; i < articles.length; i++ ) { %>
-            <div class="col-xl-3 col-sm-6 mb-3">
+            <div
+              itemscope
+              itemtype="http://schema.org/Article"
+              class="col-xl-3 col-sm-6 mb-3"
+            >
               <div class="video-card history-video">
                 <div class="video-card-image">
                   <a
                     class="play-icon"
                     href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
                   ></a>
-                  <a
+                  <a itemprop="url"
                     href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
                     ><img
+                      itemprop="image"
                       class="img-fluid"
                       src="<%= articles[i].imageUrl %>"
                       alt=""
@@ -42,13 +47,13 @@
 
                 <div class="video-card-body">
                   <div class="video-title">
-                    <a
+                    <a itemprop="url"
                       href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
-                    >
+                    ><span itemprop="name">
                       <% if( articles[i].title.length > 160){ %> <%=
                       articles[i].title.substring(0, 160) + "..." %> <% } else{
                       %> <%= articles[i].title %> <% } %></a
-                    >
+                    ></span> 
                   </div>
                   <div class="video-item-user">
                     <div class="d-flex align-items-center">
@@ -60,13 +65,16 @@
                         />
                       </div>
                       <div class="font-weight-bold mr-2">
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
                         <div class="text-truncate">
                           <%= articles[i].Source.name %>
                         </div>
-                        <div class="small text-gray-500">
+                      </span>
+                        <div class="small text-gray-500"><span itemprop="datePublished" content="<%= articles[i].createdAt.toLocaleString("en-GB",
+                          { timeZone: "Europe/Helsinki" }); %>">
                           <%= articles[i].Category.CategoryTranslations[0].name
                           %> - <%= articles[i].createdAt.toLocaleString("en-GB",
-                          { timeZone: "Europe/Helsinki" }); %>
+                          { timeZone: "Europe/Helsinki" }); %></span>
                         </div>
                       </div>
                     </div>
