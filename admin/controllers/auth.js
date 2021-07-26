@@ -42,7 +42,9 @@ exports.getLogin = async (req, res, next) => {
     },
     validationErrors: [],
     imageUrl: "",
+    cookie: cookie,
     description: "Știrielmele",
+
     url: "",
   });
 };
@@ -89,6 +91,9 @@ exports.postLogin = (req, res, next) => {
         email: email,
         password: password,
       },
+      imageUrl: "",
+      description: "Știrielmele",
+      url: "",
       validationErrors: errors.array(),
     });
   }
@@ -104,6 +109,9 @@ exports.postLogin = (req, res, next) => {
             email: email,
             password: password,
           },
+          imageUrl: "",
+          description: "Știrielmele",
+          url: "",
           validationErrors: [],
         });
       }
@@ -127,6 +135,9 @@ exports.postLogin = (req, res, next) => {
               password: password,
             },
             validationErrors: [],
+            imageUrl: "",
+            description: "Știrielmele",
+            url: "",
           });
         })
         .catch((err) => {
@@ -158,6 +169,9 @@ exports.postSignup = async (req, res, next) => {
         password: password,
         confirmPassword: req.body.confirmPassword,
       },
+      imageUrl: "",
+      description: "Știrielmele",
+      url: "",
       validationErrors: errors.array(),
     });
   }
@@ -259,6 +273,9 @@ exports.postReset = async (req, res, next) => {
         email: email,
         password: password,
       },
+      imageUrl: "",
+      description: "Știrielmele",
+      url: "",
       validationErrors: errors.array(),
     });
   }
