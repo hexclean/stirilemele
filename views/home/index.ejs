@@ -50,10 +50,11 @@
                     <a itemprop="url"
                       href="/stiri/<%= articles[i].Category.seoUrl %>/<%= articles[i].Source.seoUrl %>/<%= articles[i].seoUrl %>"
                     ><span itemprop="name">
+                      
                       <% if( articles[i].title.length > 160){ %> <%=
                       articles[i].title.substring(0, 160) + "..." %> <% } else{
-                      %> <%= articles[i].title %> <% } %></a
-                    ></span> 
+                      %> <%= articles[i].title %> <% } %></span> </a
+                      >
                   </div>
                   <div class="video-item-user">
                     <div class="d-flex align-items-center">
