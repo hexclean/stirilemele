@@ -10,33 +10,46 @@
   </button>
   &nbsp;&nbsp;
   <a class="navbar-brand mr-1" href="/"
-    ><img
-      class="img-fluid"
-      style="max-height: 69px !important;"
-      alt=""
-      src="/img/stirilemele.png"
+    ><img class="img-fluid" style="max-height: 69px !important;" alt="" src="/img/stirilemele.png"
   /></a>
   <!-- Navbar Search -->
   <form
     class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search"
-  ></form>
+  >
+  
+  </form>
   <!-- Navbar -->
 
   <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
+    
     <li class="nav-item">
       <a class="nav-link">
-        <i class="fas fa-fw flag-o"></i>
-        <span><%= lingua.nyelv_megvaltoztatasa %></span>
+      <i class="fas fa-fw flag-o"></i>
+      <span><%= lingua.nyelv_megvaltoztatasa %></span>
+      </a>
+   </li>
+   
+    <li class="nav-item dropdown no-arrow mx-1">
+      <a
+        class="nav-link dropdown-toggle"
+        href="?language=ro">
+        <img id="hu" src="/img/ro.png" class="fas fa-envelope fa-fw"></img>
+       
       </a>
     </li>
-
     <li class="nav-item dropdown no-arrow mx-1">
-      <img id="hu" src="/img/ro.png" class="fas fa-envelope fa-fw" />
+      <a
+        class="nav-link dropdown-toggle"
+        href="?language=hu"
+       
+        
+      >
+     
+        <img  id="ro" src="/img/hun.jpeg" class="fas fa-envelope fa-fw"></img>
+       
+      </a>
     </li>
-    <li class="nav-item dropdown no-arrow mx-1">
-      <img id="ro" src="/img/hun.jpeg" class="fas fa-envelope fa-fw" />
-    </li>
-
+   
     <% if(logged == 1){ %>
     <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
       <a
@@ -55,29 +68,27 @@
         class="dropdown-menu dropdown-menu-right"
         aria-labelledby="userDropdown"
       >
+       
+     
         <a class="dropdown-item" href="/profile/select-category"
-          ><i class="fas fa-fw fa-list-alt"></i> &nbsp; <%=
-          lingua.kategoria_bellitasa %></a
+          ><i class="fas fa-fw fa-list-alt"></i> &nbsp; <%= lingua.kategoria_bellitasa %></a
         >
         <a class="dropdown-item" href="/profile/select-channel"
-          ><i class="fas fa-fw fa-users"></i> &nbsp; <%=
-          lingua.hircsatornak_bellitasa %></a
+          ><i class="fas fa-fw fa-users"></i> &nbsp; <%= lingua.hircsatornak_bellitasa %></a
         >
         <!-- <a class="dropdown-item" href="/profile/newsletter"
         ><i class="fas fa-plus-square"></i> &nbsp; Hírlevél felíratkozás - </a
       > -->
-        <a class="dropdown-item" href="/profile"
-          ><i class="fas fa-fw fa-trash"></i> &nbsp; <%= lingua.fiok_torlese
-          %></a
-        >
+      <a class="dropdown-item" href="/profile"
+      ><i class="fas fa-fw fa-trash"></i> &nbsp; <%= lingua.fiok_torlese %></a
+    >
         <div class="dropdown-divider"></div>
         <a
           class="dropdown-item"
           href="#"
           data-toggle="modal"
           data-target="#logoutModal"
-          ><i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; <%=
-          lingua.kijelentekzes %></a
+          ><i class="fas fa-fw fa-sign-out-alt"></i> &nbsp;  <%= lingua.kijelentekzes %></a
         >
       </div>
     </li>
