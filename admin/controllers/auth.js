@@ -77,10 +77,10 @@ exports.getSignup = async (req, res, next) => {
   });
 };
 
-exports.postLogin = async (req, res, next) => {
+exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  let cookie = req.cookies.cookie;
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/login", {
@@ -91,7 +91,6 @@ exports.postLogin = async (req, res, next) => {
         email: email,
         password: password,
       },
-      cookie: cookie,
       imageUrl: "",
       description: "Știrielmele",
       url: "",
@@ -99,7 +98,7 @@ exports.postLogin = async (req, res, next) => {
     });
   }
 
-  User.findOne({ email: email })
+  User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
         return res.status(422).render("auth/login", {
@@ -110,6 +109,9 @@ exports.postLogin = async (req, res, next) => {
             email: email,
             password: password,
           },
+          imageUrl: "",
+          description: "Știrielmele",
+          url: "",
           validationErrors: [],
         });
       }
@@ -133,6 +135,9 @@ exports.postLogin = async (req, res, next) => {
               password: password,
             },
             validationErrors: [],
+            imageUrl: "",
+            description: "Știrielmele",
+            url: "",
           });
         })
         .catch((err) => {
@@ -146,7 +151,6 @@ exports.postLogin = async (req, res, next) => {
       return next(error);
     });
 };
-
 exports.postSignup = async (req, res, next) => {
   let categories = await Category.findAll();
   let channels = await Channels.findAll();
